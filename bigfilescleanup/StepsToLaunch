@@ -1,0 +1,67 @@
+1.
+Create the script (FileCleanupCronJob.sh)
+its in /home/vagrant/FileCleanupCronJob.sh
+---------------------------------------------------------------------
+vagrant@magma-dev-focal:~$ cat FileCleanupCronJob.sh
+#!/bin/bash
+# Delete the files in /var/core which are old then 1 day
+echo "Clean up cronjob"
+find /var/core/ -type f -mtime +1 -exec sudo rm -rf  {} +
+
+# Delete the gz files in /var/log directory
+find /var/log/*gz -type f -mtime +1 -exec sudo rm -rf  {} +
+vagrant@magma-dev-focal:~$
+
+
+2.
+When opening the cronjob for first time it will ask options
+----------------------------------------------------------------------
+vagrant@magma-dev-focal:~$ sudo crontab -e
+no crontab for root - using an empty one
+
+Select an editor.  To change later, run 'select-editor'.
+  1. /bin/nano        <---- easiest
+  2. /usr/bin/vim.basic
+  3. /usr/bin/vim.tiny
+  4. /bin/ed
+
+Choose 1-4 [1]: 2
+crontab: installing new crontab
+
+
+3.
+Update the cronjob
+
+ 
+ # Example of job definition:
+ # .---------------- minute (0 - 59)
+ # |  .------------- hour (0 - 23)
+ # |  |  .---------- day of month (1 - 31)
+ # |  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ...
+ # |  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat
+ # |  |  |  |  |
+# *  *  *  *  * user-name  command to be executed
+
+--------------------------------------------------------------------
+ -> crontab -e
+    -> 0 0 * * * /home/vagrant/FileCleanupCronJob.sh  (<<< add this line, every night at 12:00)
+
+3.
+Start the cronjob
+-------------------------------------------------------------------
+sudo service cron start
+
+4.
+Stop the cronjob
+-------------------------------------------------------------------
+sudo service cron stop
+
+5.
+-------------------------------------------------------------------
+sudo systemctl status cron
+
+6.
+Articles
+-------------------------------------------------------------------
+https://opensource.com/article/17/11/how-use-cron-linux
+https://www.developerfiles.com/delete-files-on-linux-using-a-scheduled-cron-job/
