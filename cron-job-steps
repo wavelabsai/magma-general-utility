@@ -1,0 +1,29 @@
+1.
+Util File
+-------------------------------------------------------------
+1.1 CPU MEM MONITOR JOB : /home/vagrant/utils_CPU_MEM_MONITOR_JOB.sh
+                          chmod 777 /home/vagrant/utils_CPU_MEM_MONITOR_JOB.sh
+                          
+1.2 LOG & CORE FILE CLEAN UP : /home/vagrant/utils_LOG_CORE_CLEANUP_JOB.sh
+                               chmod 777 /home/vagrant/utils_LOG_CORE_CLEANUP_JOB.sh
+
+2.
+Add into Cron Job
+-------------------------------------------------------------
+sudo crontab -e
+
+0 0 * * * /home/vagrant/FileCleanupCronJob.sh   <<<<< Take care of the path. Triggers every night
+*/15 * * * * /home/vagrant/cpu_mem_util.sh      <<<<< Take care of path. Triggers every 15 minutes
+
+3.
+Check the entries & start cron job
+-------------------------------------------------------------
+sudo crontab -l
+sudo service cron stop
+sudo service cron start
+
+
+4.
+Check the status
+--------------------------------------------------------------
+sudo service cron status
