@@ -39,3 +39,7 @@ please capture the following logs
         sudo ovs-appctl ofproto/trace gtp_br0 in_port=gtp0
    - Trace commands :
         sudo ovs-appctl bridge/dump-flows gtp_br0
+
+6. In case of crash the information is stored in 
+     - cd /var/core
+     - ls -> core-1667048239-TASK_S1AP-90557.tgz
