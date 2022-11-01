@@ -1,0 +1,38 @@
+vagrant@magma-dev:~$ sudo cat /var/core/cpu-mem-log.txt
+
+Tue 01 Nov 2022 07:12:36 AM UTC
+CPU   MEM    PROCESS
+=========================
+16.2 0.8 : magmad (65116)
+3.4 0.7 : subscriberdb (90513)
+3.4 0.7 : directoryd (90376)
+3.4 0.9 : enodebd (90384)
+3.4 0.7 : policydb (90402)
+3.4 0.7 : state (90414)
+3.4 0.6 : ctraced (90410)
+3.9 0.6 : smsd (90413)
+4.7 0.5 : eventd (65350)
+3.4 1.0 : mobilityd (128409)
+3.7 1.5 : pipelined (128431)
+1.3 11.6 : mme (128482)
+4.8 6.4 : sessiond (128379)
+ ---- Finished Logging ----
+
+Tue 01 Nov 2022 07:12:38 AM UTC
+CPU   MEM    PROCESS
+=========================
+16.2 0.8 : magmad (65116)
+3.4 0.7 : subscriberdb (90513)
+3.4 0.7 : directoryd (90376)
+3.4 0.9 : enodebd (90384)
+3.4 0.7 : policydb (90402)
+3.4 0.7 : state (90414)
+3.4 0.6 : ctraced (90410)
+3.9 0.6 : smsd (90413)
+4.7 0.5 : eventd (65350)
+3.4 1.0 : mobilityd (128409)
+3.7 1.5 : pipelined (128431)
+1.3 11.6 : mme (128482)
+4.8 6.4 : sessiond (128379)
+ ---- Finished Logging ----
+vagrant@magma-dev:~$
