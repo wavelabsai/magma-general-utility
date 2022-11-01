@@ -1,0 +1,41 @@
+In case of issues observed in magma specifically related to crash or traffic flow
+please capture the following logs
+----------------------------------------------------------------------------------
+
+1. Capturing the regular logs
+    -> /var/log/mme.log
+    -> /var/log/syslog
+
+2. Use the Cronjobs for cleaning up the log & core files
+     https://github.com/wavelabsai/magma-general-utility -> bigfilescleanup
+     https://github.com/wavelabsai/magma-general-utility/blob/master/cron-job-steps
+     
+3. Use the Cronjobs for monitoring CPU and MEMORY
+     https://github.com/wavelabsai/magma-general-utility -> cpumemmonitor 
+     https://github.com/wavelabsai/magma-general-utility/blob/master/cron-job-steps
+     
+4. Additional debugging (Disruptive)
+      5.1 Setting flags
+      ------------------
+      vagrant@magma-dev:~$ cat /etc/magma/pipelined.yml | grep print_grpc
+      magma_print_grpc_payload: true     <<<<<<<<<< By default is false
+      vagrant@magma-dev:~$
+
+      5.2 Restarting the services
+      ----------------------------
+      sudo service magma@* stop
+      sudo service magma@magmad start
+      
+    
+5. Output of fastpath (can do before and after sending traffic)
+   - pipelined_cli.py  debug table_assignment
+   - sudo ovs-vsctl show
+   - sudo ovs-ofctl dump-flows gtp_br0 table=0
+   - sudo ovs-ofctl dump-flows gtp_br0 table=12
+   - sudo ovs-ofctl dump-flows gtp_br0 table=13
+   - sudo ovs-ofctl dump-flows gtp_br0 table=14
+   - sudo ovs-ofctl dump-flows gtp_br0 table=20
+   - Trace Live Flows :
+        sudo ovs-appctl ofproto/trace gtp_br0 in_port=gtp0
+   - Trace commands :
+        sudo ovs-appctl bridge/dump-flows gtp_br0
