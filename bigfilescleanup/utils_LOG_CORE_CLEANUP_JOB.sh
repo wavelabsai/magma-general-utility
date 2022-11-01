@@ -4,4 +4,4 @@ echo "Clean up cronjob"
 find /var/core/ -type f -mtime +1 -exec sudo rm -rf  {} +
 
 # Delete the gz files in /var/log directory
-find /var/log/*gz -type f -mtime +1 -exec sudo rm -rf  {} +
+find /var/log/*gz -type f -mtime +2 -exec sudo rm -rf  {} +
