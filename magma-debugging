@@ -1,6 +1,4 @@
-In case of issues observed in magma specifically related to crash or traffic flow
-please capture the following logs
-----------------------------------------------------------------------------------
+# Magma Specific Debugging
 
 ## GENERAL DEBUGGING
 G.1. Capturing the regular logs
