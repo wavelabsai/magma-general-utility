@@ -1,6 +1,6 @@
-#Magma Specific Debugging
+# Magma Specific Debugging
 
-##GENERAL DEBUGGING
+## GENERAL DEBUGGING
 G.1. Capturing the regular logs
     -> /var/log/mme.log
     -> /var/log/syslog
@@ -16,7 +16,7 @@ G.3. Use the Cronjobs for monitoring CPU and MEMORY
 G.4. Default logging level can be changed in inidividual YAML files.
      Ensure the default value of logging is set to "INFO"
 
-##FASTPATH DEBUGGING
+## FASTPATH DEBUGGING
 F.1. Additional debugging (Disruptive)
       4.1 Setting flags
       ------------------
@@ -46,7 +46,7 @@ F.2. Output of fastpath (can do before and after sending traffic)
    - Trace commands :
         sudo ovs-appctl bridge/dump-flows gtp_br0
 
-##CRASH DEBUGGING
+## CRASH DEBUGGING
 CD.1. In case of crash the information is stored in 
      - cd /var/core
      - ls -> core-1667048239-TASK_S1AP-90557.tgz
