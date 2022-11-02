@@ -19,9 +19,11 @@
 ## FASTPATH DEBUGGING
 ### F.1 Additional debugging (Disruptive)
    - Setting flags
-      ```vagrant@magma-dev:~$ cat /etc/magma/pipelined.yml | grep print_grpc
+      ```
+      vagrant@magma-dev:~$ cat /etc/magma/pipelined.yml | grep print_grpc
           magma_print_grpc_payload: true     <<<<<<<<<< By default is false
-          vagrant@magma-dev:~$```
+          vagrant@magma-dev:~$
+       ```
 
    - Restarting the services
         sudo service magma@* stop
@@ -43,6 +45,9 @@
         sudo ovs-appctl ofproto/trace gtp_br0 in_port=gtp0
    - Trace commands :
         sudo ovs-appctl bridge/dump-flows gtp_br0
+
+### F.3 OVS Upgrades or Re-Install
+   - /usr/local/bin/ovs-kmod-upgrade.sh
 
 ## CRASH DEBUGGING
 ### CD.1 In case of crash the information is stored in 
