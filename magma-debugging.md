@@ -46,7 +46,12 @@
    - Trace commands :
         sudo ovs-appctl bridge/dump-flows gtp_br0
 
-### F.3 OVS Upgrades or Re-Install
+### F.4 TRAFFIC DROP
+   - NAT MODE : dp_probe_cli.py --imsi 1234 -D UL stats
+   - NON NAT MODE : dp_probe_cli.py -i 414200000000029 -d UL -I 114.114.114.114 -P 80 -p tcp`
+   - Reference : [LINK](https://github.com/magma/magma/blob/master/docs/readmes/howtos/troubleshooting/datapath_connectivity.md)
+   
+### F.5 OVS Upgrades or Re-Install
    - /usr/local/bin/ovs-kmod-upgrade.sh
 
 ## CRASH DEBUGGING
