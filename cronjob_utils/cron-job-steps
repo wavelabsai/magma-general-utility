@@ -12,8 +12,8 @@ Add into Cron Job
 -------------------------------------------------------------
 sudo crontab -e
 
-0 0 * * * /home/vagrant/FileCleanupCronJob.sh   <<<<< Take care of the path. Triggers every night
-*/15 * * * * /home/vagrant/cpu_mem_util.sh      <<<<< Take care of path. Triggers every 15 minutes
+0 0 * * * /home/vagrant/utils_LOG_CORE_CLEANUP_JOB.sh   <<<<< Take care of the path. Triggers every night
+*/15 * * * * /home/vagrant/utils_CPU_MEM_MONITOR_JOB.sh      <<<<< Take care of path. Triggers every 15 minutes
 
 3.
 Check the entries & start cron job
