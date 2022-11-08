@@ -15,6 +15,15 @@
 
 ### G.4 Default logging level can be changed in inidividual YAML files.
      Ensure the default value of logging is set to "INFO"
+     Module Level : "/etc/magma/mme.yml" (log_level)
+     Global Level : "/etc/magma/gateway.mconfig" 
+                          "mobilityd": {
+                             "logLevel": "INFO",
+                           }
+                           
+                          "mme": {
+                              "logLevel": "INFO",
+                           }   
 
 ## FASTPATH DEBUGGING
 ### F.1 Additional debugging (Disruptive)
