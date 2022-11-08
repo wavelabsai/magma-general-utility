@@ -1,55 +1,32 @@
-#!/bin/bash
-CPU_MEM_UTL_LOG_FILE=/var/core/cpu-mem-log.txt
-if [ ! -f "$CPU_MEM_UTL_LOG_FILE" ]
-then
-    sudo touch $CPU_MEM_UTL_LOG_FILE
-fi
+python3.8 << END
 
-print_python_cpu_mem_usage() {
-  echo "PRINTING FOR $1"
-  process_id=$1
+import psutil
+import syslog
+import subprocess
+import time
 
-  PID_NEW_PROCESS=$(ps -eaf | grep python3 | grep $1 | awk 'NR==1{print $2}')
-  if [[ -z PID_NEW_PROCESS ]]; then   echo "$1 DOESNOT EXISTS"; fi
+def dump_cpu_mem_utils_per_process(*argv):
 
-  CPU_MEM_DUMP=$(ps -p $PID_NEW_PROCESS -o %cpu,%mem | awk NR==2)
-  echo $CPU_MEM_DUMP : $1" ("$PID_NEW_PROCESS")" >> $CPU_MEM_UTL_LOG_FILE
-}
+    with open("/var/core/cpu-mem-log.txt", "a") as f:
+        print("        ", file=f)
+        print("TIME : ", time.asctime( time.localtime(time.time()) ), file=f)
+        print("CPU(%), MEM(%), NAME", file=f)
+        print("-------------------------------", file=f)
+        for arg in argv:
+            child = subprocess.Popen(['pgrep', '-f', arg], stdout=subprocess.PIPE, shell=False)
+            proc_id = child.communicate()[0]
+            process_info = psutil.Process(int(proc_id.split(b'\n')[0]))
+            print("%.2f,  %3.2f,  %s" %
+                  (process_info.cpu_percent(interval=0.1),
+                   process_info.memory_percent(), arg), file=f)
 
-print_c_cpu_mem_usage() {
+cpu_values = psutil.cpu_percent(percpu=True,interval=1)
+syslog.syslog("---- DUMPING CPU AND MEM % UTILIZATION ----")
+syslog.syslog("-- Overall CPU=%s RAM=%3.2f --"% (str(cpu_values), psutil.virtual_memory()[2]))
 
-  PID_MME=$(pidof mme)
-  PID_SESSIOND=$(pidof sessiond)
-
-  if [[ -z PID_MME ]]; then   echo "MME DOESNOT EXISTS"; fi
-  if [[ -z PID_SESSIOND ]]; then   echo "SESSIOND DOESNOT EXISTS"; fi
-
-  CPU_MEM_DUMP_MME=$(ps -p $PID_MME -o %cpu,%mem | awk NR==2)
-  echo $CPU_MEM_DUMP_MME : mme" ("$PID_MME")" >> $CPU_MEM_UTL_LOG_FILE
-
-  CPU_MEM_DUMP_SESSIOND=$(ps -p $PID_SESSIOND -o %cpu,%mem | awk NR==2)
-  echo $CPU_MEM_DUMP_SESSIOND : sessiond" ("$PID_SESSIOND")" >> $CPU_MEM_UTL_LOG_FILE
-}
-
-echo " " >> $CPU_MEM_UTL_LOG_FILE
-date >> $CPU_MEM_UTL_LOG_FILE
-echo "CPU   MEM    PROCESS" >> $CPU_MEM_UTL_LOG_FILE
-echo "=========================" >> $CPU_MEM_UTL_LOG_FILE
-
-#Printing for Python Files
-print_python_cpu_mem_usage magmad
-print_python_cpu_mem_usage subscriberdb
-print_python_cpu_mem_usage directoryd
-print_python_cpu_mem_usage enodebd
-print_python_cpu_mem_usage policydb
-print_python_cpu_mem_usage state
-print_python_cpu_mem_usage ctraced
-print_python_cpu_mem_usage smsd
-print_python_cpu_mem_usage eventd
-print_python_cpu_mem_usage mobilityd
-print_python_cpu_mem_usage pipelined
-
-#Printing for C files
-print_c_cpu_mem_usage
-
-echo " ---- Finished Logging ----" >> $CPU_MEM_UTL_LOG_FILE
+dump_cpu_mem_utils_per_process(
+      "magmad", "subscriberdb", "directoryd",
+      "enodebd", "policydb", "state", "ctraced",
+      "smsd", "eventd", "mobilityd", "pipelined",
+      "mme", "sessiond")
+END
