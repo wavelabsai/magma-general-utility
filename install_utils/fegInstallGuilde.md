@@ -137,3 +137,52 @@ fead9515940a   magmacore/gateway_go:1.8.0       "envdir /var/opt/mag…"   2 hou
 cf221a408356   magmacore/gateway_go:1.8.0       "envdir /var/opt/mag…"   2 hours ago   Up 2 hours                       s6a_proxy
 d114a33b3f01   magmacore/gateway_python:1.8.0   "/bin/bash -c '/usr/…"   2 hours ago   Up 2 hours (healthy)             td-agent-bit
 ```
+## Common issues
+* `checkin_cli.py` fails in locating `gateway.crt`
+```bash
+vagrant@feg:~/var/opt/magma/docker$ sudo docker exec -it magmad /usr/local/bin/checkin_cli.py
+1. -- Testing TCP connection to controller.magma.test:7443 -- 
+2. -- Testing Certificate -- 
+
+> Error: [Errno 2] No such file or directory: '/var/opt/magma/certs/gateway.crt'
+
+Suggestions
+-----------
+- Regenerate session certs
+    1. Delete gateway.key and gateway.crt in /var/opt/magma/certs
+    2. Restart magmad (sudo service magma@magmad restart)
+- Ensure gateway has been registered in the cloud, with correct
+  hardware ID and key
+    1. Run show_gateway_info.py.
+    2. Go to cloud swagger
+        - E.g. https://127.0.0.1:9443/swagger/v1/ui/
+        - Query the list gateways endpoint
+    3. POST to add a new gateway, filling JSON with corresponding
+       values from step 1.
+```
+> * A possible culprit might be missing/incorrect configurations in `/etc/hosts`
+> * `/etc/hosts` must have entries for `controller`, `bootstrapper` and `fluentd`
+> * For example:
+```bash
+vagrant@feg:~/magma/orc8r/tools/docker$ grep -e controller -e bootstrapper -e fluentd /etc/hosts
+10.0.2.2 controller.magma.test
+10.0.2.2 bootstrapper-controller.magma.test
+10.0.2.2 fluentd.magma.test
+```
+> * Likewise, entries should be configured in `control_proxy.yml`
+> * In conjuntion with the above example
+```bash
+vagrant@feg:~/magma/orc8r/tools/docker$ cat /var/opt/magma/configs/control_proxy.yml
+                .
+                .
+                .
+cloud_address: controller.magma.test
+cloud_port: 7443
+bootstrap_address: bootstrapper-controller.magma.test
+bootstrap_port: 7444
+fluentd_address: fluentd.magma.test
+fluentd_port: 24224
+                .
+                .
+                .
+```
