@@ -117,7 +117,7 @@ vagrant@feg:~/magma/orc8r/tools/docker$ sudo ./install_gateway.sh feg
 
 
 ## Output of FEG
-
+```bash
 vagrant@feg:~/magma/orc8r/tools/docker$ docker ps -a
 CONTAINER ID   IMAGE                            COMMAND                  CREATED       STATUS                 PORTS     NAMES
 9d972e6380bb   magmacore/gateway_go:1.8.0       "envdir /var/opt/mag…"   2 hours ago   Up 2 hours                       aaa_server
@@ -136,3 +136,4 @@ ae8a0b93f4b8   magmacore/gateway_python:1.8.0   "python3.8 -m magma.…"   2 hou
 fead9515940a   magmacore/gateway_go:1.8.0       "envdir /var/opt/mag…"   2 hours ago   Up 2 hours                       feg_hello
 cf221a408356   magmacore/gateway_go:1.8.0       "envdir /var/opt/mag…"   2 hours ago   Up 2 hours                       s6a_proxy
 d114a33b3f01   magmacore/gateway_python:1.8.0   "/bin/bash -c '/usr/…"   2 hours ago   Up 2 hours (healthy)             td-agent-bit
+```
