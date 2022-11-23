@@ -186,3 +186,8 @@ fluentd_port: 24224
                 .
                 .
 ```
+> * To check if the ssl-certificates like `rootCA.pem`, `gateway.crt`, etc., are correct, the information contained can be cross-verified via the following command, it reveals the content of the certs in undigested format.
+```bash
+vagrant@magma-dev:$ cd /var/opt/magma/certs
+vagrant@magma-dev:/var/opt/magma/certs$ openssl x509 -in rootCA.pem -text -noout
+```
