@@ -59,3 +59,5 @@ vagrant@test-magma:~$ apt list -i| grep magma
   - openvswitch-datapath-dkms/focal-ci,now 2.15.4-10-magma all [installed,automatic]
   - openvswitch-switch/focal-ci,now 2.15.4-10-magma amd64 [installed,automatic]
 ```
+
+## COMMON ISSUES
