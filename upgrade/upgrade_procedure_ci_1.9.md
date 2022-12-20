@@ -46,8 +46,8 @@ sudo service magma@mme status
 ```
 
 * Verify the Magma version post installations 
-vagrant@test-magma:~$ apt list -i| grep magma
-
+vagrant@test-magma:~$ apt list -i | grep magma
+``` bash
   WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
   - libopenvswitch/focal-ci,now 2.15.4-10-magma amd64 [installed,automatic]
   - magma-cpp-redis/focal-ci,focal-ci,now 4.3.1.1-2 amd64 [installed,automatic]
