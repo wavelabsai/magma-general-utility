@@ -49,13 +49,13 @@ sudo service magma@mme status
 vagrant@test-magma:~$ apt list -i| grep magma
 
   WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
-  -libopenvswitch/focal-ci,now 2.15.4-10-magma amd64 [installed,automatic]
-  -magma-cpp-redis/focal-ci,focal-ci,now 4.3.1.1-2 amd64 [installed,automatic]
-  -magma-libfluid/focal-ci,now 0.1.0.7-1 amd64 [installed,automatic]
-  -magma-libtacopie/focal-ci,focal-ci,now 3.2.0.1-1 amd64 [installed,automatic]
-  -magma-sctpd/focal-ci,now 1.9.0-1671014871-ab406884 amd64 [installed,upgradable to: 1.9.0-1671145865-e2385452]
-  -magma/focal-ci,now 1.9.0-1671014871-ab406884 amd64 [installed,upgradable to: 1.9.0-1671145865-e2385452]
-  -openvswitch-common/focal-ci,now 2.15.4-10-magma amd64 [installed,automatic]
-  -openvswitch-datapath-dkms/focal-ci,now 2.15.4-10-magma all [installed,automatic]
-  -openvswitch-switch/focal-ci,now 2.15.4-10-magma amd64 [installed,automatic]
+  - libopenvswitch/focal-ci,now 2.15.4-10-magma amd64 [installed,automatic]
+  - magma-cpp-redis/focal-ci,focal-ci,now 4.3.1.1-2 amd64 [installed,automatic]
+  - magma-libfluid/focal-ci,now 0.1.0.7-1 amd64 [installed,automatic]
+  - magma-libtacopie/focal-ci,focal-ci,now 3.2.0.1-1 amd64 [installed,automatic]
+  - magma-sctpd/focal-ci,now 1.9.0-1671014871-ab406884 amd64 [installed,upgradable to: 1.9.0-1671145865-e2385452]
+  - magma/focal-ci,now 1.9.0-1671014871-ab406884 amd64 [installed,upgradable to: 1.9.0-1671145865-e2385452]
+  - openvswitch-common/focal-ci,now 2.15.4-10-magma amd64 [installed,automatic]
+  - openvswitch-datapath-dkms/focal-ci,now 2.15.4-10-magma all [installed,automatic]
+  - openvswitch-switch/focal-ci,now 2.15.4-10-magma amd64 [installed,automatic]
 ```
