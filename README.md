@@ -9,5 +9,11 @@ Bunch of utilities for doing regular chores using cron jobs
 ### cpumemmonitor
  Scripts to monitor CPU and Memory of magma process
 
-## magma-debugging
+## debug_info
 Debugging related information for magma
+
+## install_utils
+Magma Installation related steps
+
+## performance_tuning
+Performance tuning scripts or steps
