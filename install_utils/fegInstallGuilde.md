@@ -90,7 +90,7 @@ allow_http_proxy: True
 vagrant@feg:~/magma/orc8r/tools/docker$ cat .env
 COMPOSE_PROJECT_NAME=feg
 
-DOCKER_REGISTRY=magmacore/
+DOCKER_REGISTRY=linuxfoundation.jfrog.io/magma-docker/
 IMAGE_VERSION=1.8.0
 
 GIT_HASH=v1.8
