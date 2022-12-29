@@ -1,0 +1,101 @@
+INSTALLATION STEPS
+---------------------------------------------
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install build-essential cmake libfftw3-dev libmbedtls-dev libboost-program-options-dev libconfig++-dev libsctp-dev
+sudo apt-get install libzmq3-dev
+git clone https://github.com/srsRAN/srsRAN.git
+cd srsRAN/
+mkdir build
+cd build/
+cmake ../
+make
+sudo make install
+sudo ldconfig
+
+LAUNCH
+---------------------------------------------
+[TERMINAL-1] srsenb
+[TERMINAL-2] srsue
+
+CONFIGURATION CHANGES
+---------------------------------------------
+vagrant@oai-gnb-ue-sim:~$ diff ./srsRAN/srsenb/enb.conf.example ./.config/srsran/enb.conf
+23,27c23,27
+< mcc = 001
+< mnc = 01
+< mme_addr = 127.0.1.100
+< gtp_bind_addr = 127.0.1.1
+< s1c_bind_addr = 127.0.1.1
+---
+> mcc = 724
+> mnc = 99
+> mme_addr = 192.168.60.142
+> gtp_bind_addr = 192.168.60.154
+> s1c_bind_addr = 192.168.60.154
+83,84c83,84
+< #device_name = zmq
+< #device_args = fail_on_disconnect=true,tx_port=tcp://*:2000,rx_port=tcp://localhost:2001,id=enb,base_srate=23.04e6
+---
+> device_name = zmq
+> device_args = fail_on_disconnect=true,tx_port=tcp://*:2000,rx_port=tcp://localhost:2001,id=enb,base_srate=23.04e6
+vagrant@oai-gnb-ue-sim:~$
+
+
+vagrant@oai-gnb-ue-sim:~$ diff ./srsRAN/srsenb/rr.conf.example ./.config/srsran/rr.conf
+58c58
+<     tac = 0x0007;
+---
+>     tac = 0x0001;
+117c117
+< );
+\ No newline at end of file
+---
+> );
+vagrant@oai-gnb-ue-sim:~$
+
+
+
+vagrant@oai-gnb-ue-sim:~$ diff ./srsRAN/srsenb/rb.conf.example ~/.config/srsran/rb.conf
+43c43
+<   qci = 7;
+---
+>   qci = 5;
+vagrant@oai-gnb-ue-sim:~$
+
+
+
+vagrant@oai-gnb-ue-sim:~$ diff ./srsRAN/srsenb/rr.conf.example ./.config/srsran/rr.conf
+vagrant@oai-gnb-ue-sim:~$
+
+
+vagrant@oai-gnb-ue-sim:~$ diff ./srsRAN/srsenb/sib.conf.example ./.config/srsran/sib.conf
+vagrant@oai-gnb-ue-sim:~$
+
+vagrant@oai-gnb-ue-sim:~$ diff ./srsRAN/srsenb/sib.conf.mbsfn.example ./.config/srsran/sib.conf.mbsfn
+vagrant@oai-gnb-ue-sim:~$
+
+
+
+vagrant@oai-gnb-ue-sim:~$ diff ./srsRAN/srsue/ue.conf.example ./.config/srsran/ue.conf
+45,46c45,46
+< #device_name = zmq
+< #device_args = tx_port=tcp://*:2001,rx_port=tcp://localhost:2000,id=ue,base_srate=23.04e6
+---
+> device_name = zmq
+> device_args = tx_port=tcp://*:2001,rx_port=tcp://localhost:2000,id=ue,base_srate=23.04e6
+142,144c142,144
+< opc  = 63BFA50EE6523365FF14C1F45F88737D
+< k    = 00112233445566778899aabbccddeeff
+< imsi = 001010123456780
+---
+> opc  = E8ED289DEBA952E4283B54E88E6183CA
+> k    = 465B5CE8B199B49FAA5F0A2EE238A6BC
+> imsi = 724990000000008
+183,184c183,184
+< #apn = internetinternet
+< #apn_protocol = ipv4
+---
+> apn = internet
+> apn_protocol = ipv4
+vagrant@oai-gnb-ue-sim:~$
