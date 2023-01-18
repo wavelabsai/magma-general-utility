@@ -3,7 +3,8 @@ Before proceeding further, follow through the `prerequisites.md`. This guide is 
 * Clone the repo
 ```bash
 HOST $ git clone https://github.com/wavelabsai/magma-general-utility.git
-HOST $ cd magma-general-utility/wldistro_deploy
+HOST $ cd magma-general-utility/
+HOST $ sudo cp -r wldistro_deploy /opt
 ```
 * Change the name of the interface
 ```bash
@@ -24,7 +25,7 @@ HOST $ sudo vim /var/opt/magma/certs/rootCA.pem
 ```
 * Execute the `agw_install_docker` script
 ```bash
-HOST $ cd magma-general-utility/wldistro_deploy
+HOST $ cd /opt/wldistro_deploy
 HOST $ sudo bash ./agw_install_docker.sh
 ```
 * Check whether the correct images are picked up
