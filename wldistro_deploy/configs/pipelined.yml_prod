@@ -211,3 +211,5 @@ sgi_tunnel:
 
 ebpf:
   enabled: false
+
+qfi_enable: false
