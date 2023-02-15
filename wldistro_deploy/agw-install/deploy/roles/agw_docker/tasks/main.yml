@@ -74,19 +74,19 @@
     mode: 0400
 
 - name: copy the config files for magma
-  shell: cp -r  /opt/wldistro_deploy/configs/* /etc/magma/
+  shell: cp -r  /opt/wldistro_deploy/agw-install/configs/* /etc/magma/
   tags:
     - agwc
     - base
 
 - name: copy the config files for orchestrator
-  shell: cp -r  /opt/wldistro_deploy/configs/templates/* /etc/magma/templates/
+  shell: cp -r  /opt/wldistro_deploy/agw-install/configs/templates/* /etc/magma/templates/
   tags:
     - agwc
     - base
 
 - name: copy docker compose config file
-  shell: cp -r /opt/wldistro_deploy/docker-compose.yaml /var/opt/magma/docker/
+  shell: cp -r /opt/wldistro_deploy/agw-install/docker-compose.yaml /var/opt/magma/docker/
   tags:
     - agwc
 
@@ -106,7 +106,7 @@
     - base
 
 - name: copy the python scripts
-  shell: cp -r /opt/wldistro_deploy/scripts/* /usr/local/bin/
+  shell: cp -r /opt/wldistro_deploy/agw-install/scripts/* /usr/local/bin/
   tags:
     - agwc
     - base

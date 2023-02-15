@@ -39,8 +39,8 @@ vagrant@WL-DISTRO-VM:~$ sudo vim /var/opt/magma/certs/rootCA.pem
 ```
 * Run the script that brings up the containers
 ```bash
-vagrant@WL-DISTRO-VM:~$ cd /opt/wldistro_deploy
-vagrant@WL-DISTRO-VM:/opt/wldistro_deploy$ sudo bash ./agw_install_docker.sh
+vagrant@WL-DISTRO-VM:~$ cd /opt/wldistro_deploy/agw-install
+vagrant@WL-DISTRO-VM:/opt/wldistro_deploy/agw-install$ sudo bash ./agw_install_docker.sh
 ```
 * Check whether the correct images are picked up
 ```bash

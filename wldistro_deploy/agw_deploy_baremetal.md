@@ -25,7 +25,7 @@ HOST $ sudo vim /var/opt/magma/certs/rootCA.pem
 ```
 * Execute the `agw_install_docker` script
 ```bash
-HOST $ cd /opt/wldistro_deploy
+HOST $ cd /opt/wldistro_deploy/agw-install
 HOST $ sudo bash ./agw_install_docker.sh
 ```
 * Check whether the correct images are picked up

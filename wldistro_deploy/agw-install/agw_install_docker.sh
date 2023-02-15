@@ -14,7 +14,7 @@ MODE=$1
 RERUN=0    # Set to 1 to skip network configuration and run ansible playbook only
 WHOAMI=$(whoami)
 MAGMA_USER="ubuntu"
-DEPLOY_PATH="/opt/wldistro_deploy/deploy"
+DEPLOY_PATH="/opt/wldistro_deploy/agw-install/deploy"
 
 echo "Checking if the script has been executed by root user"
 if [ "$WHOAMI" != "root" ]; then
@@ -80,7 +80,7 @@ EOF
   # TODO GH13915 pinned for now because of breaking change in ansible-core 2.13.4
   pip3 install ansible==5.0.1
 
-  cd /opt/wldistro_deploy || exit
+  cd /opt/wldistro_deploy/agw-install || exit
 
   # changing intefaces name
   sed -i 's/GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX="net.ifnames=0 biosdevname=0"/g' /etc/default/grub
@@ -108,10 +108,10 @@ echo "[agw_docker]
 127.0.0.1 ansible_connection=local" > $DEPLOY_PATH/agw_hosts
 
 if [ "$MODE" == "base" ]; then
-  su - $MAGMA_USER -c "sudo ansible-playbook -v -e \"MAGMA_ROOT='/opt/wldistro_deploy' OUTPUT_DIR='/tmp'\" -i $DEPLOY_PATH/agw_hosts --tags base $DEPLOY_PATH/magma_docker.yml"
+  su - $MAGMA_USER -c "sudo ansible-playbook -v -e \"MAGMA_ROOT='/opt/wldistro_deploy/agw-install' OUTPUT_DIR='/tmp'\" -i $DEPLOY_PATH/agw_hosts --tags base $DEPLOY_PATH/magma_docker.yml"
 else
   # install magma and its dependencies including OVS.
-  su - $MAGMA_USER -c "sudo ansible-playbook -v -e \"MAGMA_ROOT='/opt/wldistro_deploy' OUTPUT_DIR='/tmp'\" -i $DEPLOY_PATH/agw_hosts --tags agwc $DEPLOY_PATH/magma_docker.yml"
+  su - $MAGMA_USER -c "sudo ansible-playbook -v -e \"MAGMA_ROOT='/opt/wldistro_deploy/agw-install' OUTPUT_DIR='/tmp'\" -i $DEPLOY_PATH/agw_hosts --tags agwc $DEPLOY_PATH/magma_docker.yml"
 fi
 
 [[ $RERUN -eq 1 ]] || echo "Reboot this VM to apply kernel settings"
