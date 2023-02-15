@@ -11,7 +11,7 @@ Vagrant.configure("2") do |config|
     wldistro.vm.network "private_network", ip: "192.168.102.2", nic_type: "82540EM"
 
     wldistro.vm.provider "virtualbox" do |vb|
-      vb.name = "wldistrouplift-v2"
+      vb.name = "wldistrovm"
       vb.linked_clone = true
       vb.customize ["modifyvm", :id, "--memory", "8192"]
       vb.customize ["modifyvm", :id, "--cpus", "4"]
