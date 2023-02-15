@@ -7,11 +7,11 @@ Vagrant.configure("2") do |config|
 
   config.vm.define :wldistro, autostart: false do |wldistro|
     wldistro.vm.hostname = "WL-DISTRO-VM"
-    wldistro.vm.network "private_network", ip: "192.168.60.171", nic_type: "82540EM"
-    wldistro.vm.network "private_network", ip: "192.168.129.1", nic_type: "82540EM"
+    wldistro.vm.network "private_network", ip: "192.168.92.2", nic_type: "82540EM"
+    wldistro.vm.network "private_network", ip: "192.168.102.2", nic_type: "82540EM"
 
     wldistro.vm.provider "virtualbox" do |vb|
-      vb.name = "wldistrouplift"
+      vb.name = "wldistrovm"
       vb.linked_clone = true
       vb.customize ["modifyvm", :id, "--memory", "8192"]
       vb.customize ["modifyvm", :id, "--cpus", "4"]

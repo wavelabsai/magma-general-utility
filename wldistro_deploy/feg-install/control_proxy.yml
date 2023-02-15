@@ -1,0 +1,24 @@
+nghttpx_config_location: /var/tmp/nghttpx.conf
+
+# Location for certs
+rootca_cert: /var/opt/magma/certs/rootCA.pem
+gateway_cert: /var/opt/magma/certs/gateway.crt
+gateway_key: /var/opt/magma/certs/gateway.key
+
+# Listening port of the proxy for local services. The port would be closed
+# for the rest of the world.
+local_port: 8443
+
+# Cloud address for reaching out to the cloud.
+cloud_address: controller.magma.test
+cloud_port: 443
+
+bootstrap_address: bootstrapper-controller.magma.test
+bootstrap_port: 443
+
+# Option to use nghttpx for proxying. If disabled, the individual
+# services would establish the TLS connections themselves.
+proxy_cloud_connections: True
+
+# Allows http_proxy usage if the environment variable is present
+allow_http_proxy: True
