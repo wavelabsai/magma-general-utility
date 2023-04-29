@@ -46,6 +46,14 @@
 * Directory layout
    - All protos : /app/5GC_APIs/OUT_PROTOBUF/models
    - Encasulating proto : /app/5GC_APIs/OUT_PROTOBUF/SubscriberDB
+
 ```
-python3.9 -m grpc_tools.protoc --proto_path=/app/5GC_APIs/OUT_PROTOBUF --proto_path=/app/5GC_APIs/OUT_PROTOBUF/SubscriberDB/ --python_out=/app/5GC_APIs/OUT_PROTOBUF/SubscriberDB/ --grpc_python_out=/app/5GC_APIs/OUT_PROTOBUF/SubscriberDB/  /app/5GC_APIs/OUT_PROTOBUF/SubscriberDB/Subscriberdb.proto
+Root : /app/5GC_APIs/OUT_PROTOBUF
+CreateDir : mkdir /app/5GC_APIs/OUT_PROTOBUF/gen_protos/
+python3.9 -m grpc_tools.protoc -I=. --python_out=/app/5GC_APIs/OUT_PROTOBUF/gen_protos models/*
+python3.9 -m grpc_tools.protoc -I=. --python_out=/app/5GC_APIs/OUT_PROTOBUF/gen_protos dbsubscriber/*
+
+root@731ad8c93c1d:/app/5GC_APIs/OUT_PROTOBUF# ls gen_protos/
+dbsubscriber  models
+
 ```
