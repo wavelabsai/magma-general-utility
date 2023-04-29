@@ -39,3 +39,13 @@
 
 ### Additional tools for bundling, removing refs
    - npm install -g @apidevtools/swagger-cli
+   
+### Creating protobuf files
+* Install pip3 : apt-get -y install python3-pip
+* Install grpc tools : pip install grpcio-tools==1.46.3
+* Directory layout
+   - All protos : /app/5GC_APIs/OUT_PROTOBUF/models
+   - Encasulating proto : /app/5GC_APIs/OUT_PROTOBUF/SubscriberDB
+```
+python3.9 -m grpc_tools.protoc --proto_path=/app/5GC_APIs/OUT_PROTOBUF --proto_path=/app/5GC_APIs/OUT_PROTOBUF/SubscriberDB/ --python_out=/app/5GC_APIs/OUT_PROTOBUF/SubscriberDB/ --grpc_python_out=/app/5GC_APIs/OUT_PROTOBUF/SubscriberDB/  /app/5GC_APIs/OUT_PROTOBUF/SubscriberDB/Subscriberdb.proto
+```
