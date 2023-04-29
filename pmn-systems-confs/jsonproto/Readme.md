@@ -28,6 +28,9 @@
    git clone https://github.com/jdegre/5GC_APIs.git
    cd 5GC_APIs
    git checkout Rel-16
+
+   java -jar openapi-generator-cli.jar generate -i  TS29503_Nudm_SDM.yaml -g openapi-yaml  -o OUT_YAML
+
    java -jar openapi-generator-cli.jar generate -i  TS29503_Nudm_SDM.yaml -g protobuf-schema   -o OUT_PROTOBUF
 
    root@0b4ef667ca7e:/app/5GC_APIs/OUT_PROTOBUF# ls
