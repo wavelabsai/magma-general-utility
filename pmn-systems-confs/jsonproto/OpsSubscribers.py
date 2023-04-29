@@ -1,4 +1,3 @@
-root@731ad8c93c1d:/app/5GC_APIs/OUT_YAML/openapi/OUT_PROTOBUF/gen_protos# cat OpsSubscribers.py
 #!/usr/bin/python3.9
 
 import grpc
@@ -6,6 +5,8 @@ from dbsubscriber.Subscriberdb_pb2 import AccessAndMobilitySubscriptionData
 from models.snssai_pb2 import Snssai
 from models.nssai_pb2 import Nssai
 from models.ambr_rm_pb2 import AmbrRm
+
+from google.protobuf.json_format import MessageToJson
 
 def create_am1_msg(imsi: str, slice_type: int, slice_diff: str, ambr_dl: str,
                    ambr_ul: str, dnn_name: str):
@@ -34,5 +35,8 @@ def create_am1_msg(imsi: str, slice_type: int, slice_diff: str, ambr_dl: str,
 
 am1_msg=create_am1_msg("001011234567534", 1, "000001", "2000 Mbps", "1000 Mbps", "apn3")
 
+print(" --- Protobuf Format --- ")
 print(am1_msg)
 
+print (" --- Json Fomat ---")
+print(MessageToJson(am1_msg))
