@@ -13,8 +13,10 @@
   - Checkout the code
   - sudo docker build . -t api-sec-converter
   - sudo docker run -it api-sec-converter bash
-    Usage: 
+  - sudo docker run -v ${PWD}/standard:/app/standard -it opengenerator-api bash
+
 ```
+Usage: 
    api-spec-converter --from=swagger_2 --to=openapi_3  --syntax=yaml --order=alpha ./swagger-common.yml > orc8r-swagger-common.yml
    api-spec-converter --from=swagger_2 --to=openapi_3  --syntax=yaml --order=alpha ./swagger.v1.yml > ConvertPolicy.yml
 ```
