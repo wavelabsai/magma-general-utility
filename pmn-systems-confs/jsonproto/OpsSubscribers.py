@@ -40,3 +40,5 @@ print(am1_msg)
 
 print (" --- Json Fomat ---")
 print(MessageToJson(am1_msg))
+
+# python3.8 pmn_subscriber_cli.py add --imsi="001011234567534" --st=1 --sd="000001" --dnn_name="apn3" --ambr_ul="2000 Mbps" --ambr_dl="1000 Mbps"
