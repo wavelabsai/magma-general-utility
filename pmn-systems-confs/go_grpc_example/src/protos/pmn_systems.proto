@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+
+package go_package.protos;
+option go_package = "go_package/protos";
+
+import "models/access_and_mobility_subscription_data.proto";
+
+message Void {
+
+}
+
+// --------------------------------------------------------------------------
+// User subscription record. This record is serialized and stored in the DB.
+// --------------------------------------------------------------------------
+message PMNSubscriberData {
+    AccessAndMobilitySubscriptionData amsd = 1;  
+}
+
+service PMNSubscriberService {
+    rpc PMNSubscriberConfig (PMNSubscriberData ) returns (Void) {}
+}
+
