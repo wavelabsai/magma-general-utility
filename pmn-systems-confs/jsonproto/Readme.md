@@ -11,8 +11,8 @@
     results especally for component and schem.
 * Installation & Running
   - Checkout the code
-  - sudo docker build . -t api-sec-converter
-  - sudo docker run -it api-sec-converter bash
+  - sudo docker build . -t opengenerator-api
+  - sudo docker run -it opengenerator-api bash
   - sudo docker run -v ${PWD}/standard:/app/standard -it opengenerator-api bash
 
 ```
