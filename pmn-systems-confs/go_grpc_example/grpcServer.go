@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 	//"go_package/protos/models"
-	"go_package/protos"
+	"magma/lte/cloud/go/protos"
 	"google.golang.org/grpc"
 	"log"
 	"net"
