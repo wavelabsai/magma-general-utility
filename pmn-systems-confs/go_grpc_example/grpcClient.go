@@ -3,8 +3,8 @@ package main
 import (
  "context"
  "fmt"
- "go_package/protos"
- "go_package/protos/models"
+ "magma/lte/cloud/go/protos"
+ "magma/lte/cloud/go/protos/models"
  "google.golang.org/grpc"
  //"github.com/go-openapi/swag"
  "log"
