@@ -1,13 +1,13 @@
 package main
 
 import (
- "context"
- "fmt"
- "magma/lte/cloud/go/protos"
- "magma/lte/cloud/go/protos/models"
- "google.golang.org/grpc"
- //"github.com/go-openapi/swag"
- "log"
+    "context"
+    "fmt"
+    protos "magma/lte/cloud/go/protos"
+    models "magma/lte/cloud/go/protos/models"
+    "google.golang.org/grpc"
+    //"github.com/go-openapi/swag"
+    "log"
 )
 
 func main() {
@@ -20,9 +20,9 @@ func main() {
  }
  defer cc.Close()
 
- client := protos.NewPMNSubscriberServiceClient(cc)
+ client := protos.NewPMNSubscriberConfigServicerClient(cc)
  request := &protos.PMNSubscriberData{
-                 Amsd: &models.AccessAndMobilitySubscriptionData {
+                 Am1: &models.AccessAndMobilitySubscriptionData {
                        SupportedFeatures: "5G Core",
                        Gpsis: []string{"msisdn-001011234567534"},
                        InternalGroupIds: []string{"abcd1234-567-89-abcd"},
@@ -32,7 +32,7 @@ func main() {
                                    Sst: 1,
                                    Sd: "000001",
                                },
-		           },
+                           },
                            SingleNssais: []*models.Snssai {
                                {
                                    Sst: 1,
@@ -45,19 +45,19 @@ func main() {
                            },
                        },
 
-		       SubscribedUeAmbr:&models.AmbrRm {
-			   Downlink: "2000 Mbps",
+                       SubscribedUeAmbr:&models.AmbrRm {
+                           Downlink: "2000 Mbps",
                            Uplink: "1000 Mbps",
-		       },
+                       },
                        SubscribedDnnList: []string {"apn3"},
                        ForbiddenAreas:  []*models.Area {
-			   {
+                           {
                                Tacs: []string {"00069"},
-		           },
-		       },
-		       ServiceAreaRestriction: &models.ServiceAreaRestriction {
+                           },
+                       },
+                       ServiceAreaRestriction: &models.ServiceAreaRestriction {
                            RestrictionType: "ALLOWED_AREAS",
-		       },
+                       },
                  },
              }
 
