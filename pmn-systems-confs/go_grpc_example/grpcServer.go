@@ -1,20 +1,20 @@
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
-	//"go_package/protos/models"
-	"magma/lte/cloud/go/protos"
-	"google.golang.org/grpc"
-	"log"
-	"net"
-	"google.golang.org/protobuf/encoding/protojson"
-	"google.golang.org/protobuf/proto"
+        "context"
+        "fmt"
+        "os"
+        //"go_package/protos/models"
+        protos "magma/lte/cloud/go/protos"
+        "google.golang.org/grpc"
+        "log"
+        "net"
+        "google.golang.org/protobuf/encoding/protojson"
+        "google.golang.org/protobuf/proto"
 )
 
 type server struct {
-
+    protos.UnimplementedPMNSubscriberConfigServicerServer
 }
 
 
@@ -38,15 +38,15 @@ func (*server) PMNSubscriberConfig(ctx context.Context, request *protos.PMNSubsc
 
 
 func main() {
-	address := "0.0.0.0:50051"
-	lis, err := net.Listen("tcp", address)
-	if err != nil {
-		log.Fatalf("Error %v", err)
-	}
-	fmt.Printf("Server is listening on %v ...", address)
+        address := "0.0.0.0:50051"
+        lis, err := net.Listen("tcp", address)
+        if err != nil {
+                log.Fatalf("Error %v", err)
+        }
+        fmt.Printf("Server is listening on %v ...", address)
 
-	s := grpc.NewServer()
-	protos.RegisterPMNSubscriberServiceServer(s, &server{})
+        s := grpc.NewServer()
+        protos.RegisterPMNSubscriberConfigServicerServer(s, &server{})
 
-	s.Serve(lis)
+        s.Serve(lis)
 }
