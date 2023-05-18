@@ -9,6 +9,15 @@ import (
     //"github.com/go-openapi/swag"
     "log"
 )
+type DefaultSingleNssais struct {
+        Sst int
+        Sd  string
+}
+
+type Subs_ambr struct {
+        Ul_ambr string
+        Dl_ambr string
+}
 
 func main() {
  fmt.Println("Hello client ...")
@@ -21,45 +30,48 @@ func main() {
  defer cc.Close()
 
  client := protos.NewPMNSubscriberConfigServicerClient(cc)
- request := &protos.PMNSubscriberData{
-                 Am1: &models.AccessAndMobilitySubscriptionData {
-                       SupportedFeatures: "5G Core",
-                       Gpsis: []string{"msisdn-001011234567534"},
-                       InternalGroupIds: []string{"abcd1234-567-89-abcd"},
-                       Nssai: &models.Nssai {
-                           DefaultSingleNssais: []*models.Snssai {
-                               {
-                                   Sst: 1,
-                                   Sd: "000001",
-                               },
-                           },
-                           SingleNssais: []*models.Snssai {
-                               {
-                                   Sst: 1,
-                                   Sd: "000001",
-                               },
-                               {
-                                   Sst: 3,
-                                   Sd: "000003",
-                               },
-                           },
-                       },
-
-                       SubscribedUeAmbr:&models.AmbrRm {
-                           Downlink: "2000 Mbps",
-                           Uplink: "1000 Mbps",
-                       },
-                       SubscribedDnnList: []string {"apn3"},
-                       ForbiddenAreas:  []*models.Area {
-                           {
-                               Tacs: []string {"00069"},
-                           },
-                       },
-                       ServiceAreaRestriction: &models.ServiceAreaRestriction {
-                           RestrictionType: "ALLOWED_AREAS",
-                       },
-                 },
-             }
-
+ var sgsiValue = []string{"Client", "Magma"}
+ var dSingleNssai = []DefaultSingleNssais{{Sst: 1, Sd: "0002"}, {Sst: 2, Sd: "003"}}
+ var supportedFeatures = "5G core"
+ stored_ambr_val := Subs_ambr{"200 Mbps", "100 Mbps"}
+ request := PMNConverter(supportedFeatures, stored_ambr_val, sgsiValue, dSingleNssai)
  client.PMNSubscriberConfig(context.Background(), request)
+}
+
+func PMNConverter(supportedFeature string, ambrval Subs_ambr, gpsisValue []string, dSingleNssai []DefaultSingleNssais) *protos.PMNSubscriberData {
+        defaultNssaiData := []*models.Snssai{}
+          for _, value := range dSingleNssai {
+                  temp := new(models.Snssai)
+                  temp.Sd = value.Sd
+                  temp.Sst = int32(value.Sst)
+                  defaultNssaiData = append(defaultNssaiData, temp)
+          }
+
+        sUeAmbr := &models.AmbrRm{
+                Downlink: ambrval.Ul_ambr,
+                Uplink:   ambrval.Dl_ambr,
+        }
+        nssai := &models.Nssai{
+                DefaultSingleNssais: defaultNssaiData,
+                SingleNssais:        nil,
+        }
+
+        amsd := &models.AccessAndMobilitySubscriptionData{
+                SupportedFeatures: supportedFeature,
+                Gpsis:             gpsisValue,
+                SubscribedUeAmbr:  sUeAmbr,
+                Nssai:             nssai,
+                InternalGroupIds:       []string{},
+                ForbiddenAreas:         nil,
+                ServiceAreaRestriction: nil,
+                PlmnAmData:             nil,
+                RfspIndex:              76,
+                SubsRegTimer:           488,
+                UeUsageType:            43,
+                MicoAllowed:            true,
+                SubscribedDnnList:      []string{},
+        }
+        return &protos.PMNSubscriberData{
+                Am1: amsd,
+        }
 }
