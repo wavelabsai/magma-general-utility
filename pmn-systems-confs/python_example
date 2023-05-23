@@ -2,6 +2,7 @@
 
 import argparse
 
+from google.protobuf import struct_pb2
 from lte.protos.pmn_systems_pb2 import PMNSubscriberData
 from lte.protos.models.any_type_pb2 import AnyType
 from lte.protos.models.access_and_mobility_subscription_data_pb2 import AccessAndMobilitySubscriptionData
@@ -22,15 +23,18 @@ from lte.protos.models.smf_selection_subscription_data_pb2 import SmfSelectionSu
 from lte.protos.models.sm_policy_snssai_data_pb2 import SmPolicySnssaiData
 from lte.protos.models.plmn_id_pb2 import PlmnId
 
-def assemble_am1(am1,args):
-    nssai=Nssai(defaultSingleNssais=[Snssai(sst=args.st, sd=args.sd)],
-                singleNssais=[Snssai(sst=args.st, sd=args.sd)])
-    subscribedUeAmbr=AmbrRm(uplink=args.subs_ambr_ul, downlink=args.subs_ambr_dl)
-    subscribedDnnList=[args.dnn_name]
-    am1.plmnAmData["{}-{}".format(args.mcc, args.mnc)]
-    am1.nssai.MergeFrom(nssai)
-    am1.subscribedUeAmbr.MergeFrom(subscribedUeAmbr)
-    am1.subscribedDnnList.MergeFrom(subscribedDnnList)
+def assemble_am1(args) -> AccessAndMobilitySubscriptionData:
+
+    plmnAmData = struct_pb2.Struct()
+    plmnAmData["{}-{}".format(args.mcc, args.mnc)]={}
+
+    return AccessAndMobilitySubscriptionData(
+              nssai=Nssai(defaultSingleNssais=[Snssai(sst=args.st, sd=args.sd)],
+                          singleNssais=[Snssai(sst=args.st, sd=args.sd)]),
+              subscribedUeAmbr=AmbrRm(uplink=args.subs_ambr_ul,
+                                      downlink=args.subs_ambr_dl),
+              subscribedDnnList=[args.dnn_name],
+              plmnAmData=plmnAmData)
 
 def assemble_plmnSmfSelData(plmnSmfSelData):
     #protos don't match the models replace AccessAndMobilitySubscriptionDataSubscribedDnnListInner
@@ -151,8 +155,7 @@ def assemble_auth_subs_data(auth_subs_data, args):
     auth_subs_data.supi="001010000000001"
 
 def add_subscriber(client, args):
-    am1 = AccessAndMobilitySubscriptionData()
-    assemble_am1(am1,args)
+    am1 = assemble_am1(args)
 
     plmnSmfSelData = SmfSelectionSubscriptionData()
     assemble_plmnSmfSelData(plmnSmfSelData)
