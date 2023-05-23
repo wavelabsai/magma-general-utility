@@ -3,6 +3,7 @@
 import argparse
 
 from lte.protos.pmn_systems_pb2 import PMNSubscriberData
+from lte.protos.models.any_type_pb2 import AnyType
 from lte.protos.models.access_and_mobility_subscription_data_pb2 import AccessAndMobilitySubscriptionData
 from lte.protos.models.authentication_subscription_pb2 import AuthenticationSubscription
 from lte.protos.pmn_systems_pb2_grpc import PMNSubscriberConfigServicerStub
@@ -26,7 +27,7 @@ def assemble_am1(am1,args):
                 singleNssais=[Snssai(sst=args.st, sd=args.sd)])
     subscribedUeAmbr=AmbrRm(uplink=args.subs_ambr_ul, downlink=args.subs_ambr_dl)
     subscribedDnnList=[args.dnn_name]
-
+    am1.plmnAmData["{}-{}".format(args.mcc, args.mnc)]
     am1.nssai.MergeFrom(nssai)
     am1.subscribedUeAmbr.MergeFrom(subscribedUeAmbr)
     am1.subscribedDnnList.MergeFrom(subscribedDnnList)
