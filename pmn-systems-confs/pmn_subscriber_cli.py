@@ -23,6 +23,8 @@ from lte.protos.models.smf_selection_subscription_data_pb2 import SmfSelectionSu
 from lte.protos.models.sm_policy_snssai_data_pb2 import SmPolicySnssaiData
 from lte.protos.models.plmn_id_pb2 import PlmnId
 from lte.protos.models.sm_policy_dnn_data_pb2 import SmPolicyDnnData
+from lte.protos.models.dnn_info_pb2 import DnnInfo
+from lte.protos.models.snssai_info_pb2 import SnssaiInfo
 
 def assemble_am1(args) -> AccessAndMobilitySubscriptionData:
 
@@ -37,11 +39,16 @@ def assemble_am1(args) -> AccessAndMobilitySubscriptionData:
               subscribedDnnList=[args.dnn_name],
               plmnAmData=plmnAmData)
 
-def assemble_plmnSmfSelData(plmnSmfSelData):
-    #protos don't match the models replace AccessAndMobilitySubscriptionDataSubscribedDnnListInner
-    # with DnnRouteSelectionDescriptor
-    arrayEntry=plmnSmfSelData.subscribedSnssaiInfos["1-000001"].dnnInfos.add()
-    arrayEntry.iwkEpsInd = True
+def assemble_plmnSmfSelData(args) -> SmfSelectionSubscriptionData:
+    dnnInfos = [DnnInfo(dnn="{}.mcc{}.mnc{}.gprs".format(args.dnn_name, args.mcc, args.mnc),
+                        iwkEpsInd=True),
+                DnnInfo(dnn="ims.mcc{}.mnc{}.gprs".format(args.mcc, args.mnc),
+                        iwkEpsInd=True)]
+
+    return SmfSelectionSubscriptionData(
+             subscribedSnssaiInfos=({"{}-{}".format(args.st, args.sd):
+                                    SnssaiInfo(dnnInfos=dnnInfos)}))
+
 
 def assemble_smPolicySnssaiData(args) -> SmPolicySnssaiData:
     apn_name1="{}.mnc{}.mcc{}.gprs".format(args.dnn_name, args.mcc, args.mnc)
@@ -167,8 +174,7 @@ def assemble_auth_subs_data(auth_subs_data, args):
 def add_subscriber(client, args):
     am1 = assemble_am1(args)
 
-    plmnSmfSelData = SmfSelectionSubscriptionData()
-    assemble_plmnSmfSelData(plmnSmfSelData)
+    plmnSmfSelData = assemble_plmnSmfSelData(args)
 
     smPolicySnssaiData = assemble_smPolicySnssaiData(args)
 
@@ -188,7 +194,8 @@ def add_subscriber(client, args):
     assemble_ue_policy_data(ue_policy_data)
 
     pmn_subs_data=PMNSubscriberData(am1=am1,
-                      plmnSmfSelData=plmnSmfSelData,
+                      plmnSmfSelData=\
+                      ({"{}-{}".format(args.st, args.sd):plmnSmfSelData}),
                       smPolicySnssaiData=\
                       ({"{}-{}".format(args.st, args.sd):smPolicySnssaiData}),
                       auth_subs_data=auth_subs_data,
