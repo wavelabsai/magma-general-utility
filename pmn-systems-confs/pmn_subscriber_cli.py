@@ -22,6 +22,7 @@ from lte.protos.models.session_management_subscription_data_pb2 import SessionMa
 from lte.protos.models.smf_selection_subscription_data_pb2 import SmfSelectionSubscriptionData
 from lte.protos.models.sm_policy_snssai_data_pb2 import SmPolicySnssaiData
 from lte.protos.models.plmn_id_pb2 import PlmnId
+from lte.protos.models.sm_policy_dnn_data_pb2 import SmPolicyDnnData
 
 def assemble_am1(args) -> AccessAndMobilitySubscriptionData:
 
@@ -42,19 +43,28 @@ def assemble_plmnSmfSelData(plmnSmfSelData):
     arrayEntry=plmnSmfSelData.subscribedSnssaiInfos["1-000001"].dnnInfos.add()
     arrayEntry.iwkEpsInd = True
 
-def assemble_smPolicySnssaiData(smPolicySnssaiData):
-    snssai=Snssai(sst=1,sd="000001")
-    smPolicySnssaiData.snssai.MergeFrom(snssai)
-    mapEntry = smPolicySnssaiData.smPolicyDnnData["apn1.mnc001.mcc001.gprs"]
-    mapEntry.dnn="apn1.mnc001.mcc001.gprs"
-    mapEntry.allowedServices.MergeFrom(["A","B"])
-    mapEntry.subscCats.MergeFrom(["Brass"])
-    mapEntry.gbrUl="200kbps"
-    mapEntry.gbrDl="100kbps"
-    mapEntry.ipv4Index=2
-    mapEntry.ipv6Index=3
-    mapEntry.offline=False
-    mapEntry.online=True
+def assemble_smPolicySnssaiData(args) -> SmPolicySnssaiData:
+    apn_name1="{}.mnc{}.mcc{}.gprs".format(args.dnn_name, args.mcc, args.mnc)
+    sm_policy_dnn_data1 = SmPolicyDnnData(dnn=apn_name1,
+                                          allowedServices=["A", "B"],
+                                          gbrUl="200kbps", gbrDl="100kbps",
+                                          ipv4Index=2, ipv6Index=3,
+                                          offline=False, online=True,
+                                          subscCats=["Brass"])
+
+    apn_name2="ims.mnc{}.mcc{}.gprs".format(args.mcc, args.mnc)
+    sm_policy_dnn_data2 = SmPolicyDnnData(dnn=apn_name2,
+                                          allowedServices=["A", "B"],
+                                          gbrUl="200kbps", gbrDl="100kbps",
+                                          ipv4Index=2, ipv6Index=3,
+                                          offline=False, online=True,
+                                          subscCats=["Brass"])
+
+
+    snssai=Snssai(sst=args.st,sd=args.sd)
+    return SmPolicySnssaiData(snssai=snssai,
+                              smPolicyDnnData=({apn_name1:sm_policy_dnn_data1,
+                                                apn_name2:sm_policy_dnn_data2}))
 
 def assemble_smsdata(smsdata):
     snssai=Snssai(sst=1,sd="000001")
@@ -160,8 +170,7 @@ def add_subscriber(client, args):
     plmnSmfSelData = SmfSelectionSubscriptionData()
     assemble_plmnSmfSelData(plmnSmfSelData)
 
-    smPolicySnssaiData = SmPolicySnssaiData()
-    assemble_smPolicySnssaiData(smPolicySnssaiData)
+    smPolicySnssaiData = assemble_smPolicySnssaiData(args)
 
     auth_subs_data = AuthenticationSubscription()
     assemble_auth_subs_data(auth_subs_data, args)
@@ -180,7 +189,8 @@ def add_subscriber(client, args):
 
     pmn_subs_data=PMNSubscriberData(am1=am1,
                       plmnSmfSelData=plmnSmfSelData,
-                      smPolicySnssaiData=smPolicySnssaiData,
+                      smPolicySnssaiData=\
+                      ({"{}-{}".format(args.st, args.sd):smPolicySnssaiData}),
                       auth_subs_data=auth_subs_data,
                       am_policy_data=am_policy_data,
                       ue_policy_data = ue_policy_data,
