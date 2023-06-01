@@ -1,3 +1,7 @@
+
+root@b8f0a28e327b:/app/com_protos#
+root@b8f0a28e327b:/app/com_protos#
+root@b8f0a28e327b:/app/com_protos# cat pmn_subscriber_cli.py
 #!/usr/bin/env python3
 
 import argparse
@@ -25,6 +29,10 @@ from lte.protos.models.plmn_id_pb2 import PlmnId
 from lte.protos.models.sm_policy_dnn_data_pb2 import SmPolicyDnnData
 from lte.protos.models.dnn_info_pb2 import DnnInfo
 from lte.protos.models.snssai_info_pb2 import SnssaiInfo
+from lte.protos.models.ecgi_pb2 import Ecgi
+from lte.protos.models.ncgi_pb2 import Ncgi
+from lte.protos.models.tai_pb2 import Tai
+from lte.protos.models.presence_info_pb2 import PresenceInfo
 
 def assemble_am1(args) -> AccessAndMobilitySubscriptionData:
 
@@ -94,26 +102,27 @@ def assemble_smsdata(smsdata):
     arrayEntry = mapEntry.sscModes.allowedSscModes.add()
     arrayEntry.sscModes="SSC_MODE_3"
 
-def assemble_am_policy_data(am_policy_data):
-    plmnId = PlmnId(mcc="001",mnc="01")
+def assemble_am_policy_data(args) -> AmPolicyData:
+    ecgiList=[Ecgi(eutraCellId="C2e48fF", plmnId=PlmnId(mcc=args.mcc, mnc=args.mnc)),
+              Ecgi(eutraCellId="6a3ec6C", plmnId=PlmnId(mcc=args.mcc, mnc=args.mnc)),
+              Ecgi(eutraCellId="65edbeF", plmnId=PlmnId(mcc=args.mcc, mnc=args.mnc)),
+              Ecgi(eutraCellId="93B6efC", plmnId=PlmnId(mcc=args.mcc, mnc=args.mnc))]
 
-    am_policy_data.subscCats.MergeFrom([
-      "Brass",
-      "sit",
-      "bronze"
-    ])
+    ncgiList=[Ncgi(nrCellId="E70D48fE7", plmnId=PlmnId(mcc=args.mcc, mnc=args.mnc)),
+              Ncgi(nrCellId="E70D48fE7", plmnId=PlmnId(mcc=args.mcc, mnc=args.mnc)),
+              Ncgi(nrCellId="04Aca187a", plmnId=PlmnId(mcc=args.mcc, mnc=args.mnc)),
+              Ncgi(nrCellId="8b5e06e21", plmnId=PlmnId(mcc=args.mcc, mnc=args.mnc))]
 
-    mapEntry = am_policy_data.praInfos["ad_3"]
-    mapEntry.praId = "yyrueiii"
-    arrayEntry = mapEntry.ecgiList.add()
-    arrayEntry.plmnId.CopyFrom(plmnId)
-    arrayEntry.eutraCellId = "C2e48fF"
-    arrayEntry = mapEntry.ncgiList.add()
-    arrayEntry.plmnId.CopyFrom(plmnId)
-    arrayEntry.nrCellId = "E70D48fE7"
-    arrayEntry = mapEntry.trackingAreaList.add()
-    arrayEntry.plmnId.CopyFrom(plmnId)
-    arrayEntry.tac="EAdd"
+    trackingAreaList=[Tai(plmnId=PlmnId(mcc=args.mcc, mnc=args.mnc), tac="EAdd"),
+                      Tai(plmnId=PlmnId(mcc=args.mcc, mnc=args.mnc), tac="2f491F"),
+                      Tai(plmnId=PlmnId(mcc=args.mcc, mnc=args.mnc), tac="19e8b9"),
+                      Tai(plmnId=PlmnId(mcc=args.mcc, mnc=args.mnc), tac="e17BA6"),
+                      Tai(plmnId=PlmnId(mcc=args.mcc, mnc=args.mnc), tac="FFA2")]
+
+    presenceInfo=PresenceInfo(ecgiList=ecgiList, ncgiList=ncgiList, praId="yyrueiii")
+
+    return AmPolicyData(praInfos=({"ad__3":presenceInfo}),
+                        subscCats=["Brass", "sit", "bronze"])
 
 def assemble_ue_policy_data(ue_policy_data):
     plmnId = PlmnId(mcc="001",mnc="01")
@@ -187,8 +196,7 @@ def add_subscriber(client, args):
     sms_mng_data = SmsManagementSubscriptionData()
     assemble_sms_mng_data(sms_mng_data)
 
-    am_policy_data = AmPolicyData()
-    assemble_am_policy_data(am_policy_data)
+    am_policy_data = assemble_am_policy_data(args)
 
     ue_policy_data = UePolicySet()
     assemble_ue_policy_data(ue_policy_data)
