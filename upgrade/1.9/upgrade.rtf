@@ -1,0 +1,1868 @@
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fmodern Consolas;}{\f1\fmodern\fcharset0 Consolas;}{\f2\fnil\fcharset129 Courier New;}}
+{\colortbl ;\red20\green20\blue20;\red142\green142\blue142;\red16\green158\blue98;\red148\green146\blue12;\red170\green51\blue170;\red56\green136\blue159;\red170\green64\blue64;\red126\green126\blue12;\red170\green85\blue85;\red18\green124\blue155;}
+\viewkind4\uc1\pard\f0\fs20     \u9484?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9488?\cf1\highlight2 
+\par \cf0\highlight0     \u9474?                 \cf3\f1\bullet  MobaXterm Personal Edition v23.0 \bullet\cf0\f0                  \u9474?\cf1\highlight2 
+\par \cf0\highlight0     \u9474?               \cf4 (SSH client, X server and network tools)\cf0                \u9474?\cf1\highlight2 
+\par \cf0\highlight0     \u9474?                                                                      \u9474?\cf1\highlight2 
+\par \cf0\highlight0     \u9474? \u11166? SSH session to \cf5 priya@172.16.9.8                          \cf0           \u9474?\cf1\highlight2 
+\par \cf0\highlight0     \u9474?\f1    \bullet  Direct SSH      :  \cf3\f0\u10003?\cf0                                              \u9474?\cf1\highlight2 
+\par \cf0\highlight0     \u9474?\f1    \bullet  SSH compression :  \cf3\f0\u10003?\cf0                                              \u9474?\cf1\highlight2 
+\par \cf0\highlight0     \u9474?\f1    \bullet  SSH-browser     :  \cf3\f0\u10003?\cf0                                              \u9474?\cf1\highlight2 
+\par \cf0\highlight0     \u9474?\f1    \bullet  X11-forwarding  :  \cf3\f0\u10003?\cf0   (remote display is forwarded through SSH)  \u9474?\cf1\highlight2 
+\par \cf0\highlight0     \u9474?                                                                      \u9474?\cf1\highlight2 
+\par \cf0\highlight0     \u9474? \u11166? For more info, ctrl+click on \cf6\ul help\cf0\ulnone  or visit our \cf6\ul website\cf0\ulnone .            \u9474?\cf1\highlight2 
+\par \cf0\highlight0     \u9492?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9496?\cf1\highlight2 
+\par 
+\par \cf0\highlight0 Welcome to Ubuntu 20.04.5 LTS (GNU/Linux 5.4.0-149-generic x86_64)\cf1\highlight2 
+\par 
+\par \cf0\highlight0  * Documentation:  https://help.ubuntu.com\cf1\highlight2 
+\par \cf0\highlight0  * Management:     https://landscape.canonical.com\cf1\highlight2 
+\par \cf0\highlight0  * Support:        https://ubuntu.com/advantage\cf1\highlight2 
+\par 
+\par \cf0\highlight0  * Strictly confined Kubernetes makes edge and IoT secure. Learn how MicroK8s\cf1\highlight2 
+\par \cf0\highlight0    just raised the bar for easy, resilient and secure K8s cluster deployment.\cf1\highlight2 
+\par 
+\par \cf0\highlight0    https://ubuntu.com/engage/secure-kubernetes-at-the-edge\cf1\highlight2 
+\par 
+\par \cf0\highlight0 Last login: Wed May 31 08:41:24 2023 from 10.9.8.250\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~$\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~$\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~$\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~$ cd athira/magma_build/\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_build$\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_build$ ls\cf1\highlight2 
+\par \cf0\highlight0 Vagrantfile\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_build$ vagrant global-status\cf1\highlight2 
+\par \cf0\highlight0 id       name        provider   state    directory\cf1\highlight2 
+\par \cf0\highlight0 ---------------------------------------------------------------------------------------\cf1\highlight2 
+\par \cf0\highlight0\f1 d76078b  ue_ran_sim  virtualbox running  /home/priya/ue_ran_sim\~\cf1\highlight2\f0 
+\par \cf0\highlight0 5204828  testtool    virtualbox poweroff /home/priya/4g_test_tool\cf1\highlight2 
+\par \cf0\highlight0 00b82bd  gnbsim      virtualbox poweroff /home/priya/Omec_gnb\cf1\highlight2 
+\par \cf0\highlight0 853bcbb  gnbsim      virtualbox running  /home/priya/omec\cf1\highlight2 
+\par \cf0\highlight0 8da6c70  distromagma virtualbox poweroff /home/priya/magma_1.8\cf1\highlight2 
+\par \cf0\highlight0 e9438f0  omec        virtualbox running  /home/priya/athira/omec_athira\cf1\highlight2 
+\par \cf0\highlight0 881d20c  magma       virtualbox running  /home/priya/athira/magma_dp/magma/lte/gateway\cf1\highlight2 
+\par \cf0\highlight0 c53af24  distromagma virtualbox running  /home/priya/athira/magma_build\cf1\highlight2 
+\par 
+\par \cf0\highlight0 The above shows information about all known Vagrant environments\cf1\highlight2 
+\par \cf0\highlight0 on this machine. This data is cached and may not be completely\cf1\highlight2 
+\par \cf0\highlight0 up-to-date (use "vagrant global-status --prune" to prune invalid\cf1\highlight2 
+\par \cf0\highlight0 entries). To interact with any of the machines, you can go to that\cf1\highlight2 
+\par \cf0\highlight0 directory and run Vagrant, or you can use the ID directly with\cf1\highlight2 
+\par \cf0\highlight0 Vagrant commands from any directory. For example:\cf1\highlight2 
+\par \cf0\highlight0 "vagrant destroy 1a2b3c4d"\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_build$ vagrant ssh c53af24\cf1\highlight2 
+\par \cf0\highlight0 ^C\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_build$ vagrant reload c53af24\cf1\highlight2 
+\par \cf0\highlight0\b ==> distromagma: Attempting graceful shutdown of VM...\cf1\highlight2\b0 
+\par \cf0\highlight0     distromagma: Guest communication could not be established! This is usually because\cf1\highlight2 
+\par \cf0\highlight0     distromagma: SSH is not running, the authentication information was changed,\cf1\highlight2 
+\par \cf0\highlight0     distromagma: or some other networking issue. Vagrant will force halt, if\cf1\highlight2 
+\par \cf0\highlight0     distromagma: capable.\cf1\highlight2 
+\par \cf0\highlight0\b ==> distromagma: Forcing shutdown of VM...\cf1\highlight2\b0 
+\par \cf0\highlight0\b ==> distromagma: Checking if box 'ubuntu/focal64' version '20221213.0.0' is up to date...\cf1\highlight2\b0 
+\par \cf4\highlight0 ==> distromagma: A newer version of the box 'ubuntu/focal64' for provider 'virtualbox' is\cf1\highlight2 
+\par \cf4\highlight0 ==> distromagma: available! You currently have version '20221213.0.0'. The latest is version\cf1\highlight2 
+\par \cf4\highlight0 ==> distromagma: '20230530.0.0'. Run `vagrant box update` to update.\cf1\highlight2 
+\par \cf0\highlight0\b ==> distromagma: Clearing any previously set forwarded ports...\cf1\highlight2\b0 
+\par \cf0\highlight0\b ==> distromagma: Fixed port collision for 22 => 2222. Now on port 2205.\cf1\highlight2\b0 
+\par \cf0\highlight0\b ==> distromagma: Clearing any previously set network interfaces...\cf1\highlight2\b0 
+\par \cf0\highlight0\b ==> distromagma: Preparing network interfaces based on configuration...\cf1\highlight2\b0 
+\par \cf0\highlight0     distromagma: Adapter 1: nat\cf1\highlight2 
+\par \cf0\highlight0     distromagma: Adapter 2: hostonly\cf1\highlight2 
+\par \cf0\highlight0     distromagma: Adapter 3: hostonly\cf1\highlight2 
+\par \cf0\highlight0\b ==> distromagma: Forwarding ports...\cf1\highlight2\b0 
+\par \cf0\highlight0     distromagma: 22 (guest) => 2205 (host) (adapter 1)\cf1\highlight2 
+\par \cf0\highlight0\b ==> distromagma: Running 'pre-boot' VM customizations...\cf1\highlight2\b0 
+\par \cf0\highlight0\b ==> distromagma: Booting VM...\cf1\highlight2\b0 
+\par \cf0\highlight0\b ==> distromagma: Waiting for machine to boot. This may take a few minutes...\cf1\highlight2\b0 
+\par \cf0\highlight0     distromagma: SSH address: 127.0.0.1:2205\cf1\highlight2 
+\par \cf0\highlight0     distromagma: SSH username: vagrant\cf1\highlight2 
+\par \cf0\highlight0     distromagma: SSH auth method: private key\cf1\highlight2 
+\par \cf7\highlight0 Timed out while waiting for the machine to boot. This means that\cf1\highlight2 
+\par \cf7\highlight0 Vagrant was unable to communicate with the guest machine within\cf1\highlight2 
+\par \cf7\highlight0 the configured ("config.vm.boot_timeout" value) time period.\cf1\highlight2 
+\par 
+\par \cf7\highlight0 If you look above, you should be able to see the error(s) that\cf1\highlight2 
+\par \cf7\highlight0 Vagrant had when attempting to connect to the machine. These errors\cf1\highlight2 
+\par \cf7\highlight0 are usually good hints as to what may be wrong.\cf1\highlight2 
+\par 
+\par \cf7\highlight0 If you're using a custom box, make sure that networking is properly\cf1\highlight2 
+\par \cf7\highlight0 working and you're able to connect to the machine. It is a common\cf1\highlight2 
+\par \cf7\highlight0 problem that networking isn't setup properly in these boxes.\cf1\highlight2 
+\par \cf7\highlight0 Verify that authentication configurations are also setup properly,\cf1\highlight2 
+\par \cf7\highlight0 as well.\cf1\highlight2 
+\par 
+\par \cf7\highlight0 If the box appears to be booting properly, you may want to increase\cf1\highlight2 
+\par \cf7\highlight0 the timeout ("config.vm.boot_timeout") value.\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_build$ ls\cf1\highlight2 
+\par \cf0\highlight0 Vagrantfile\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_build$ vim Vagrantfile\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_build$\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_build$\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_build$\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_build$\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_build$ vagrant global-status\cf1\highlight2 
+\par \cf0\highlight0 id       name        provider   state    directory\cf1\highlight2 
+\par \cf0\highlight0 ---------------------------------------------------------------------------------------\cf1\highlight2 
+\par \cf0\highlight0\f1 d76078b  ue_ran_sim  virtualbox running  /home/priya/ue_ran_sim\~\cf1\highlight2\f0 
+\par \cf0\highlight0 5204828  testtool    virtualbox poweroff /home/priya/4g_test_tool\cf1\highlight2 
+\par \cf0\highlight0 00b82bd  gnbsim      virtualbox poweroff /home/priya/Omec_gnb\cf1\highlight2 
+\par \cf0\highlight0 853bcbb  gnbsim      virtualbox running  /home/priya/omec\cf1\highlight2 
+\par \cf0\highlight0 8da6c70  distromagma virtualbox poweroff /home/priya/magma_1.8\cf1\highlight2 
+\par \cf0\highlight0 e9438f0  omec        virtualbox running  /home/priya/athira/omec_athira\cf1\highlight2 
+\par \cf0\highlight0 881d20c  magma       virtualbox running  /home/priya/athira/magma_dp/magma/lte/gateway\cf1\highlight2 
+\par \cf0\highlight0 c53af24  distromagma virtualbox running  /home/priya/athira/magma_build\cf1\highlight2 
+\par 
+\par \cf0\highlight0 The above shows information about all known Vagrant environments\cf1\highlight2 
+\par \cf0\highlight0 on this machine. This data is cached and may not be completely\cf1\highlight2 
+\par \cf0\highlight0 up-to-date (use "vagrant global-status --prune" to prune invalid\cf1\highlight2 
+\par \cf0\highlight0 entries). To interact with any of the machines, you can go to that\cf1\highlight2 
+\par \cf0\highlight0 directory and run Vagrant, or you can use the ID directly with\cf1\highlight2 
+\par \cf0\highlight0 Vagrant commands from any directory. For example:\cf1\highlight2 
+\par \cf0\highlight0 "vagrant destroy 1a2b3c4d"\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_build$ vagrant destroy c53af24\cf1\highlight2 
+\par \cf0\highlight0     distromagma: Are you sure you want to destroy the 'distromagma' VM? [y/N] y\cf1\highlight2 
+\par \cf0\highlight0\b ==> distromagma: Forcing shutdown of VM...\cf1\highlight2\b0 
+\par \cf0\highlight0\b ==> distromagma: Destroying VM and associated drives...\cf1\highlight2\b0 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_build$ vagrant global-status\cf1\highlight2 
+\par \cf0\highlight0 id       name        provider   state    directory\cf1\highlight2 
+\par \cf0\highlight0 ---------------------------------------------------------------------------------------\cf1\highlight2 
+\par \cf0\highlight0\f1 d76078b  ue_ran_sim  virtualbox running  /home/priya/ue_ran_sim\~\cf1\highlight2\f0 
+\par \cf0\highlight0 5204828  testtool    virtualbox poweroff /home/priya/4g_test_tool\cf1\highlight2 
+\par \cf0\highlight0 00b82bd  gnbsim      virtualbox poweroff /home/priya/Omec_gnb\cf1\highlight2 
+\par \cf0\highlight0 853bcbb  gnbsim      virtualbox running  /home/priya/omec\cf1\highlight2 
+\par \cf0\highlight0 8da6c70  distromagma virtualbox poweroff /home/priya/magma_1.8\cf1\highlight2 
+\par \cf0\highlight0 e9438f0  omec        virtualbox running  /home/priya/athira/omec_athira\cf1\highlight2 
+\par \cf0\highlight0 881d20c  magma       virtualbox running  /home/priya/athira/magma_dp/magma/lte/gateway\cf1\highlight2 
+\par 
+\par \cf0\highlight0 The above shows information about all known Vagrant environments\cf1\highlight2 
+\par \cf0\highlight0 on this machine. This data is cached and may not be completely\cf1\highlight2 
+\par \cf0\highlight0 up-to-date (use "vagrant global-status --prune" to prune invalid\cf1\highlight2 
+\par \cf0\highlight0 entries). To interact with any of the machines, you can go to that\cf1\highlight2 
+\par \cf0\highlight0 directory and run Vagrant, or you can use the ID directly with\cf1\highlight2 
+\par \cf0\highlight0 Vagrant commands from any directory. For example:\cf1\highlight2 
+\par \cf0\highlight0 "vagrant destroy 1a2b3c4d"\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_build$ ls\cf1\highlight2 
+\par \cf0\highlight0 Vagrantfile\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_build$ vim Vagrantfile\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_build$ vagrant up distromagma --provider=virtualbox\cf1\highlight2 
+\par \cf0\highlight0 Bringing machine 'distromagma' up with 'virtualbox' provider...\cf1\highlight2 
+\par \cf0\highlight0\b ==> distromagma: Cloning VM...\cf1\highlight2\b0 
+\par \cf0\highlight0\b ==> distromagma: Matching MAC address for NAT networking...\cf1\highlight2\b0 
+\par \cf0\highlight0\b ==> distromagma: Checking if box 'ubuntu/focal64' version '20221213.0.0' is up to date...\cf1\highlight2\b0 
+\par \cf0\highlight0\b ==> distromagma: Setting the name of the VM: distro-magma-athira\cf1\highlight2\b0 
+\par \cf0\highlight0\b ==> distromagma: Fixed port collision for 22 => 2222. Now on port 2205.\cf1\highlight2\b0 
+\par \cf0\highlight0\b ==> distromagma: Clearing any previously set network interfaces...\cf1\highlight2\b0 
+\par \cf0\highlight0\b ==> distromagma: Preparing network interfaces based on configuration...\cf1\highlight2\b0 
+\par \cf0\highlight0     distromagma: Adapter 1: nat\cf1\highlight2 
+\par \cf0\highlight0     distromagma: Adapter 2: hostonly\cf1\highlight2 
+\par \cf0\highlight0     distromagma: Adapter 3: hostonly\cf1\highlight2 
+\par \cf0\highlight0\b ==> distromagma: Forwarding ports...\cf1\highlight2\b0 
+\par \cf0\highlight0     distromagma: 22 (guest) => 2205 (host) (adapter 1)\cf1\highlight2 
+\par \cf0\highlight0\b ==> distromagma: Running 'pre-boot' VM customizations...\cf1\highlight2\b0 
+\par \cf0\highlight0\b ==> distromagma: Booting VM...\cf1\highlight2\b0 
+\par \cf0\highlight0\b ==> distromagma: Waiting for machine to boot. This may take a few minutes...\cf1\highlight2\b0 
+\par \cf0\highlight0     distromagma: SSH address: 127.0.0.1:2205\cf1\highlight2 
+\par \cf0\highlight0     distromagma: SSH username: vagrant\cf1\highlight2 
+\par \cf0\highlight0     distromagma: SSH auth method: private key\cf1\highlight2 
+\par \cf0\highlight0     distromagma: Warning: Connection reset. Retrying...\cf1\highlight2 
+\par \cf0\highlight0     distromagma: Warning: Remote connection disconnect. Retrying...\cf1\highlight2 
+\par \cf0\highlight0     distromagma:\cf1\highlight2 
+\par \cf0\highlight0     distromagma: Vagrant insecure key detected. Vagrant will automatically replace\cf1\highlight2 
+\par \cf0\highlight0     distromagma: this with a newly generated keypair for better security.\cf1\highlight2 
+\par \cf0\highlight0     distromagma:\cf1\highlight2 
+\par \cf0\highlight0     distromagma: Inserting generated public key within guest...\cf1\highlight2 
+\par \cf0\highlight0     distromagma: Removing insecure key from the guest if it's present...\cf1\highlight2 
+\par \cf0\highlight0     distromagma: Key inserted! Disconnecting and reconnecting using new SSH key...\cf1\highlight2 
+\par \cf0\highlight0\b ==> distromagma: Machine booted and ready!\cf1\highlight2\b0 
+\par \cf8\highlight0 [distromagma] A Virtualbox Guest Additions installation was found but no tools to rebuild or start them.\cf1\highlight2 
+\par \cf0\highlight0 Reading package lists...\cf1\highlight2 
+\par \cf0\highlight0 Building dependency tree...\cf1\highlight2 
+\par \cf0\highlight0 Reading state information...\cf1\highlight2 
+\par \cf0\highlight0 Package 'virtualbox-guest-x11' is not installed, so not removed\cf1\highlight2 
+\par \cf0\highlight0 The following packages will be REMOVED:\cf1\highlight2 
+\par \cf0\highlight0   virtualbox-guest-utils*\cf1\highlight2 
+\par \cf0\highlight0 0 upgraded, 0 newly installed, 1 to remove and 0 not upgraded.\cf1\highlight2 
+\par \cf0\highlight0 After this operation, 6070 kB disk space will be freed.\cf1\highlight2 
+\par \cf0\highlight0 (Reading database ... 63619 files and directories currently installed.)\cf1\highlight2 
+\par \cf0\highlight0 Removing virtualbox-guest-utils (6.1.38-dfsg-3~ubuntu1.20.04.1) ...\cf1\highlight2 
+\par \cf0\highlight0 Processing triggers for man-db (2.9.1-1) ...\cf1\highlight2 
+\par \cf0\highlight0 (Reading database ... 63606 files and directories currently installed.)\cf1\highlight2 
+\par \cf0\highlight0 Purging configuration files for virtualbox-guest-utils (6.1.38-dfsg-3~ubuntu1.20.04.1) ...\cf1\highlight2 
+\par \cf0\highlight0 Processing triggers for systemd (245.4-4ubuntu3.19) ...\cf1\highlight2 
+\par \cf0\highlight0 Reading package lists...\cf1\highlight2 
+\par \cf0\highlight0 Building dependency tree...\cf1\highlight2 
+\par \cf0\highlight0 Reading state information...\cf1\highlight2 
+\par \cf0\highlight0 linux-headers-5.4.0-135-generic is already the newest version (5.4.0-135.152).\cf1\highlight2 
+\par \cf0\highlight0 linux-headers-5.4.0-135-generic set to manually installed.\cf1\highlight2 
+\par \cf0\highlight0 The following additional packages will be installed:\cf1\highlight2 
+\par \cf0\highlight0   binutils binutils-common binutils-x86-64-linux-gnu build-essential cpp cpp-9\cf1\highlight2 
+\par \cf0\highlight0   dctrl-tools dpkg-dev fakeroot g++ g++-9 gcc gcc-9 gcc-9-base\cf1\highlight2 
+\par \cf0\highlight0   libalgorithm-diff-perl libalgorithm-diff-xs-perl libalgorithm-merge-perl\cf1\highlight2 
+\par \cf0\highlight0   libasan5 libatomic1 libbinutils libc-dev-bin libc6-dev libcc1-0 libcrypt-dev\cf1\highlight2 
+\par \cf0\highlight0   libctf-nobfd0 libctf0 libdpkg-perl libfakeroot libfile-fcntllock-perl\cf1\highlight2 
+\par \cf0\highlight0   libgcc-9-dev libgomp1 libisl22 libitm1 liblsan0 libmpc3 libquadmath0\cf1\highlight2 
+\par \cf0\highlight0   libstdc++-9-dev libtsan0 libubsan1 linux-libc-dev make manpages-dev\cf1\highlight2 
+\par \cf0\highlight0 Suggested packages:\cf1\highlight2 
+\par \cf0\highlight0   binutils-doc cpp-doc gcc-9-locales debtags menu debian-keyring g++-multilib\cf1\highlight2 
+\par \cf0\highlight0   g++-9-multilib gcc-9-doc gcc-multilib autoconf automake libtool flex bison\cf1\highlight2 
+\par \cf0\highlight0   gdb gcc-doc gcc-9-multilib glibc-doc bzr libstdc++-9-doc make-doc\cf1\highlight2 
+\par \cf0\highlight0 The following NEW packages will be installed:\cf1\highlight2 
+\par \cf0\highlight0   binutils binutils-common binutils-x86-64-linux-gnu build-essential cpp cpp-9\cf1\highlight2 
+\par \cf0\highlight0   dctrl-tools dkms dpkg-dev fakeroot g++ g++-9 gcc gcc-9 gcc-9-base\cf1\highlight2 
+\par \cf0\highlight0   libalgorithm-diff-perl libalgorithm-diff-xs-perl libalgorithm-merge-perl\cf1\highlight2 
+\par \cf0\highlight0   libasan5 libatomic1 libbinutils libc-dev-bin libc6-dev libcc1-0 libcrypt-dev\cf1\highlight2 
+\par \cf0\highlight0   libctf-nobfd0 libctf0 libdpkg-perl libfakeroot libfile-fcntllock-perl\cf1\highlight2 
+\par \cf0\highlight0   libgcc-9-dev libgomp1 libisl22 libitm1 liblsan0 libmpc3 libquadmath0\cf1\highlight2 
+\par \cf0\highlight0   libstdc++-9-dev libtsan0 libubsan1 linux-libc-dev make manpages-dev\cf1\highlight2 
+\par \cf0\highlight0 0 upgraded, 43 newly installed, 0 to remove and 0 not upgraded.\cf1\highlight2 
+\par \cf0\highlight0 Need to get 45.5 MB of archives.\cf1\highlight2 
+\par \cf0\highlight0 After this operation, 203 MB of additional disk space will be used.\cf1\highlight2 
+\par \cf0\highlight0 Get:1 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 gcc-9-base amd64 9.4.0-1ubuntu1~20.04.1 [19.4 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:2 http://archive.ubuntu.com/ubuntu focal/main amd64 libisl22 amd64 0.22.1-1 [592 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:3 http://archive.ubuntu.com/ubuntu focal/main amd64 libmpc3 amd64 1.1.0-1 [40.8 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:4 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 cpp-9 amd64 9.4.0-1ubuntu1~20.04.1 [7500 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:5 http://archive.ubuntu.com/ubuntu focal/main amd64 cpp amd64 4:9.3.0-1ubuntu2 [27.6 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:6 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 libcc1-0 amd64 10.3.0-1ubuntu1~20.04 [48.8 kB]\cf1\highlight2 
+\par \cf0\highlight0 Ign:7 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 binutils-common amd64 2.34-6ubuntu1.4\cf1\highlight2 
+\par \cf0\highlight0 Ign:8 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 libbinutils amd64 2.34-6ubuntu1.4\cf1\highlight2 
+\par \cf0\highlight0 Ign:9 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 libctf-nobfd0 amd64 2.34-6ubuntu1.4\cf1\highlight2 
+\par \cf0\highlight0 Ign:10 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 libctf0 amd64 2.34-6ubuntu1.4\cf1\highlight2 
+\par \cf0\highlight0 Ign:11 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 binutils-x86-64-linux-gnu amd64 2.34-6ubuntu1.4\cf1\highlight2 
+\par \cf0\highlight0 Err:7 http://security.ubuntu.com/ubuntu focal-updates/main amd64 binutils-common amd64 2.34-6ubuntu1.4\cf1\highlight2 
+\par \cf0\highlight0   404  Not Found [IP: 91.189.91.38 80]\cf1\highlight2 
+\par \cf0\highlight0 Ign:12 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 binutils amd64 2.34-6ubuntu1.4\cf1\highlight2 
+\par \cf0\highlight0 Err:8 http://security.ubuntu.com/ubuntu focal-updates/main amd64 libbinutils amd64 2.34-6ubuntu1.4\cf1\highlight2 
+\par \cf0\highlight0   404  Not Found [IP: 91.189.91.38 80]\cf1\highlight2 
+\par \cf0\highlight0 Err:9 http://security.ubuntu.com/ubuntu focal-updates/main amd64 libctf-nobfd0 amd64 2.34-6ubuntu1.4\cf1\highlight2 
+\par \cf0\highlight0   404  Not Found [IP: 91.189.91.38 80]\cf1\highlight2 
+\par \cf0\highlight0 Err:10 http://security.ubuntu.com/ubuntu focal-updates/main amd64 libctf0 amd64 2.34-6ubuntu1.4\cf1\highlight2 
+\par \cf0\highlight0   404  Not Found [IP: 91.189.91.38 80]\cf1\highlight2 
+\par \cf0\highlight0 Err:11 http://security.ubuntu.com/ubuntu focal-updates/main amd64 binutils-x86-64-linux-gnu amd64 2.34-6ubuntu1.4\cf1\highlight2 
+\par \cf0\highlight0   404  Not Found [IP: 91.189.91.38 80]\cf1\highlight2 
+\par \cf0\highlight0 Err:12 http://security.ubuntu.com/ubuntu focal-updates/main amd64 binutils amd64 2.34-6ubuntu1.4\cf1\highlight2 
+\par \cf0\highlight0   404  Not Found [IP: 91.189.91.38 80]\cf1\highlight2 
+\par \cf0\highlight0 Get:13 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 libgomp1 amd64 10.3.0-1ubuntu1~20.04 [102 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:14 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 libitm1 amd64 10.3.0-1ubuntu1~20.04 [26.2 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:15 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 libatomic1 amd64 10.3.0-1ubuntu1~20.04 [9284 B]\cf1\highlight2 
+\par \cf0\highlight0 Get:16 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 libasan5 amd64 9.4.0-1ubuntu1~20.04.1 [2751 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:17 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 liblsan0 amd64 10.3.0-1ubuntu1~20.04 [835 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:18 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 libtsan0 amd64 10.3.0-1ubuntu1~20.04 [2009 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:19 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 libubsan1 amd64 10.3.0-1ubuntu1~20.04 [784 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:20 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 libquadmath0 amd64 10.3.0-1ubuntu1~20.04 [146 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:21 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 libgcc-9-dev amd64 9.4.0-1ubuntu1~20.04.1 [2359 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:22 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 gcc-9 amd64 9.4.0-1ubuntu1~20.04.1 [8274 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:23 http://archive.ubuntu.com/ubuntu focal/main amd64 gcc amd64 4:9.3.0-1ubuntu2 [5208 B]\cf1\highlight2 
+\par \cf0\highlight0 Get:24 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 libdpkg-perl all 1.19.7ubuntu3.2 [231 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:25 http://archive.ubuntu.com/ubuntu focal/main amd64 make amd64 4.2.1-1.2 [162 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:26 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 dpkg-dev all 1.19.7ubuntu3.2 [679 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:27 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 libc-dev-bin amd64 2.31-0ubuntu9.9 [71.8 kB]\cf1\highlight2 
+\par \cf0\highlight0 Ign:28 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 linux-libc-dev amd64 5.4.0-135.152\cf1\highlight2 
+\par \cf0\highlight0 Get:29 http://archive.ubuntu.com/ubuntu focal/main amd64 libcrypt-dev amd64 1:4.4.10-10ubuntu4 [104 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:30 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 libc6-dev amd64 2.31-0ubuntu9.9 [2519 kB]\cf1\highlight2 
+\par \cf0\highlight0 Err:28 http://security.ubuntu.com/ubuntu focal-updates/main amd64 linux-libc-dev amd64 5.4.0-135.152\cf1\highlight2 
+\par \cf0\highlight0   404  Not Found [IP: 91.189.91.38 80]\cf1\highlight2 
+\par \cf0\highlight0 Get:31 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 libstdc++-9-dev amd64 9.4.0-1ubuntu1~20.04.1 [1722 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:32 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 g++-9 amd64 9.4.0-1ubuntu1~20.04.1 [8420 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:33 http://archive.ubuntu.com/ubuntu focal/main amd64 g++ amd64 4:9.3.0-1ubuntu2 [1604 B]\cf1\highlight2 
+\par \cf0\highlight0 Get:34 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 build-essential amd64 12.8ubuntu1.1 [4664 B]\cf1\highlight2 
+\par \cf0\highlight0 Get:35 http://archive.ubuntu.com/ubuntu focal/main amd64 dctrl-tools amd64 2.24-3 [61.5 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:36 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 dkms all 2.8.1-5ubuntu2 [66.8 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:37 http://archive.ubuntu.com/ubuntu focal/main amd64 libfakeroot amd64 1.24-1 [25.7 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:38 http://archive.ubuntu.com/ubuntu focal/main amd64 fakeroot amd64 1.24-1 [62.6 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:39 http://archive.ubuntu.com/ubuntu focal/main amd64 libalgorithm-diff-perl all 1.19.03-2 [46.6 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:40 http://archive.ubuntu.com/ubuntu focal/main amd64 libalgorithm-diff-xs-perl amd64 0.04-6 [11.3 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:41 http://archive.ubuntu.com/ubuntu focal/main amd64 libalgorithm-merge-perl all 0.08-3 [12.0 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:42 http://archive.ubuntu.com/ubuntu focal/main amd64 libfile-fcntllock-perl amd64 0.22-3build4 [33.1 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:43 http://archive.ubuntu.com/ubuntu focal/main amd64 manpages-dev all 5.05-1 [2266 kB]\cf1\highlight2 
+\par \cf0\highlight0 Fetched 42.0 MB in 44s (957 kB/s)\cf1\highlight2 
+\par \cf0\highlight0 E: Failed to fetch http://security.ubuntu.com/ubuntu/pool/main/b/binutils/binutils-common_2.34-6ubuntu1.4_amd64.deb  404  Not Found [IP: 91.189.91.38 80]\cf1\highlight2 
+\par \cf0\highlight0 E: Failed to fetch http://security.ubuntu.com/ubuntu/pool/main/b/binutils/libbinutils_2.34-6ubuntu1.4_amd64.deb  404  Not Found [IP: 91.189.91.38 80]\cf1\highlight2 
+\par \cf0\highlight0 E: Failed to fetch http://security.ubuntu.com/ubuntu/pool/main/b/binutils/libctf-nobfd0_2.34-6ubuntu1.4_amd64.deb  404  Not Found [IP: 91.189.91.38 80]\cf1\highlight2 
+\par \cf0\highlight0 E: Failed to fetch http://security.ubuntu.com/ubuntu/pool/main/b/binutils/libctf0_2.34-6ubuntu1.4_amd64.deb  404  Not Found [IP: 91.189.91.38 80]\cf1\highlight2 
+\par \cf0\highlight0 E: Failed to fetch http://security.ubuntu.com/ubuntu/pool/main/b/binutils/binutils-x86-64-linux-gnu_2.34-6ubuntu1.4_amd64.deb  404  Not Found [IP: 91.189.91.38 80]\cf1\highlight2 
+\par \cf0\highlight0 E: Failed to fetch http://security.ubuntu.com/ubuntu/pool/main/b/binutils/binutils_2.34-6ubuntu1.4_amd64.deb  404  Not Found [IP: 91.189.91.38 80]\cf1\highlight2 
+\par \cf0\highlight0 E: Failed to fetch http://security.ubuntu.com/ubuntu/pool/main/l/linux/linux-libc-dev_5.4.0-135.152_amd64.deb  404  Not Found [IP: 91.189.91.38 80]\cf1\highlight2 
+\par \cf0\highlight0 E: Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?\cf1\highlight2 
+\par \cf0\highlight0 Hit:1 http://archive.ubuntu.com/ubuntu focal InRelease\cf1\highlight2 
+\par \cf0\highlight0 Get:2 http://archive.ubuntu.com/ubuntu focal-updates InRelease [114 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:3 http://security.ubuntu.com/ubuntu focal-security InRelease [114 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:4 http://archive.ubuntu.com/ubuntu focal-backports InRelease [108 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:5 http://archive.ubuntu.com/ubuntu focal/universe amd64 Packages [8628 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:6 http://security.ubuntu.com/ubuntu focal-security/main amd64 Packages [2209 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:7 http://security.ubuntu.com/ubuntu focal-security/main Translation-en [356 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:8 http://security.ubuntu.com/ubuntu focal-security/main amd64 c-n-f Metadata [13.0 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:9 http://security.ubuntu.com/ubuntu focal-security/restricted amd64 Packages [1802 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:10 http://security.ubuntu.com/ubuntu focal-security/restricted Translation-en [253 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:11 http://security.ubuntu.com/ubuntu focal-security/restricted amd64 c-n-f Metadata [640 B]\cf1\highlight2 
+\par \cf0\highlight0 Get:12 http://security.ubuntu.com/ubuntu focal-security/universe amd64 Packages [842 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:13 http://security.ubuntu.com/ubuntu focal-security/universe Translation-en [173 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:14 http://security.ubuntu.com/ubuntu focal-security/universe amd64 c-n-f Metadata [18.4 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:15 http://security.ubuntu.com/ubuntu focal-security/multiverse amd64 Packages [22.9 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:16 http://security.ubuntu.com/ubuntu focal-security/multiverse Translation-en [5488 B]\cf1\highlight2 
+\par \cf0\highlight0 Get:17 http://security.ubuntu.com/ubuntu focal-security/multiverse amd64 c-n-f Metadata [540 B]\cf1\highlight2 
+\par \cf0\highlight0 Get:18 http://archive.ubuntu.com/ubuntu focal/universe Translation-en [5124 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:19 http://archive.ubuntu.com/ubuntu focal/universe amd64 c-n-f Metadata [265 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:20 http://archive.ubuntu.com/ubuntu focal/multiverse amd64 Packages [144 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:21 http://archive.ubuntu.com/ubuntu focal/multiverse Translation-en [104 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:22 http://archive.ubuntu.com/ubuntu focal/multiverse amd64 c-n-f Metadata [9136 B]\cf1\highlight2 
+\par \cf0\highlight0 Get:23 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 Packages [2610 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:24 http://archive.ubuntu.com/ubuntu focal-updates/main Translation-en [439 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:25 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 c-n-f Metadata [16.8 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:26 http://archive.ubuntu.com/ubuntu focal-updates/restricted amd64 Packages [1937 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:27 http://archive.ubuntu.com/ubuntu focal-updates/restricted Translation-en [273 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:28 http://archive.ubuntu.com/ubuntu focal-updates/restricted amd64 c-n-f Metadata [636 B]\cf1\highlight2 
+\par \cf0\highlight0 Get:29 http://archive.ubuntu.com/ubuntu focal-updates/universe amd64 Packages [1067 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:30 http://archive.ubuntu.com/ubuntu focal-updates/universe Translation-en [254 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:31 http://archive.ubuntu.com/ubuntu focal-updates/universe amd64 c-n-f Metadata [24.9 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:32 http://archive.ubuntu.com/ubuntu focal-updates/multiverse amd64 Packages [25.2 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:33 http://archive.ubuntu.com/ubuntu focal-updates/multiverse Translation-en [7408 B]\cf1\highlight2 
+\par \cf0\highlight0 Get:34 http://archive.ubuntu.com/ubuntu focal-updates/multiverse amd64 c-n-f Metadata [612 B]\cf1\highlight2 
+\par \cf0\highlight0 Get:35 http://archive.ubuntu.com/ubuntu focal-backports/main amd64 Packages [45.7 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:36 http://archive.ubuntu.com/ubuntu focal-backports/main Translation-en [16.3 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:37 http://archive.ubuntu.com/ubuntu focal-backports/main amd64 c-n-f Metadata [1420 B]\cf1\highlight2 
+\par \cf0\highlight0 Get:38 http://archive.ubuntu.com/ubuntu focal-backports/restricted amd64 c-n-f Metadata [116 B]\cf1\highlight2 
+\par \cf0\highlight0 Get:39 http://archive.ubuntu.com/ubuntu focal-backports/universe amd64 Packages [25.0 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:40 http://archive.ubuntu.com/ubuntu focal-backports/universe Translation-en [16.3 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:41 http://archive.ubuntu.com/ubuntu focal-backports/universe amd64 c-n-f Metadata [880 B]\cf1\highlight2 
+\par \cf0\highlight0 Get:42 http://archive.ubuntu.com/ubuntu focal-backports/multiverse amd64 c-n-f Metadata [116 B]\cf1\highlight2 
+\par \cf0\highlight0 Fetched 27.1 MB in 31s (887 kB/s)\cf1\highlight2 
+\par \cf0\highlight0 Reading package lists...\cf1\highlight2 
+\par \cf0\highlight0 W: --force-yes is deprecated, use one of the options starting with --allow instead.\cf1\highlight2 
+\par \cf0\highlight0 Reading package lists...\cf1\highlight2 
+\par \cf0\highlight0 Building dependency tree...\cf1\highlight2 
+\par \cf0\highlight0 Reading state information...\cf1\highlight2 
+\par \cf0\highlight0 linux-headers-5.4.0-135-generic is already the newest version (5.4.0-135.152).\cf1\highlight2 
+\par \cf0\highlight0 linux-headers-5.4.0-135-generic set to manually installed.\cf1\highlight2 
+\par \cf0\highlight0 The following additional packages will be installed:\cf1\highlight2 
+\par \cf0\highlight0   binutils binutils-common binutils-x86-64-linux-gnu build-essential cpp cpp-9\cf1\highlight2 
+\par \cf0\highlight0   dctrl-tools dpkg-dev fakeroot g++ g++-9 gcc gcc-9 gcc-9-base\cf1\highlight2 
+\par \cf0\highlight0   libalgorithm-diff-perl libalgorithm-diff-xs-perl libalgorithm-merge-perl\cf1\highlight2 
+\par \cf0\highlight0   libasan5 libatomic1 libbinutils libc-dev-bin libc6-dev libcc1-0 libcrypt-dev\cf1\highlight2 
+\par \cf0\highlight0   libctf-nobfd0 libctf0 libdpkg-perl libfakeroot libfile-fcntllock-perl\cf1\highlight2 
+\par \cf0\highlight0   libgcc-9-dev libgomp1 libisl22 libitm1 liblsan0 libmpc3 libquadmath0\cf1\highlight2 
+\par \cf0\highlight0   libstdc++-9-dev libtsan0 libubsan1 linux-libc-dev make manpages-dev\cf1\highlight2 
+\par \cf0\highlight0 Suggested packages:\cf1\highlight2 
+\par \cf0\highlight0   binutils-doc cpp-doc gcc-9-locales debtags menu debian-keyring g++-multilib\cf1\highlight2 
+\par \cf0\highlight0   g++-9-multilib gcc-9-doc gcc-multilib autoconf automake libtool flex bison\cf1\highlight2 
+\par \cf0\highlight0   gdb gcc-doc gcc-9-multilib glibc-doc bzr libstdc++-9-doc make-doc\cf1\highlight2 
+\par \cf0\highlight0 The following NEW packages will be installed:\cf1\highlight2 
+\par \cf0\highlight0   binutils binutils-common binutils-x86-64-linux-gnu build-essential cpp cpp-9\cf1\highlight2 
+\par \cf0\highlight0   dctrl-tools dkms dpkg-dev fakeroot g++ g++-9 gcc gcc-9 gcc-9-base\cf1\highlight2 
+\par \cf0\highlight0   libalgorithm-diff-perl libalgorithm-diff-xs-perl libalgorithm-merge-perl\cf1\highlight2 
+\par \cf0\highlight0   libasan5 libatomic1 libbinutils libc-dev-bin libc6-dev libcc1-0 libcrypt-dev\cf1\highlight2 
+\par \cf0\highlight0   libctf-nobfd0 libctf0 libdpkg-perl libfakeroot libfile-fcntllock-perl\cf1\highlight2 
+\par \cf0\highlight0   libgcc-9-dev libgomp1 libisl22 libitm1 liblsan0 libmpc3 libquadmath0\cf1\highlight2 
+\par \cf0\highlight0   libstdc++-9-dev libtsan0 libubsan1 linux-libc-dev make manpages-dev\cf1\highlight2 
+\par \cf0\highlight0 0 upgraded, 43 newly installed, 0 to remove and 110 not upgraded.\cf1\highlight2 
+\par \cf0\highlight0 Need to get 3509 kB/45.5 MB of archives.\cf1\highlight2 
+\par \cf0\highlight0 After this operation, 203 MB of additional disk space will be used.\cf1\highlight2 
+\par \cf0\highlight0 Get:1 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 binutils-common amd64 2.34-6ubuntu1.5 [207 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:2 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 libbinutils amd64 2.34-6ubuntu1.5 [475 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:3 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 libctf-nobfd0 amd64 2.34-6ubuntu1.5 [47.4 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:4 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 libctf0 amd64 2.34-6ubuntu1.5 [46.6 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:5 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 binutils-x86-64-linux-gnu amd64 2.34-6ubuntu1.5 [1613 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:6 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 binutils amd64 2.34-6ubuntu1.5 [3372 B]\cf1\highlight2 
+\par \cf0\highlight0 Get:7 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 linux-libc-dev amd64 5.4.0-150.167 [1117 kB]\cf1\highlight2 
+\par \cf0\highlight0 Fetched 3509 kB in 7s (535 kB/s)\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package gcc-9-base:amd64.\cf1\highlight2 
+\par \cf0\highlight0 (Reading database ... 63605 files and directories currently installed.)\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../00-gcc-9-base_9.4.0-1ubuntu1~20.04.1_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking gcc-9-base:amd64 (9.4.0-1ubuntu1~20.04.1) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package libisl22:amd64.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../01-libisl22_0.22.1-1_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking libisl22:amd64 (0.22.1-1) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package libmpc3:amd64.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../02-libmpc3_1.1.0-1_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking libmpc3:amd64 (1.1.0-1) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package cpp-9.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../03-cpp-9_9.4.0-1ubuntu1~20.04.1_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking cpp-9 (9.4.0-1ubuntu1~20.04.1) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package cpp.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../04-cpp_4%3a9.3.0-1ubuntu2_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking cpp (4:9.3.0-1ubuntu2) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package libcc1-0:amd64.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../05-libcc1-0_10.3.0-1ubuntu1~20.04_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking libcc1-0:amd64 (10.3.0-1ubuntu1~20.04) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package binutils-common:amd64.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../06-binutils-common_2.34-6ubuntu1.5_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking binutils-common:amd64 (2.34-6ubuntu1.5) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package libbinutils:amd64.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../07-libbinutils_2.34-6ubuntu1.5_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking libbinutils:amd64 (2.34-6ubuntu1.5) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package libctf-nobfd0:amd64.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../08-libctf-nobfd0_2.34-6ubuntu1.5_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking libctf-nobfd0:amd64 (2.34-6ubuntu1.5) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package libctf0:amd64.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../09-libctf0_2.34-6ubuntu1.5_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking libctf0:amd64 (2.34-6ubuntu1.5) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package binutils-x86-64-linux-gnu.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../10-binutils-x86-64-linux-gnu_2.34-6ubuntu1.5_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking binutils-x86-64-linux-gnu (2.34-6ubuntu1.5) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package binutils.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../11-binutils_2.34-6ubuntu1.5_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking binutils (2.34-6ubuntu1.5) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package libgomp1:amd64.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../12-libgomp1_10.3.0-1ubuntu1~20.04_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking libgomp1:amd64 (10.3.0-1ubuntu1~20.04) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package libitm1:amd64.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../13-libitm1_10.3.0-1ubuntu1~20.04_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking libitm1:amd64 (10.3.0-1ubuntu1~20.04) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package libatomic1:amd64.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../14-libatomic1_10.3.0-1ubuntu1~20.04_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking libatomic1:amd64 (10.3.0-1ubuntu1~20.04) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package libasan5:amd64.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../15-libasan5_9.4.0-1ubuntu1~20.04.1_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking libasan5:amd64 (9.4.0-1ubuntu1~20.04.1) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package liblsan0:amd64.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../16-liblsan0_10.3.0-1ubuntu1~20.04_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking liblsan0:amd64 (10.3.0-1ubuntu1~20.04) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package libtsan0:amd64.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../17-libtsan0_10.3.0-1ubuntu1~20.04_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking libtsan0:amd64 (10.3.0-1ubuntu1~20.04) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package libubsan1:amd64.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../18-libubsan1_10.3.0-1ubuntu1~20.04_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking libubsan1:amd64 (10.3.0-1ubuntu1~20.04) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package libquadmath0:amd64.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../19-libquadmath0_10.3.0-1ubuntu1~20.04_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking libquadmath0:amd64 (10.3.0-1ubuntu1~20.04) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package libgcc-9-dev:amd64.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../20-libgcc-9-dev_9.4.0-1ubuntu1~20.04.1_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking libgcc-9-dev:amd64 (9.4.0-1ubuntu1~20.04.1) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package gcc-9.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../21-gcc-9_9.4.0-1ubuntu1~20.04.1_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking gcc-9 (9.4.0-1ubuntu1~20.04.1) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package gcc.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../22-gcc_4%3a9.3.0-1ubuntu2_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking gcc (4:9.3.0-1ubuntu2) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package libdpkg-perl.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../23-libdpkg-perl_1.19.7ubuntu3.2_all.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking libdpkg-perl (1.19.7ubuntu3.2) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package make.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../24-make_4.2.1-1.2_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking make (4.2.1-1.2) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package dpkg-dev.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../25-dpkg-dev_1.19.7ubuntu3.2_all.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking dpkg-dev (1.19.7ubuntu3.2) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package libc-dev-bin.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../26-libc-dev-bin_2.31-0ubuntu9.9_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking libc-dev-bin (2.31-0ubuntu9.9) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package linux-libc-dev:amd64.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../27-linux-libc-dev_5.4.0-150.167_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking linux-libc-dev:amd64 (5.4.0-150.167) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package libcrypt-dev:amd64.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../28-libcrypt-dev_1%3a4.4.10-10ubuntu4_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking libcrypt-dev:amd64 (1:4.4.10-10ubuntu4) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package libc6-dev:amd64.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../29-libc6-dev_2.31-0ubuntu9.9_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking libc6-dev:amd64 (2.31-0ubuntu9.9) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package libstdc++-9-dev:amd64.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../30-libstdc++-9-dev_9.4.0-1ubuntu1~20.04.1_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking libstdc++-9-dev:amd64 (9.4.0-1ubuntu1~20.04.1) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package g++-9.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../31-g++-9_9.4.0-1ubuntu1~20.04.1_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking g++-9 (9.4.0-1ubuntu1~20.04.1) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package g++.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../32-g++_4%3a9.3.0-1ubuntu2_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking g++ (4:9.3.0-1ubuntu2) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package build-essential.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../33-build-essential_12.8ubuntu1.1_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking build-essential (12.8ubuntu1.1) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package dctrl-tools.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../34-dctrl-tools_2.24-3_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking dctrl-tools (2.24-3) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package dkms.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../35-dkms_2.8.1-5ubuntu2_all.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking dkms (2.8.1-5ubuntu2) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package libfakeroot:amd64.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../36-libfakeroot_1.24-1_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking libfakeroot:amd64 (1.24-1) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package fakeroot.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../37-fakeroot_1.24-1_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking fakeroot (1.24-1) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package libalgorithm-diff-perl.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../38-libalgorithm-diff-perl_1.19.03-2_all.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking libalgorithm-diff-perl (1.19.03-2) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package libalgorithm-diff-xs-perl.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../39-libalgorithm-diff-xs-perl_0.04-6_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking libalgorithm-diff-xs-perl (0.04-6) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package libalgorithm-merge-perl.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../40-libalgorithm-merge-perl_0.08-3_all.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking libalgorithm-merge-perl (0.08-3) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package libfile-fcntllock-perl.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../41-libfile-fcntllock-perl_0.22-3build4_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking libfile-fcntllock-perl (0.22-3build4) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package manpages-dev.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../42-manpages-dev_5.05-1_all.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking manpages-dev (5.05-1) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up manpages-dev (5.05-1) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up libfile-fcntllock-perl (0.22-3build4) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up libalgorithm-diff-perl (1.19.03-2) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up binutils-common:amd64 (2.34-6ubuntu1.5) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up linux-libc-dev:amd64 (5.4.0-150.167) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up libctf-nobfd0:amd64 (2.34-6ubuntu1.5) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up libgomp1:amd64 (10.3.0-1ubuntu1~20.04) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up libfakeroot:amd64 (1.24-1) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up fakeroot (1.24-1) ...\cf1\highlight2 
+\par \cf0\highlight0 update-alternatives: using /usr/bin/fakeroot-sysv to provide /usr/bin/fakeroot (fakeroot) in auto mode\cf1\highlight2 
+\par \cf0\highlight0 Setting up make (4.2.1-1.2) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up libquadmath0:amd64 (10.3.0-1ubuntu1~20.04) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up libmpc3:amd64 (1.1.0-1) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up libatomic1:amd64 (10.3.0-1ubuntu1~20.04) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up libdpkg-perl (1.19.7ubuntu3.2) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up libubsan1:amd64 (10.3.0-1ubuntu1~20.04) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up libcrypt-dev:amd64 (1:4.4.10-10ubuntu4) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up libisl22:amd64 (0.22.1-1) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up libbinutils:amd64 (2.34-6ubuntu1.5) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up libc-dev-bin (2.31-0ubuntu9.9) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up libalgorithm-diff-xs-perl (0.04-6) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up libcc1-0:amd64 (10.3.0-1ubuntu1~20.04) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up liblsan0:amd64 (10.3.0-1ubuntu1~20.04) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up dctrl-tools (2.24-3) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up libitm1:amd64 (10.3.0-1ubuntu1~20.04) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up gcc-9-base:amd64 (9.4.0-1ubuntu1~20.04.1) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up libalgorithm-merge-perl (0.08-3) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up libtsan0:amd64 (10.3.0-1ubuntu1~20.04) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up libctf0:amd64 (2.34-6ubuntu1.5) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up libasan5:amd64 (9.4.0-1ubuntu1~20.04.1) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up cpp-9 (9.4.0-1ubuntu1~20.04.1) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up libc6-dev:amd64 (2.31-0ubuntu9.9) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up binutils-x86-64-linux-gnu (2.34-6ubuntu1.5) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up binutils (2.34-6ubuntu1.5) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up dpkg-dev (1.19.7ubuntu3.2) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up libgcc-9-dev:amd64 (9.4.0-1ubuntu1~20.04.1) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up cpp (4:9.3.0-1ubuntu2) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up gcc-9 (9.4.0-1ubuntu1~20.04.1) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up libstdc++-9-dev:amd64 (9.4.0-1ubuntu1~20.04.1) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up gcc (4:9.3.0-1ubuntu2) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up dkms (2.8.1-5ubuntu2) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up g++-9 (9.4.0-1ubuntu1~20.04.1) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up g++ (4:9.3.0-1ubuntu2) ...\cf1\highlight2 
+\par \cf0\highlight0 update-alternatives: using /usr/bin/g++ to provide /usr/bin/c++ (c++) in auto mode\cf1\highlight2 
+\par \cf0\highlight0 Setting up build-essential (12.8ubuntu1.1) ...\cf1\highlight2 
+\par \cf0\highlight0 Processing triggers for man-db (2.9.1-1) ...\cf1\highlight2 
+\par \cf0\highlight0 Processing triggers for libc-bin (2.31-0ubuntu9.9) ...\cf1\highlight2 
+\par \cf0\highlight0 Downloading VirtualBox Guest Additions ISO from https://download.virtualbox.org/virtualbox/6.1.38/VBoxGuestAdditions_6.1.38.iso\cf1\highlight2 
+\par \cf0\highlight0 Copy iso file /home/priya/.vagrant.d/tmp/VBoxGuestAdditions_6.1.38.iso into the box /tmp/VBoxGuestAdditions.iso\cf1\highlight2 
+\par \cf0\highlight0 Mounting Virtualbox Guest Additions ISO to: /mnt\cf1\highlight2 
+\par \cf0\highlight0 mount: /mnt: WARNING: device write-protected, mounted read-only.\cf1\highlight2 
+\par \cf8\highlight0 Installing Virtualbox Guest Additions 6.1.38 - guest version is 6.1.38\cf1\highlight2 
+\par \cf0\highlight0 Verifying archive integrity... All good.\cf1\highlight2 
+\par \cf0\highlight0 Uncompressing VirtualBox 6.1.38 Guest Additions for Linux........\cf1\highlight2 
+\par \cf0\highlight0 VirtualBox Guest Additions installer\cf1\highlight2 
+\par \cf0\highlight0 Copying additional installer modules ...\cf1\highlight2 
+\par \cf0\highlight0 Installing additional modules ...\cf1\highlight2 
+\par \cf0\highlight0 /opt/VBoxGuestAdditions-6.1.38/bin/VBoxClient: error while loading shared libraries: libXt.so.6: cannot open shared object file: No such file or directory\cf1\highlight2 
+\par \cf0\highlight0 /opt/VBoxGuestAdditions-6.1.38/bin/VBoxClient: error while loading shared libraries: libXt.so.6: cannot open shared object file: No such file or directory\cf1\highlight2 
+\par \cf0\highlight0 VirtualBox Guest Additions: Starting.\cf1\highlight2 
+\par \cf0\highlight0 VirtualBox Guest Additions: Building the VirtualBox Guest Additions kernel\cf1\highlight2 
+\par \cf0\highlight0 modules.  This may take a while.\cf1\highlight2 
+\par \cf0\highlight0 VirtualBox Guest Additions: To build modules for other installed kernels, run\cf1\highlight2 
+\par \cf0\highlight0 VirtualBox Guest Additions:   /sbin/rcvboxadd quicksetup <version>\cf1\highlight2 
+\par \cf0\highlight0 VirtualBox Guest Additions: or\cf1\highlight2 
+\par \cf0\highlight0 VirtualBox Guest Additions:   /sbin/rcvboxadd quicksetup all\cf1\highlight2 
+\par \cf0\highlight0 VirtualBox Guest Additions: Building the modules for kernel 5.4.0-135-generic.\cf1\highlight2 
+\par \cf0\highlight0 update-initramfs: Generating /boot/initrd.img-5.4.0-135-generic\cf1\highlight2 
+\par \cf0\highlight0 Unmounting Virtualbox Guest Additions ISO from: /mnt\cf1\highlight2 
+\par \cf0\highlight0 Cleaning up downloaded VirtualBox Guest Additions ISO...\cf1\highlight2 
+\par \cf0\highlight0\b ==> distromagma: Checking for guest additions in VM...\cf1\highlight2\b0 
+\par \cf0\highlight0\b ==> distromagma: Setting hostname...\cf1\highlight2\b0 
+\par \cf0\highlight0\b ==> distromagma: Configuring and enabling network interfaces...\cf1\highlight2\b0 
+\par \cf0\highlight0\b ==> distromagma: Mounting shared folders...\cf1\highlight2\b0 
+\par \cf0\highlight0     distromagma: /vagrant => /home/priya/athira/magma_build\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_build$ vagrant global-status\cf1\highlight2 
+\par \cf0\highlight0 id       name        provider   state    directory\cf1\highlight2 
+\par \cf0\highlight0 ---------------------------------------------------------------------------------------\cf1\highlight2 
+\par \cf0\highlight0\f1 d76078b  ue_ran_sim  virtualbox running  /home/priya/ue_ran_sim\~\cf1\highlight2\f0 
+\par \cf0\highlight0 5204828  testtool    virtualbox poweroff /home/priya/4g_test_tool\cf1\highlight2 
+\par \cf0\highlight0 00b82bd  gnbsim      virtualbox poweroff /home/priya/Omec_gnb\cf1\highlight2 
+\par \cf0\highlight0 853bcbb  gnbsim      virtualbox running  /home/priya/omec\cf1\highlight2 
+\par \cf0\highlight0 8da6c70  distromagma virtualbox poweroff /home/priya/magma_1.8\cf1\highlight2 
+\par \cf0\highlight0 e9438f0  omec        virtualbox running  /home/priya/athira/omec_athira\cf1\highlight2 
+\par \cf0\highlight0 881d20c  magma       virtualbox running  /home/priya/athira/magma_dp/magma/lte/gateway\cf1\highlight2 
+\par \cf0\highlight0 52ef91d  distromagma virtualbox running  /home/priya/athira/magma_build\cf1\highlight2 
+\par 
+\par \cf0\highlight0 The above shows information about all known Vagrant environments\cf1\highlight2 
+\par \cf0\highlight0 on this machine. This data is cached and may not be completely\cf1\highlight2 
+\par \cf0\highlight0 up-to-date (use "vagrant global-status --prune" to prune invalid\cf1\highlight2 
+\par \cf0\highlight0 entries). To interact with any of the machines, you can go to that\cf1\highlight2 
+\par \cf0\highlight0 directory and run Vagrant, or you can use the ID directly with\cf1\highlight2 
+\par \cf0\highlight0 Vagrant commands from any directory. For example:\cf1\highlight2 
+\par \cf0\highlight0 "vagrant destroy 1a2b3c4d"\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_build$ vagrant ssh 52ef91d\cf1\highlight2 
+\par \cf0\highlight0 Welcome to Ubuntu 20.04.5 LTS (GNU/Linux 5.4.0-135-generic x86_64)\cf1\highlight2 
+\par 
+\par \cf0\highlight0  * Documentation:  https://help.ubuntu.com\cf1\highlight2 
+\par \cf0\highlight0  * Management:     https://landscape.canonical.com\cf1\highlight2 
+\par \cf0\highlight0  * Support:        https://ubuntu.com/advantage\cf1\highlight2 
+\par 
+\par \cf0\highlight0   System information as of Wed May 31 10:39:18 UTC 2023\cf1\highlight2 
+\par 
+\par \cf0\highlight0   System load:  0.83              Users logged in:         0\cf1\highlight2 
+\par \cf0\highlight0   Usage of /:   4.7% of 38.70GB   IPv4 address for enp0s3: 10.0.2.15\cf1\highlight2 
+\par \cf0\highlight0   Memory usage: 4%                IPv4 address for enp0s8: 192.168.60.186\cf1\highlight2 
+\par \cf0\highlight0   Swap usage:   0%                IPv4 address for enp0s9: 192.168.129.74\cf1\highlight2 
+\par \cf0\highlight0   Processes:    155\cf1\highlight2 
+\par 
+\par 
+\par \cf0\highlight0 104 updates can be applied immediately.\cf1\highlight2 
+\par \cf0\highlight0 73 of these updates are standard security updates.\cf1\highlight2 
+\par \cf0\highlight0 To see these additional updates run: apt list --upgradable\cf1\highlight2 
+\par 
+\par \cf0\highlight0 New release '22.04.2 LTS' available.\cf1\highlight2 
+\par \cf0\highlight0 Run 'do-release-upgrade' to upgrade to it.\cf1\highlight2 
+\par 
+\par 
+\par \cf0\highlight0 vagrant@distro-magma:~$\cf1\highlight2 
+\par \cf0\highlight0 vagrant@distro-magma:~$ \\ls\cf1\highlight2 
+\par \cf0\highlight0 vagrant@distro-magma:~$ sudo su\cf1\highlight2 
+\par \cf0\highlight0 root@distro-magma:/home/vagrant# wget https://raw.githubusercontent.com/magma/magma/v1.8/lte/gateway/deploy/agw_install_ubuntu.sh\cf1\highlight2 
+\par \cf0\highlight0 --2023-05-31 10:39:45--  https://raw.githubusercontent.com/magma/magma/v1.8/lte/gateway/deploy/agw_install_ubuntu.sh\cf1\highlight2 
+\par \cf0\highlight0 Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.109.133, 185.199.111.133, 185.199.110.133, ...\cf1\highlight2 
+\par \cf0\highlight0 Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.109.133|:443... connected.\cf1\highlight2 
+\par \cf0\highlight0 HTTP request sent, awaiting response... 200 OK\cf1\highlight2 
+\par \cf0\highlight0 Length: 6871 (6.7K) [text/plain]\cf1\highlight2 
+\par \cf0\highlight0\f1 Saving to: \lquote agw_install_ubuntu.sh\rquote\cf1\highlight2\f0 
+\par 
+\par \cf0\highlight0 agw_install_ubuntu.sh              100%[=============================================================>]   6.71K  --.-KB/s    in 0s\cf1\highlight2 
+\par 
+\par \cf0\highlight0\f1 2023-05-31 10:39:45 (16.1 MB/s) - \lquote agw_install_ubuntu.sh\rquote  saved [6871/6871]\cf1\highlight2\f0 
+\par 
+\par \cf0\highlight0 root@distro-magma:/home/vagrant# ls\cf1\highlight2 
+\par \cf0\highlight0 agw_install_ubuntu.sh\cf1\highlight2 
+\par \cf0\highlight0 root@distro-magma:/home/vagrant# ls\cf1\highlight2 
+\par \cf0\highlight0 agw_install_ubuntu.sh\cf1\highlight2 
+\par \cf0\highlight0 root@distro-magma:/home/vagrant# chmod agw_install_ubuntu.sh\cf1\highlight2 
+\par \cf0\highlight0\f1 chmod: missing operand after \lquote agw_install_ubuntu.sh\rquote\cf1\highlight2\f0 
+\par \cf0\highlight0 Try 'chmod --help' for more information.\cf1\highlight2 
+\par \cf0\highlight0 root@distro-magma:/home/vagrant# chmod 777agw_install_ubuntu.sh\cf1\highlight2 
+\par \cf0\highlight0\f1 chmod: missing operand after \lquote 777agw_install_ubuntu.sh\rquote\cf1\highlight2\f0 
+\par \cf0\highlight0 Try 'chmod --help' for more information.\cf1\highlight2 
+\par \cf0\highlight0 root@distro-magma:/home/vagrant# chmod 777 agw_install_ubuntu.sh\cf1\highlight2 
+\par \cf0\highlight0 root@distro-magma:/home/vagrant# bash agw_install_ubuntu.sh\cf1\highlight2 
+\par \cf0\highlight0 + addr1=\cf1\highlight2 
+\par \cf0\highlight0 + gw_addr=\cf1\highlight2 
+\par \cf0\highlight0 + MAGMA_USER=magma\cf1\highlight2 
+\par \cf0\highlight0 + AGW_INSTALL_CONFIG_LINK=/etc/systemd/system/multi-user.target.wants/agw_installation.service\cf1\highlight2 
+\par \cf0\highlight0 + AGW_INSTALL_CONFIG=/lib/systemd/system/agw_installation.service\cf1\highlight2 
+\par \cf0\highlight0 + AGW_SCRIPT_PATH=/root/agw_install_ubuntu.sh\cf1\highlight2 
+\par \cf0\highlight0 + DEPLOY_PATH=/home/magma/magma/lte/gateway/deploy\cf1\highlight2 
+\par \cf0\highlight0 + SUCCESS_MESSAGE=ok\cf1\highlight2 
+\par \cf0\highlight0 + NEED_REBOOT=0\cf1\highlight2 
+\par \cf0\highlight0 ++ whoami\cf1\highlight2 
+\par \cf0\highlight0 + WHOAMI=root\cf1\highlight2 
+\par \cf0\highlight0 + MAGMA_VERSION=v1.8\cf1\highlight2 
+\par \cf0\highlight0 + CLOUD_INSTALL=cloud\cf1\highlight2 
+\par \cf0\highlight0 + GIT_URL=https://github.com/magma/magma.git\cf1\highlight2 
+\par \cf0\highlight0 + INTERFACE_DIR=/etc/network/interfaces.d\cf1\highlight2 
+\par \cf0\highlight0 + echo 'Checking if the script has been executed by root user'\cf1\highlight2 
+\par \cf0\highlight0 Checking if the script has been executed by root user\cf1\highlight2 
+\par \cf0\highlight0 + '[' root '!=' root ']'\cf1\highlight2 
+\par \cf0\highlight0 + echo 'Checking if Ubuntu is installed'\cf1\highlight2 
+\par \cf0\highlight0 Checking if Ubuntu is installed\cf1\highlight2 
+\par \cf0\highlight0 + grep -q Ubuntu /etc/issue\cf1\highlight2 
+\par \cf0\highlight0 + '[' '' '!=' ok ']'\cf1\highlight2 
+\par \cf0\highlight0 + wget https://raw.githubusercontent.com/magma/magma/v1.8/lte/gateway/deploy/agw_pre_check_ubuntu.sh\cf1\highlight2 
+\par \cf0\highlight0 --2023-05-31 10:40:39--  https://raw.githubusercontent.com/magma/magma/v1.8/lte/gateway/deploy/agw_pre_check_ubuntu.sh\cf1\highlight2 
+\par \cf0\highlight0 Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.108.133, 185.199.110.133, 185.199.111.133, ...\cf1\highlight2 
+\par \cf0\highlight0 Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.108.133|:443... connected.\cf1\highlight2 
+\par \cf0\highlight0 HTTP request sent, awaiting response... 200 OK\cf1\highlight2 
+\par \cf0\highlight0 Length: 1399 (1.4K) [text/plain]\cf1\highlight2 
+\par \cf0\highlight0\f1 Saving to: \lquote agw_pre_check_ubuntu.sh\rquote\cf1\highlight2\f0 
+\par 
+\par \cf0\highlight0 agw_pre_check_ubuntu.sh            100%[=============================================================>]   1.37K  --.-KB/s    in 0s\cf1\highlight2 
+\par 
+\par \cf0\highlight0\f1 2023-05-31 10:40:40 (14.7 MB/s) - \lquote agw_pre_check_ubuntu.sh\rquote  saved [1399/1399]\cf1\highlight2\f0 
+\par 
+\par \cf0\highlight0 + [[ -f ./agw_pre_check_ubuntu.sh ]]\cf1\highlight2 
+\par \cf0\highlight0 + bash agw_pre_check_ubuntu.sh\cf1\highlight2 
+\par \cf0\highlight0 - Check if Ubuntu is installed\cf1\highlight2 
+\par \cf0\highlight0 Ubuntu is installed\cf1\highlight2 
+\par \cf0\highlight0 - Check for magma user\cf1\highlight2 
+\par \cf0\highlight0 magma user is not Installed\cf1\highlight2 
+\par \cf0\highlight0 - Check if both interfaces are named eth0 and eth1\cf1\highlight2 
+\par \cf0\highlight0 Interfaces will be renamed to eth0 and eth1\cf1\highlight2 
+\par \cf0\highlight0 Interface config will be moved from netplan to ifupdown config\cf1\highlight2 
+\par \cf0\highlight0 + true\cf1\highlight2 
+\par \cf0\highlight0 + read -p 'Do you accept those modifications and want to proceed with magma installation?(y/n)' yn\cf1\highlight2 
+\par \cf0\highlight0 Do you accept those modifications and want to proceed with magma installation?(y/n)y\cf1\highlight2 
+\par \cf0\highlight0 + case $yn in\cf1\highlight2 
+\par \cf0\highlight0 + break\cf1\highlight2 
+\par \cf0\highlight0 + apt-get update\cf1\highlight2 
+\par \cf0\highlight0 Hit:1 http://security.ubuntu.com/ubuntu focal-security InRelease\cf1\highlight2 
+\par \cf0\highlight0 Hit:2 http://archive.ubuntu.com/ubuntu focal InRelease\cf1\highlight2 
+\par \cf0\highlight0 Hit:3 http://archive.ubuntu.com/ubuntu focal-updates InRelease\cf1\highlight2 
+\par \cf0\highlight0 Hit:4 http://archive.ubuntu.com/ubuntu focal-backports InRelease\cf1\highlight2 
+\par \cf0\highlight0 Reading package lists... Done\cf1\highlight2 
+\par \cf0\highlight0 + echo 'Need to check if both interfaces are named eth0 and eth1'\cf1\highlight2 
+\par \cf0\highlight0 Need to check if both interfaces are named eth0 and eth1\cf1\highlight2 
+\par \cf0\highlight0 ++ ip -br a\cf1\highlight2 
+\par \cf0\highlight0 + INTERFACES='lo               UNKNOWN        127.0.0.1/8 ::1/128\cf1\highlight2 
+\par \cf0\highlight0 enp0s3           UP             10.0.2.15/24 fe80::de:e0ff:feed:fafc/64\cf1\highlight2 
+\par \cf0\highlight0 enp0s8           UP             192.168.60.186/24 fe80::a00:27ff:feb4:427c/64\cf1\highlight2 
+\par \cf0\highlight0 enp0s9           UP             192.168.129.74/24 fe80::a00:27ff:fe03:b19b/64 '\cf1\highlight2 
+\par \cf0\highlight0 + [[ '' != \\c\\l\\o\\u\\d ]]\cf1\highlight2 
+\par \cf0\highlight0 + [[ ! lo               UNKNOWN        127.0.0.1/8 ::1/128\cf1\highlight2 
+\par \cf0\highlight0 enp0s3           UP             10.0.2.15/24 fe80::de:e0ff:feed:fafc/64\cf1\highlight2 
+\par \cf0\highlight0 enp0s8           UP             192.168.60.186/24 fe80::a00:27ff:feb4:427c/64\cf1\highlight2 
+\par \cf0\highlight0 enp0s9           UP             192.168.129.74/24 fe80::a00:27ff:fe03:b19b/64  == *\\e\\t\\h\\0* ]]\cf1\highlight2 
+\par \cf0\highlight0 + sed -i 's/GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX="net.ifnames=0 biosdevname=0"/g' /etc/default/grub\cf1\highlight2 
+\par \cf0\highlight0 + sed -i s/enp0s3/eth0/g /etc/netplan/50-cloud-init.yaml\cf1\highlight2 
+\par \cf0\highlight0 + grub-mkconfig -o /boot/grub/grub.cfg\cf1\highlight2 
+\par \cf0\highlight0 Sourcing file `/etc/default/grub'\cf1\highlight2 
+\par \cf0\highlight0 Sourcing file `/etc/default/grub.d/50-cloudimg-settings.cfg'\cf1\highlight2 
+\par \cf0\highlight0 Sourcing file `/etc/default/grub.d/init-select.cfg'\cf1\highlight2 
+\par \cf0\highlight0 Generating grub configuration file ...\cf1\highlight2 
+\par \cf0\highlight0 Found linux image: /boot/vmlinuz-5.4.0-135-generic\cf1\highlight2 
+\par \cf0\highlight0 Found initrd image: /boot/initrd.img-5.4.0-135-generic\cf1\highlight2 
+\par \cf0\highlight0 done\cf1\highlight2 
+\par \cf0\highlight0 + ln -sf /var/run/systemd/resolve/resolv.conf /etc/resolv.conf\cf1\highlight2 
+\par \cf0\highlight0 + sed -i 's/#DNS=/DNS=8.8.8.8 208.67.222.222/' /etc/systemd/resolved.conf\cf1\highlight2 
+\par \cf0\highlight0 + service systemd-resolved restart\cf1\highlight2 
+\par \cf0\highlight0 + apt install -y ifupdown net-tools ipcalc\cf1\highlight2 
+\par \cf0\highlight0 Reading package lists... Done\cf1\highlight2 
+\par \cf0\highlight0 Building dependency tree\cf1\highlight2 
+\par \cf0\highlight0 Reading state information... Done\cf1\highlight2 
+\par \cf0\highlight0 Suggested packages:\cf1\highlight2 
+\par \cf0\highlight0   ppp rdnssd\cf1\highlight2 
+\par \cf0\highlight0 The following NEW packages will be installed:\cf1\highlight2 
+\par \cf0\highlight0   ifupdown ipcalc net-tools\cf1\highlight2 
+\par \cf0\highlight0 0 upgraded, 3 newly installed, 0 to remove and 110 not upgraded.\cf1\highlight2 
+\par \cf0\highlight0 Need to get 283 kB of archives.\cf1\highlight2 
+\par \cf0\highlight0 After this operation, 1163 kB of additional disk space will be used.\cf1\highlight2 
+\par \cf0\highlight0 Get:1 http://archive.ubuntu.com/ubuntu focal/universe amd64 ifupdown amd64 0.8.35ubuntu1 [60.5 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:2 http://archive.ubuntu.com/ubuntu focal/universe amd64 ipcalc all 0.41-5 [25.9 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:3 http://archive.ubuntu.com/ubuntu focal/main amd64 net-tools amd64 1.60+git20180626.aebd88e-1ubuntu1 [196 kB]\cf1\highlight2 
+\par \cf0\highlight0 Fetched 283 kB in 1s (256 kB/s)\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package ifupdown.\cf1\highlight2 
+\par \cf0\highlight0 (Reading database ... 69309 files and directories currently installed.)\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../ifupdown_0.8.35ubuntu1_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking ifupdown (0.8.35ubuntu1) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package ipcalc.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../archives/ipcalc_0.41-5_all.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking ipcalc (0.41-5) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package net-tools.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../net-tools_1.60+git20180626.aebd88e-1ubuntu1_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking net-tools (1.60+git20180626.aebd88e-1ubuntu1) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up net-tools (1.60+git20180626.aebd88e-1ubuntu1) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up ipcalc (0.41-5) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up ifupdown (0.8.35ubuntu1) ...\cf1\highlight2 
+\par \cf0\highlight0 Creating /etc/network/interfaces.\cf1\highlight2 
+\par \cf0\highlight0 Created symlink /etc/systemd/system/multi-user.target.wants/networking.service \u8594? /lib/systemd/system/networking.service.\cf1\highlight2 
+\par \cf0\highlight0 Created symlink /etc/systemd/system/network-online.target.wants/networking.service \u8594? /lib/systemd/system/networking.service.\cf1\highlight2 
+\par \cf0\highlight0 Processing triggers for man-db (2.9.1-1) ...\cf1\highlight2 
+\par \cf0\highlight0 Processing triggers for systemd (245.4-4ubuntu3.19) ...\cf1\highlight2 
+\par \cf0\highlight0 + mkdir -p /etc/network/interfaces.d\cf1\highlight2 
+\par \cf0\highlight0 + echo 'source-directory /etc/network/interfaces.d'\cf1\highlight2 
+\par \cf0\highlight0 + '[' -z '' ']'\cf1\highlight2 
+\par \cf0\highlight0 + echo 'auto eth0\cf1\highlight2 
+\par \cf0\highlight0     iface eth0 inet dhcp'\cf1\highlight2 
+\par \cf0\highlight0 + echo 'auto eth1\cf1\highlight2 
+\par \cf0\highlight0   iface eth1 inet static\cf1\highlight2 
+\par \cf0\highlight0   address 10.0.2.1\cf1\highlight2 
+\par \cf0\highlight0   netmask 255.255.255.0'\cf1\highlight2 
+\par \cf0\highlight0 + systemctl unmask networking\cf1\highlight2 
+\par \cf0\highlight0 + systemctl enable networking\cf1\highlight2 
+\par \cf0\highlight0 Synchronizing state of networking.service with SysV service script with /lib/systemd/systemd-sysv-install.\cf1\highlight2 
+\par \cf0\highlight0 Executing: /lib/systemd/systemd-sysv-install enable networking\cf1\highlight2 
+\par \cf0\highlight0 + apt-get --assume-yes purge nplan netplan.i\cf1\highlight2 
+\par \cf0\highlight0 Reading package lists... Done\cf1\highlight2 
+\par \cf0\highlight0 Building dependency tree\cf1\highlight2 
+\par \cf0\highlight0 Reading state information... Done\cf1\highlight2 
+\par \cf0\highlight0 Note, selecting 'netplan.io' instead of 'nplan'\cf1\highlight2 
+\par \cf0\highlight0 Note, selecting 'netplan.io' for regex 'netplan.i'\cf1\highlight2 
+\par \cf0\highlight0 The following package was automatically installed and is no longer required:\cf1\highlight2 
+\par \cf0\highlight0   libnetplan0\cf1\highlight2 
+\par \cf0\highlight0 Use 'sudo apt autoremove' to remove it.\cf1\highlight2 
+\par \cf0\highlight0 The following packages will be REMOVED:\cf1\highlight2 
+\par \cf0\highlight0   cloud-init* netplan.io* ubuntu-minimal*\cf1\highlight2 
+\par \cf0\highlight0 0 upgraded, 0 newly installed, 3 to remove and 109 not upgraded.\cf1\highlight2 
+\par \cf0\highlight0 After this operation, 3243 kB disk space will be freed.\cf1\highlight2 
+\par \cf0\highlight0 (Reading database ... 69411 files and directories currently installed.)\cf1\highlight2 
+\par \cf0\highlight0 Removing cloud-init (22.4.2-0ubuntu0~20.04.2) ...\cf1\highlight2 
+\par \cf0\highlight0 Removing ubuntu-minimal (1.450.2) ...\cf1\highlight2 
+\par \cf0\highlight0 Removing netplan.io (0.104-0ubuntu2~20.04.2) ...\cf1\highlight2 
+\par \cf0\highlight0 dpkg: warning: while removing netplan.io, directory '/usr/share/netplan/netplan/cli/commands' not empty so not removed\cf1\highlight2 
+\par \cf0\highlight0 dpkg: warning: while removing netplan.io, directory '/etc/netplan' not empty so not removed\cf1\highlight2 
+\par \cf0\highlight0 Processing triggers for dbus (1.12.16-2ubuntu2.3) ...\cf1\highlight2 
+\par \cf0\highlight0 Processing triggers for man-db (2.9.1-1) ...\cf1\highlight2 
+\par \cf0\highlight0 (Reading database ... 68995 files and directories currently installed.)\cf1\highlight2 
+\par \cf0\highlight0 Purging configuration files for cloud-init (22.4.2-0ubuntu0~20.04.2) ...\cf1\highlight2 
+\par \cf0\highlight0 dpkg: warning: while removing cloud-init, directory '/etc/cloud' not empty so not removed\cf1\highlight2 
+\par \cf0\highlight0 Processing triggers for rsyslog (8.2001.0-1ubuntu1.3) ...\cf1\highlight2 
+\par \cf0\highlight0 + NEED_REBOOT=1\cf1\highlight2 
+\par \cf0\highlight0 + echo 'Making sure magma user is sudoers'\cf1\highlight2 
+\par \cf0\highlight0 Making sure magma user is sudoers\cf1\highlight2 
+\par \cf0\highlight0 + grep -q 'magma ALL=(ALL) NOPASSWD:ALL' /etc/sudoers\cf1\highlight2 
+\par \cf0\highlight0 + apt install -y sudo\cf1\highlight2 
+\par \cf0\highlight0 Reading package lists... Done\cf1\highlight2 
+\par \cf0\highlight0 Building dependency tree\cf1\highlight2 
+\par \cf0\highlight0 Reading state information... Done\cf1\highlight2 
+\par \cf0\highlight0 The following package was automatically installed and is no longer required:\cf1\highlight2 
+\par \cf0\highlight0   libnetplan0\cf1\highlight2 
+\par \cf0\highlight0 Use 'sudo apt autoremove' to remove it.\cf1\highlight2 
+\par \cf0\highlight0 The following packages will be upgraded:\cf1\highlight2 
+\par \cf0\highlight0   sudo\cf1\highlight2 
+\par \cf0\highlight0 1 upgraded, 0 newly installed, 0 to remove and 108 not upgraded.\cf1\highlight2 
+\par \cf0\highlight0 Need to get 515 kB of archives.\cf1\highlight2 
+\par \cf0\highlight0 After this operation, 0 B of additional disk space will be used.\cf1\highlight2 
+\par \cf0\highlight0 Get:1 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 sudo amd64 1.8.31-1ubuntu1.5 [515 kB]\cf1\highlight2 
+\par \cf0\highlight0 Fetched 515 kB in 1s (427 kB/s)\cf1\highlight2 
+\par \cf0\highlight0 (Reading database ... 68942 files and directories currently installed.)\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../sudo_1.8.31-1ubuntu1.5_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking sudo (1.8.31-1ubuntu1.5) over (1.8.31-1ubuntu1.2) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up sudo (1.8.31-1ubuntu1.5) ...\cf1\highlight2 
+\par \cf0\highlight0 Processing triggers for man-db (2.9.1-1) ...\cf1\highlight2 
+\par \cf0\highlight0 + adduser --disabled-password --gecos '' magma\cf1\highlight2 
+\par \cf0\highlight0 Adding user `magma' ...\cf1\highlight2 
+\par \cf0\highlight0 Adding new group `magma' (1002) ...\cf1\highlight2 
+\par \cf0\highlight0 Adding new user `magma' (1002) with group `magma' ...\cf1\highlight2 
+\par \cf0\highlight0 Creating home directory `/home/magma' ...\cf1\highlight2 
+\par \cf0\highlight0 Copying files from `/etc/skel' ...\cf1\highlight2 
+\par \cf0\highlight0 + adduser magma sudo\cf1\highlight2 
+\par \cf0\highlight0 Adding user `magma' to group `sudo' ...\cf1\highlight2 
+\par \cf0\highlight0 Adding user magma to group sudo\cf1\highlight2 
+\par \cf0\highlight0 Done.\cf1\highlight2 
+\par \cf0\highlight0 + echo 'magma ALL=(ALL) NOPASSWD:ALL'\cf1\highlight2 
+\par \cf0\highlight0 + '[' 1 = 1 ']'\cf1\highlight2 
+\par \cf0\highlight0 + echo 'Will reboot in a few seconds, loading a boot script in order to install magma'\cf1\highlight2 
+\par \cf0\highlight0 Will reboot in a few seconds, loading a boot script in order to install magma\cf1\highlight2 
+\par \cf0\highlight0 + '[' '!' -f /root/agw_install_ubuntu.sh ']'\cf1\highlight2 
+\par \cf0\highlight0 ++ realpath agw_install_ubuntu.sh\cf1\highlight2 
+\par \cf0\highlight0 + cp /home/vagrant/agw_install_ubuntu.sh /root/agw_install_ubuntu.sh\cf1\highlight2 
+\par \cf0\highlight0 + cat\cf1\highlight2 
+\par \cf0\highlight0 + chmod 644 /lib/systemd/system/agw_installation.service\cf1\highlight2 
+\par \cf0\highlight0 + ln -sf /lib/systemd/system/agw_installation.service /etc/systemd/system/multi-user.target.wants/agw_installation.service\cf1\highlight2 
+\par \cf0\highlight0 + reboot\cf1\highlight2 
+\par \cf0\highlight0 Connection to 127.0.0.1 closed by remote host.\cf1\highlight2 
+\par \cf0\highlight0 Connection to 127.0.0.1 closed.\cf1\highlight2 
+\par \cf0\highlight0\f1 priya@saturn:~/athira/magma_build$ sudo apt install magma \endash y\cf1\highlight2\f0 
+\par \cf0\highlight0 Reading package lists... Done\cf1\highlight2 
+\par \cf0\highlight0 Building dependency tree\cf1\highlight2 
+\par \cf0\highlight0 Reading state information... Done\cf1\highlight2 
+\par \cf9\highlight0 E: \cf0\f1 Unable to locate package \endash y\cf1\highlight2\f0 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_build$ vagrant global-status\cf1\highlight2 
+\par \cf0\highlight0 id       name        provider   state    directory\cf1\highlight2 
+\par \cf0\highlight0 ---------------------------------------------------------------------------------------\cf1\highlight2 
+\par \cf0\highlight0\f1 d76078b  ue_ran_sim  virtualbox running  /home/priya/ue_ran_sim\~\cf1\highlight2\f0 
+\par \cf0\highlight0 5204828  testtool    virtualbox poweroff /home/priya/4g_test_tool\cf1\highlight2 
+\par \cf0\highlight0 00b82bd  gnbsim      virtualbox poweroff /home/priya/Omec_gnb\cf1\highlight2 
+\par \cf0\highlight0 853bcbb  gnbsim      virtualbox running  /home/priya/omec\cf1\highlight2 
+\par \cf0\highlight0 8da6c70  distromagma virtualbox poweroff /home/priya/magma_1.8\cf1\highlight2 
+\par \cf0\highlight0 e9438f0  omec        virtualbox running  /home/priya/athira/omec_athira\cf1\highlight2 
+\par \cf0\highlight0 881d20c  magma       virtualbox running  /home/priya/athira/magma_dp/magma/lte/gateway\cf1\highlight2 
+\par \cf0\highlight0 52ef91d  distromagma virtualbox running  /home/priya/athira/magma_build\cf1\highlight2 
+\par 
+\par \cf0\highlight0 The above shows information about all known Vagrant environments\cf1\highlight2 
+\par \cf0\highlight0 on this machine. This data is cached and may not be completely\cf1\highlight2 
+\par \cf0\highlight0 up-to-date (use "vagrant global-status --prune" to prune invalid\cf1\highlight2 
+\par \cf0\highlight0 entries). To interact with any of the machines, you can go to that\cf1\highlight2 
+\par \cf0\highlight0 directory and run Vagrant, or you can use the ID directly with\cf1\highlight2 
+\par \cf0\highlight0 Vagrant commands from any directory. For example:\cf1\highlight2 
+\par \cf0\highlight0 "vagrant destroy 1a2b3c4d"\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_build$ vagrant ssh 52ef91d\cf1\highlight2 
+\par \cf0\highlight0 ^C\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_build$ vagrant destroy 52ef91d\cf1\highlight2 
+\par \cf0\highlight0     distromagma: Are you sure you want to destroy the 'distromagma' VM? [y/N] y\cf1\highlight2 
+\par \cf0\highlight0\b ==> distromagma: Forcing shutdown of VM...\cf1\highlight2\b0 
+\par \cf0\highlight0\b ==> distromagma: Destroying VM and associated drives...\cf1\highlight2\b0 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_build$\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_build$\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_build$\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_build$ ls\cf1\highlight2 
+\par \cf0\highlight0 Vagrantfile\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_build$ rm -rf Vagrantfile\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_build$\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_build$\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_build$ sudo su\cf1\highlight2 
+\par \cf0\highlight0 root@saturn:/home/priya/athira/magma_build#\cf1\highlight2 
+\par \cf0\highlight0 root@saturn:/home/priya/athira/magma_build#\cf1\highlight2 
+\par \cf0\highlight0 root@saturn:/home/priya/athira/magma_build#\cf1\highlight2 
+\par \cf0\highlight0 root@saturn:/home/priya/athira/magma_build#\cf1\highlight2 
+\par \cf0\highlight0 root@saturn:/home/priya/athira/magma_build#\cf1\highlight2 
+\par \cf0\highlight0 root@saturn:/home/priya/athira/magma_build#\cf1\highlight2 
+\par \cf0\highlight0 root@saturn:/home/priya/athira/magma_build#\cf1\highlight2 
+\par \cf0\highlight0 root@saturn:/home/priya/athira/magma_build# exit\cf1\highlight2 
+\par \cf0\highlight0 exit\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_build$\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_build$\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_build$\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_build$\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_build$ cd ..\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira$\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira$\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira$ ls\cf1\highlight2 
+\par \cf0\highlight0 1        \cf10 magma\cf0         \cf10 magma_dp\cf0   \cf10 omec_athira\cf0   \cf10 patch\cf0       ueransim_latest_09_03_2023.patch\cf1\highlight2 
+\par \cf3\highlight0 echo.sh\cf0   \cf10 magma_build\cf0   Makefile  \cf10 omecdocker\cf0    s22.patch  ueransim_traffic_25ma.patch\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira$ cd magma_dp\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_dp$\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_dp$\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_dp$ ls\cf1\highlight2 
+\par \cf10\highlight0 magma\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_dp$\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_dp$\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_dp$ cd magma/lte/gateway/\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_dp/magma/lte/gateway$\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_dp/magma/lte/gateway$\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_dp/magma/lte/gateway$ vagrant ssh magma\cf1\highlight2 
+\par \cf0\highlight0 Welcome to Ubuntu 20.04.5 LTS (GNU/Linux 5.4.0-135-generic x86_64)\cf1\highlight2 
+\par 
+\par \cf0\highlight0  * Documentation:  https://help.ubuntu.com\cf1\highlight2 
+\par \cf0\highlight0  * Management:     https://landscape.canonical.com\cf1\highlight2 
+\par \cf0\highlight0  * Support:        https://ubuntu.com/advantage\cf1\highlight2 
+\par \cf0\highlight0 Last login: Tue May 30 08:26:11 2023 from 10.0.2.2\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:~$\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:~$\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:~$\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:~$ sudo su\cf1\highlight2 
+\par \cf0\highlight0 root@magma-dev:/home/vagrant# wget https://raw.githubusercontent.com/magma/magma/v1.8/lte/gateway/deploy/agw_install_ubuntu.sh\cf1\highlight2 
+\par \cf0\highlight0 --2023-05-31 10:49:04--  https://raw.githubusercontent.com/magma/magma/v1.8/lte/gateway/deploy/agw_install_ubuntu.sh\cf1\highlight2 
+\par \cf0\highlight0 Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.110.133, 185.199.111.133, 185.199.108.133, ...\cf1\highlight2 
+\par \cf0\highlight0 Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.110.133|:443... connected.\cf1\highlight2 
+\par \cf0\highlight0 HTTP request sent, awaiting response... 200 OK\cf1\highlight2 
+\par \cf0\highlight0 Length: 6871 (6.7K) [text/plain]\cf1\highlight2 
+\par \cf0\highlight0 Saving to: 'agw_install_ubuntu.sh'\cf1\highlight2 
+\par 
+\par \cf0\highlight0 agw_install_ubuntu.sh              100%[=============================================================>]   6.71K  --.-KB/s    in 0.001s\cf1\highlight2 
+\par 
+\par \cf0\highlight0 2023-05-31 10:49:05 (8.98 MB/s) - 'agw_install_ubuntu.sh' saved [6871/6871]\cf1\highlight2 
+\par 
+\par \cf0\highlight0 root@magma-dev:/home/vagrant# bash agw_install_ubuntu.sh\cf1\highlight2 
+\par \cf0\highlight0 + addr1=\cf1\highlight2 
+\par \cf0\highlight0 + gw_addr=\cf1\highlight2 
+\par \cf0\highlight0 + MAGMA_USER=magma\cf1\highlight2 
+\par \cf0\highlight0 + AGW_INSTALL_CONFIG_LINK=/etc/systemd/system/multi-user.target.wants/agw_installation.service\cf1\highlight2 
+\par \cf0\highlight0 + AGW_INSTALL_CONFIG=/lib/systemd/system/agw_installation.service\cf1\highlight2 
+\par \cf0\highlight0 + AGW_SCRIPT_PATH=/root/agw_install_ubuntu.sh\cf1\highlight2 
+\par \cf0\highlight0 + DEPLOY_PATH=/home/magma/magma/lte/gateway/deploy\cf1\highlight2 
+\par \cf0\highlight0 + SUCCESS_MESSAGE=ok\cf1\highlight2 
+\par \cf0\highlight0 + NEED_REBOOT=0\cf1\highlight2 
+\par \cf0\highlight0 ++ whoami\cf1\highlight2 
+\par \cf0\highlight0 + WHOAMI=root\cf1\highlight2 
+\par \cf0\highlight0 + MAGMA_VERSION=v1.8\cf1\highlight2 
+\par \cf0\highlight0 + CLOUD_INSTALL=cloud\cf1\highlight2 
+\par \cf0\highlight0 + GIT_URL=https://github.com/magma/magma.git\cf1\highlight2 
+\par \cf0\highlight0 + INTERFACE_DIR=/etc/network/interfaces.d\cf1\highlight2 
+\par \cf0\highlight0 + echo 'Checking if the script has been executed by root user'\cf1\highlight2 
+\par \cf0\highlight0 Checking if the script has been executed by root user\cf1\highlight2 
+\par \cf0\highlight0 + '[' root '!=' root ']'\cf1\highlight2 
+\par \cf0\highlight0 + echo 'Checking if Ubuntu is installed'\cf1\highlight2 
+\par \cf0\highlight0 Checking if Ubuntu is installed\cf1\highlight2 
+\par \cf0\highlight0 + grep -q Ubuntu /etc/issue\cf1\highlight2 
+\par \cf0\highlight0 + '[' '' '!=' ok ']'\cf1\highlight2 
+\par \cf0\highlight0 + wget https://raw.githubusercontent.com/magma/magma/v1.8/lte/gateway/deploy/agw_pre_check_ubuntu.sh\cf1\highlight2 
+\par \cf0\highlight0 --2023-05-31 10:49:13--  https://raw.githubusercontent.com/magma/magma/v1.8/lte/gateway/deploy/agw_pre_check_ubuntu.sh\cf1\highlight2 
+\par \cf0\highlight0 Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.108.133, 185.199.109.133, 185.199.110.133, ...\cf1\highlight2 
+\par \cf0\highlight0 Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.108.133|:443... connected.\cf1\highlight2 
+\par \cf0\highlight0 HTTP request sent, awaiting response... 200 OK\cf1\highlight2 
+\par \cf0\highlight0 Length: 1399 (1.4K) [text/plain]\cf1\highlight2 
+\par \cf0\highlight0 Saving to: 'agw_pre_check_ubuntu.sh'\cf1\highlight2 
+\par 
+\par \cf0\highlight0 agw_pre_check_ubuntu.sh            100%[=============================================================>]   1.37K  --.-KB/s    in 0s\cf1\highlight2 
+\par 
+\par \cf0\highlight0 2023-05-31 10:49:13 (11.8 MB/s) - 'agw_pre_check_ubuntu.sh' saved [1399/1399]\cf1\highlight2 
+\par 
+\par \cf0\highlight0 + [[ -f ./agw_pre_check_ubuntu.sh ]]\cf1\highlight2 
+\par \cf0\highlight0 + bash agw_pre_check_ubuntu.sh\cf1\highlight2 
+\par \cf0\highlight0 - Check if Ubuntu is installed\cf1\highlight2 
+\par \cf0\highlight0 Ubuntu is installed\cf1\highlight2 
+\par \cf0\highlight0 - Check for magma user\cf1\highlight2 
+\par \cf0\highlight0 magma user is not Installed\cf1\highlight2 
+\par \cf0\highlight0 - Check if both interfaces are named eth0 and eth1\cf1\highlight2 
+\par \cf0\highlight0 + true\cf1\highlight2 
+\par \cf0\highlight0 + read -p 'Do you accept those modifications and want to proceed with magma installation?(y/n)' yn\cf1\highlight2 
+\par \cf0\highlight0 Do you accept those modifications and want to proceed with magma installation?(y/n)y\cf1\highlight2 
+\par \cf0\highlight0 + case $yn in\cf1\highlight2 
+\par \cf0\highlight0 + break\cf1\highlight2 
+\par \cf0\highlight0 + apt-get update\cf1\highlight2 
+\par \cf0\highlight0 Get:1 http://security.ubuntu.com/ubuntu focal-security InRelease [114 kB]\cf1\highlight2 
+\par \cf0\highlight0 Hit:2 http://us.archive.ubuntu.com/ubuntu focal InRelease\cf1\highlight2 
+\par \cf0\highlight0 Get:3 http://us.archive.ubuntu.com/ubuntu focal-updates InRelease [114 kB]\cf1\highlight2 
+\par \cf0\highlight0 Hit:4 https://linuxfoundation.jfrog.io/artifactory/magma-packages-test focal-ci InRelease\cf1\highlight2 
+\par \cf0\highlight0 Get:5 http://security.ubuntu.com/ubuntu focal-security/main amd64 Packages [2,209 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:6 http://us.archive.ubuntu.com/ubuntu focal-backports InRelease [108 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:7 http://us.archive.ubuntu.com/ubuntu focal-updates/main amd64 Packages [2,610 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:8 http://security.ubuntu.com/ubuntu focal-security/main i386 Packages [602 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:9 http://security.ubuntu.com/ubuntu focal-security/main Translation-en [356 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:10 http://security.ubuntu.com/ubuntu focal-security/restricted amd64 Packages [1,802 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:11 http://security.ubuntu.com/ubuntu focal-security/restricted Translation-en [253 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:12 http://security.ubuntu.com/ubuntu focal-security/universe i386 Packages [600 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:13 http://security.ubuntu.com/ubuntu focal-security/universe amd64 Packages [842 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:14 http://security.ubuntu.com/ubuntu focal-security/universe Translation-en [173 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:15 http://us.archive.ubuntu.com/ubuntu focal-updates/main i386 Packages [836 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:16 http://us.archive.ubuntu.com/ubuntu focal-updates/main Translation-en [439 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:17 http://us.archive.ubuntu.com/ubuntu focal-updates/restricted amd64 Packages [1,937 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:18 http://us.archive.ubuntu.com/ubuntu focal-updates/restricted Translation-en [273 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:19 http://us.archive.ubuntu.com/ubuntu focal-updates/universe amd64 Packages [1,067 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:20 http://us.archive.ubuntu.com/ubuntu focal-updates/universe i386 Packages [730 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:21 http://us.archive.ubuntu.com/ubuntu focal-updates/universe Translation-en [254 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:22 http://us.archive.ubuntu.com/ubuntu focal-backports/main i386 Packages [36.1 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:23 http://us.archive.ubuntu.com/ubuntu focal-backports/main amd64 Packages [45.7 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:24 http://us.archive.ubuntu.com/ubuntu focal-backports/universe i386 Packages [13.8 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:25 http://us.archive.ubuntu.com/ubuntu focal-backports/universe amd64 Packages [25.0 kB]\cf1\highlight2 
+\par \cf0\highlight0 Fetched 15.4 MB in 1min 22s (188 kB/s)\cf1\highlight2 
+\par \cf0\highlight0 Reading package lists... Done\cf1\highlight2 
+\par \cf0\highlight0 + echo 'Need to check if both interfaces are named eth0 and eth1'\cf1\highlight2 
+\par \cf0\highlight0 Need to check if both interfaces are named eth0 and eth1\cf1\highlight2 
+\par \cf0\highlight0 ++ ip -br a\cf1\highlight2 
+\par \cf0\highlight0 + INTERFACES='lo               UNKNOWN        127.0.0.1/8 ::1/128\cf1\highlight2 
+\par \cf0\highlight0 eth0             UP             10.0.2.15/24 2020::10/64 fe80::a00:27ff:febb:58d1/64\cf1\highlight2 
+\par \cf0\highlight0 eth1             UP             192.168.60.142/24 fe80::a00:27ff:fe59:ed09/64\cf1\highlight2 
+\par \cf0\highlight0 eth2             UP             192.168.129.1/24 3001::10/64\cf1\highlight2 
+\par \cf0\highlight0 eth3             UP             3001::10/64 fe80::a00:27ff:fe71:9f3e/64\cf1\highlight2 
+\par \cf0\highlight0 proxy_port@if6   UP             fe80::2cfa:40ff:fe92:fde9/64\cf1\highlight2 
+\par \cf0\highlight0 docker0          DOWN           172.17.0.1/16\cf1\highlight2 
+\par \cf0\highlight0 ovs-system       DOWN\cf1\highlight2 
+\par \cf0\highlight0 uplink_br0       UNKNOWN        fe80::5cdf:52ff:fece:944f/64\cf1\highlight2 
+\par \cf0\highlight0 dhcp0            UNKNOWN        fe80::c29:13ff:fee7:9c33/64\cf1\highlight2 
+\par \cf0\highlight0 gtp_br0          UNKNOWN        192.168.128.1/24 fe80::2851:daff:fe97:5649/64\cf1\highlight2 
+\par \cf0\highlight0 gtpu_sys_2152    UNKNOWN        fe80::4b84:5d15:402d:69e5/64\cf1\highlight2 
+\par \cf0\highlight0 mtr0             UNKNOWN        10.1.0.1/24 fe80::c05e:a0ff:fe95:45ac/64\cf1\highlight2 
+\par \cf0\highlight0 ipfix0           UNKNOWN        127.0.0.10/24 fe80::142d:bff:fe84:744b/64\cf1\highlight2 
+\par \cf0\highlight0 li_port          UNKNOWN        127.1.0.0/24 fe80::fc47:23ff:fe5d:b6cd/64\cf1\highlight2 
+\par \cf0\highlight0 envoy_cntr@if25  UP             10.5.0.2/24 fe80::305d:cfff:fedc:2b36/64 '\cf1\highlight2 
+\par \cf0\highlight0 + [[ '' != \\c\\l\\o\\u\\d ]]\cf1\highlight2 
+\par \cf0\highlight0 + [[ ! lo               UNKNOWN        127.0.0.1/8 ::1/128\cf1\highlight2 
+\par \cf0\highlight0 eth0             UP             10.0.2.15/24 2020::10/64 fe80::a00:27ff:febb:58d1/64\cf1\highlight2 
+\par \cf0\highlight0 eth1             UP             192.168.60.142/24 fe80::a00:27ff:fe59:ed09/64\cf1\highlight2 
+\par \cf0\highlight0 eth2             UP             192.168.129.1/24 3001::10/64\cf1\highlight2 
+\par \cf0\highlight0 eth3             UP             3001::10/64 fe80::a00:27ff:fe71:9f3e/64\cf1\highlight2 
+\par \cf0\highlight0 proxy_port@if6   UP             fe80::2cfa:40ff:fe92:fde9/64\cf1\highlight2 
+\par \cf0\highlight0 docker0          DOWN           172.17.0.1/16\cf1\highlight2 
+\par \cf0\highlight0 ovs-system       DOWN\cf1\highlight2 
+\par \cf0\highlight0 uplink_br0       UNKNOWN        fe80::5cdf:52ff:fece:944f/64\cf1\highlight2 
+\par \cf0\highlight0 dhcp0            UNKNOWN        fe80::c29:13ff:fee7:9c33/64\cf1\highlight2 
+\par \cf0\highlight0 gtp_br0          UNKNOWN        192.168.128.1/24 fe80::2851:daff:fe97:5649/64\cf1\highlight2 
+\par \cf0\highlight0 gtpu_sys_2152    UNKNOWN        fe80::4b84:5d15:402d:69e5/64\cf1\highlight2 
+\par \cf0\highlight0 mtr0             UNKNOWN        10.1.0.1/24 fe80::c05e:a0ff:fe95:45ac/64\cf1\highlight2 
+\par \cf0\highlight0 ipfix0           UNKNOWN        127.0.0.10/24 fe80::142d:bff:fe84:744b/64\cf1\highlight2 
+\par \cf0\highlight0 li_port          UNKNOWN        127.1.0.0/24 fe80::fc47:23ff:fe5d:b6cd/64\cf1\highlight2 
+\par \cf0\highlight0 envoy_cntr@if25  UP             10.5.0.2/24 fe80::305d:cfff:fedc:2b36/64  == *\\e\\t\\h\\0* ]]\cf1\highlight2 
+\par \cf0\highlight0 + [[ ! lo               UNKNOWN        127.0.0.1/8 ::1/128\cf1\highlight2 
+\par \cf0\highlight0 eth0             UP             10.0.2.15/24 2020::10/64 fe80::a00:27ff:febb:58d1/64\cf1\highlight2 
+\par \cf0\highlight0 eth1             UP             192.168.60.142/24 fe80::a00:27ff:fe59:ed09/64\cf1\highlight2 
+\par \cf0\highlight0 eth2             UP             192.168.129.1/24 3001::10/64\cf1\highlight2 
+\par \cf0\highlight0 eth3             UP             3001::10/64 fe80::a00:27ff:fe71:9f3e/64\cf1\highlight2 
+\par \cf0\highlight0 proxy_port@if6   UP             fe80::2cfa:40ff:fe92:fde9/64\cf1\highlight2 
+\par \cf0\highlight0 docker0          DOWN           172.17.0.1/16\cf1\highlight2 
+\par \cf0\highlight0 ovs-system       DOWN\cf1\highlight2 
+\par \cf0\highlight0 uplink_br0       UNKNOWN        fe80::5cdf:52ff:fece:944f/64\cf1\highlight2 
+\par \cf0\highlight0 dhcp0            UNKNOWN        fe80::c29:13ff:fee7:9c33/64\cf1\highlight2 
+\par \cf0\highlight0 gtp_br0          UNKNOWN        192.168.128.1/24 fe80::2851:daff:fe97:5649/64\cf1\highlight2 
+\par \cf0\highlight0 gtpu_sys_2152    UNKNOWN        fe80::4b84:5d15:402d:69e5/64\cf1\highlight2 
+\par \cf0\highlight0 mtr0             UNKNOWN        10.1.0.1/24 fe80::c05e:a0ff:fe95:45ac/64\cf1\highlight2 
+\par \cf0\highlight0 ipfix0           UNKNOWN        127.0.0.10/24 fe80::142d:bff:fe84:744b/64\cf1\highlight2 
+\par \cf0\highlight0 li_port          UNKNOWN        127.1.0.0/24 fe80::fc47:23ff:fe5d:b6cd/64\cf1\highlight2 
+\par \cf0\highlight0 envoy_cntr@if25  UP             10.5.0.2/24 fe80::305d:cfff:fedc:2b36/64  == *\\e\\t\\h\\1* ]]\cf1\highlight2 
+\par \cf0\highlight0 + grep -q 'GRUB_CMDLINE_LINUX="net.ifnames=0 biosdevname=0"' /etc/default/grub\cf1\highlight2 
+\par \cf0\highlight0 + echo 'Interfaces name are correct, let'\\''s check if network and DNS are up'\cf1\highlight2 
+\par \cf0\highlight0 Interfaces name are correct, let's check if network and DNS are up\cf1\highlight2 
+\par \cf0\highlight0 + nslookup google.com\cf1\highlight2 
+\par \cf0\highlight0 Server:         8.8.8.8\cf1\highlight2 
+\par \cf0\highlight0 Address:        8.8.8.8#53\cf1\highlight2 
+\par 
+\par \cf0\highlight0 Non-authoritative answer:\cf1\highlight2 
+\par \cf0\highlight0 Name:   google.com\cf1\highlight2 
+\par \cf0\highlight0 Address: 172.217.167.142\cf1\highlight2 
+\par \cf0\highlight0 Name:   google.com\cf1\highlight2 
+\par \cf0\highlight0 Address: 2404:6800:4007:803::200e\cf1\highlight2 
+\par 
+\par \cf0\highlight0 + ping -c 1 -W 1 -I eth0 8.8.8.8\cf1\highlight2 
+\par \cf0\highlight0 PING 8.8.8.8 (8.8.8.8) from 10.0.2.15 eth0: 56(84) bytes of data.\cf1\highlight2 
+\par \cf0\highlight0 64 bytes from 8.8.8.8: icmp_seq=1 ttl=63 time=15.2 ms\cf1\highlight2 
+\par 
+\par \cf0\highlight0 --- 8.8.8.8 ping statistics ---\cf1\highlight2 
+\par \cf0\highlight0 1 packets transmitted, 1 received, 0% packet loss, time 0ms\cf1\highlight2 
+\par \cf0\highlight0 rtt min/avg/max/mdev = 15.180/15.180/15.180/0.000 ms\cf1\highlight2 
+\par \cf0\highlight0 + echo 'Making sure magma user is sudoers'\cf1\highlight2 
+\par \cf0\highlight0 Making sure magma user is sudoers\cf1\highlight2 
+\par \cf0\highlight0 + grep -q 'magma ALL=(ALL) NOPASSWD:ALL' /etc/sudoers\cf1\highlight2 
+\par \cf0\highlight0 + apt install -y sudo\cf1\highlight2 
+\par \cf0\highlight0 Reading package lists... Done\cf1\highlight2 
+\par \cf0\highlight0 Building dependency tree\cf1\highlight2 
+\par \cf0\highlight0 Reading state information... Done\cf1\highlight2 
+\par \cf0\highlight0 The following packages will be upgraded:\cf1\highlight2 
+\par \cf0\highlight0   sudo\cf1\highlight2 
+\par \cf0\highlight0 1 upgraded, 0 newly installed, 0 to remove and 150 not upgraded.\cf1\highlight2 
+\par \cf0\highlight0 Need to get 515 kB of archives.\cf1\highlight2 
+\par \cf0\highlight0 After this operation, 0 B of additional disk space will be used.\cf1\highlight2 
+\par \cf0\highlight0 Get:1 http://us.archive.ubuntu.com/ubuntu focal-updates/main amd64 sudo amd64 1.8.31-1ubuntu1.5 [515 kB]\cf1\highlight2 
+\par \cf0\highlight0 Fetched 515 kB in 2s (281 kB/s)\cf1\highlight2 
+\par \cf0\highlight0 (Reading database ... 148190 files and directories currently installed.)\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../sudo_1.8.31-1ubuntu1.5_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking sudo (1.8.31-1ubuntu1.5) over (1.8.31-1ubuntu1.2) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up sudo (1.8.31-1ubuntu1.5) ...\cf1\highlight2 
+\par \cf0\highlight0 Processing triggers for man-db (2.9.1-1) ...\cf1\highlight2 
+\par \cf0\highlight0 + adduser --disabled-password --gecos '' magma\cf1\highlight2 
+\par \cf0\highlight0 Adding user `magma' ...\cf1\highlight2 
+\par \cf0\highlight0 Adding new group `magma' (1000) ...\cf1\highlight2 
+\par \cf0\highlight0 Adding new user `magma' (1000) with group `magma' ...\cf1\highlight2 
+\par \cf0\highlight0 Creating home directory `/home/magma' ...\cf1\highlight2 
+\par \cf0\highlight0 Copying files from `/etc/skel' ...\cf1\highlight2 
+\par \cf0\highlight0 + adduser magma sudo\cf1\highlight2 
+\par \cf0\highlight0 Adding user `magma' to group `sudo' ...\cf1\highlight2 
+\par \cf0\highlight0 Adding user magma to group sudo\cf1\highlight2 
+\par \cf0\highlight0 Done.\cf1\highlight2 
+\par \cf0\highlight0 + echo 'magma ALL=(ALL) NOPASSWD:ALL'\cf1\highlight2 
+\par \cf0\highlight0 + '[' 0 = 1 ']'\cf1\highlight2 
+\par \cf0\highlight0 + echo 'Checking if magma has been installed'\cf1\highlight2 
+\par \cf0\highlight0 Checking if magma has been installed\cf1\highlight2 
+\par \cf0\highlight0 ++ apt-cache show magma echo ok\cf1\highlight2 
+\par \cf0\highlight0 + MAGMA_INSTALLED=\cf1\highlight2 
+\par \cf0\highlight0 + '[' '' '!=' ok ']'\cf1\highlight2 
+\par \cf0\highlight0 + echo 'Magma not installed, processing installation'\cf1\highlight2 
+\par \cf0\highlight0 Magma not installed, processing installation\cf1\highlight2 
+\par \cf0\highlight0 + apt-get -y install curl make virtualenv zip rsync git software-properties-common python3-pip python-dev apt-transport-https\cf1\highlight2 
+\par \cf0\highlight0 Reading package lists... Done\cf1\highlight2 
+\par \cf0\highlight0 Building dependency tree\cf1\highlight2 
+\par \cf0\highlight0 Reading state information... Done\cf1\highlight2 
+\par \cf0\highlight0 Note, selecting 'python-dev-is-python2' instead of 'python-dev'\cf1\highlight2 
+\par \cf0\highlight0 make is already the newest version (4.2.1-1.2).\cf1\highlight2 
+\par \cf0\highlight0 zip is already the newest version (3.0-11build1).\cf1\highlight2 
+\par \cf0\highlight0 python-dev-is-python2 is already the newest version (2.7.17-4).\cf1\highlight2 
+\par \cf0\highlight0 apt-transport-https is already the newest version (2.0.9).\cf1\highlight2 
+\par \cf0\highlight0 virtualenv is already the newest version (20.0.17-1ubuntu0.4).\cf1\highlight2 
+\par \cf0\highlight0 The following additional packages will be installed:\cf1\highlight2 
+\par \cf0\highlight0   libcurl4 libcurl4-openssl-dev python-pip-whl python3-software-properties\cf1\highlight2 
+\par \cf0\highlight0 Suggested packages:\cf1\highlight2 
+\par \cf0\highlight0   git-daemon-run | git-daemon-sysvinit git-doc git-el git-email git-gui gitk gitweb git-cvs git-mediawiki git-svn libcurl4-doc\cf1\highlight2 
+\par \cf0\highlight0   libidn11-dev libldap2-dev librtmp-dev libssh2-1-dev\cf1\highlight2 
+\par \cf0\highlight0 Recommended packages:\cf1\highlight2 
+\par \cf0\highlight0   unattended-upgrades\cf1\highlight2 
+\par \cf0\highlight0 The following packages will be upgraded:\cf1\highlight2 
+\par \cf0\highlight0   curl git libcurl4 libcurl4-openssl-dev python-pip-whl python3-pip python3-software-properties rsync software-properties-common\cf1\highlight2 
+\par \cf0\highlight0 9 upgraded, 0 newly installed, 0 to remove and 141 not upgraded.\cf1\highlight2 
+\par \cf0\highlight0 Need to get 7,713 kB of archives.\cf1\highlight2 
+\par \cf0\highlight0 After this operation, 253 kB of additional disk space will be used.\cf1\highlight2 
+\par \cf0\highlight0 Get:1 http://us.archive.ubuntu.com/ubuntu focal-updates/main amd64 rsync amd64 3.1.3-8ubuntu0.5 [322 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:2 http://us.archive.ubuntu.com/ubuntu focal-updates/main amd64 libcurl4-openssl-dev amd64 7.68.0-1ubuntu2.18 [322 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:3 http://us.archive.ubuntu.com/ubuntu focal-updates/main amd64 curl amd64 7.68.0-1ubuntu2.18 [161 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:4 http://us.archive.ubuntu.com/ubuntu focal-updates/main amd64 libcurl4 amd64 7.68.0-1ubuntu2.18 [236 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:5 http://us.archive.ubuntu.com/ubuntu focal-updates/main amd64 git amd64 1:2.25.1-1ubuntu3.11 [4,605 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:6 http://us.archive.ubuntu.com/ubuntu focal-updates/universe amd64 python3-pip all 20.0.2-5ubuntu1.8 [231 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:7 http://us.archive.ubuntu.com/ubuntu focal-updates/universe amd64 python-pip-whl all 20.0.2-5ubuntu1.8 [1,805 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:8 http://us.archive.ubuntu.com/ubuntu focal-updates/main amd64 software-properties-common all 0.99.9.11 [10.4 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:9 http://us.archive.ubuntu.com/ubuntu focal-updates/main amd64 python3-software-properties all 0.99.9.11 [21.6 kB]\cf1\highlight2 
+\par \cf0\highlight0 Fetched 7,713 kB in 44s (177 kB/s)\cf1\highlight2 
+\par \cf0\highlight0 (Reading database ... 148190 files and directories currently installed.)\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../0-rsync_3.1.3-8ubuntu0.5_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking rsync (3.1.3-8ubuntu0.5) over (3.1.3-8ubuntu0.4) ...\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../1-libcurl4-openssl-dev_7.68.0-1ubuntu2.18_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking libcurl4-openssl-dev:amd64 (7.68.0-1ubuntu2.18) over (7.68.0-1ubuntu2.14) ...\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../2-curl_7.68.0-1ubuntu2.18_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking curl (7.68.0-1ubuntu2.18) over (7.68.0-1ubuntu2.14) ...\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../3-libcurl4_7.68.0-1ubuntu2.18_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking libcurl4:amd64 (7.68.0-1ubuntu2.18) over (7.68.0-1ubuntu2.14) ...\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../4-git_1%3a2.25.1-1ubuntu3.11_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking git (1:2.25.1-1ubuntu3.11) over (1:2.25.1-1ubuntu3.6) ...\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../5-python3-pip_20.0.2-5ubuntu1.8_all.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking python3-pip (20.0.2-5ubuntu1.8) over (20.0.2-5ubuntu1.6) ...\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../6-python-pip-whl_20.0.2-5ubuntu1.8_all.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking python-pip-whl (20.0.2-5ubuntu1.8) over (20.0.2-5ubuntu1.6) ...\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../7-software-properties-common_0.99.9.11_all.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking software-properties-common (0.99.9.11) over (0.99.9.8) ...\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../8-python3-software-properties_0.99.9.11_all.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking python3-software-properties (0.99.9.11) over (0.99.9.8) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up python3-software-properties (0.99.9.11) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up git (1:2.25.1-1ubuntu3.11) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up libcurl4:amd64 (7.68.0-1ubuntu2.18) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up python-pip-whl (20.0.2-5ubuntu1.8) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up curl (7.68.0-1ubuntu2.18) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up rsync (3.1.3-8ubuntu0.5) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up software-properties-common (0.99.9.11) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up libcurl4-openssl-dev:amd64 (7.68.0-1ubuntu2.18) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up python3-pip (20.0.2-5ubuntu1.8) ...\cf1\highlight2 
+\par \cf0\highlight0 Processing triggers for systemd (245.4-4ubuntu3.19) ...\cf1\highlight2 
+\par \cf0\highlight0 Processing triggers for man-db (2.9.1-1) ...\cf1\highlight2 
+\par \cf0\highlight0 Processing triggers for dbus (1.12.16-2ubuntu2.3) ...\cf1\highlight2 
+\par \cf0\highlight0 Processing triggers for libc-bin (2.31-0ubuntu9.9) ...\cf1\highlight2 
+\par \cf0\highlight0 /sbin/ldconfig.real: /usr/local/lib/liblfds710.so.1 is not a symbolic link\cf1\highlight2 
+\par 
+\par \cf0\highlight0 + alias python=python3\cf1\highlight2 
+\par \cf0\highlight0 + pip3 install ansible==5.10.0\cf1\highlight2 
+\par \cf8\highlight0 WARNING: The directory '/home/vagrant/magma/.cache/pip' or its parent directory is not owned or is not writable by the current user. The cache has been disabled. Check the permissions and owner of that directory. If executing pip with sudo, you may want sudo's -H flag.\cf1\highlight2 
+\par \cf0\highlight0 Collecting ansible==5.10.0\cf1\highlight2 
+\par \cf0\highlight0   Downloading ansible-5.10.0.tar.gz (36.9 MB)\cf1\highlight2 
+\par \cf0\highlight0      |################################| 36.9 MB 11.7 MB/s\cf1\highlight2 
+\par \cf0\highlight0 Collecting ansible-core~=2.12.7\cf1\highlight2 
+\par \cf0\highlight0   Downloading ansible-core-2.12.10.tar.gz (7.8 MB)\cf1\highlight2 
+\par \cf0\highlight0      |################################| 7.8 MB 13.4 MB/s\cf1\highlight2 
+\par \cf7\highlight0 ERROR: Exception:\cf1\highlight2 
+\par \cf7\highlight0 Traceback (most recent call last):\cf1\highlight2 
+\par \cf7\highlight0   File "/home/vagrant/build/python/lib/python3.8/site-packages/pip/_internal/cli/base_command.py", line 186, in _main\cf1\highlight2 
+\par \cf7\highlight0     status = self.run(options, args)\cf1\highlight2 
+\par \cf7\highlight0   File "/home/vagrant/build/python/lib/python3.8/site-packages/pip/_internal/commands/install.py", line 357, in run\cf1\highlight2 
+\par \cf7\highlight0     resolver.resolve(requirement_set)\cf1\highlight2 
+\par \cf7\highlight0   File "/home/vagrant/build/python/lib/python3.8/site-packages/pip/_internal/legacy_resolve.py", line 177, in resolve\cf1\highlight2 
+\par \cf7\highlight0     discovered_reqs.extend(self._resolve_one(requirement_set, req))\cf1\highlight2 
+\par \cf7\highlight0   File "/home/vagrant/build/python/lib/python3.8/site-packages/pip/_internal/legacy_resolve.py", line 333, in _resolve_one\cf1\highlight2 
+\par \cf7\highlight0     abstract_dist = self._get_abstract_dist_for(req_to_install)\cf1\highlight2 
+\par \cf7\highlight0   File "/home/vagrant/build/python/lib/python3.8/site-packages/pip/_internal/legacy_resolve.py", line 282, in _get_abstract_dist_for\cf1\highlight2 
+\par \cf7\highlight0     abstract_dist = self.preparer.prepare_linked_requirement(req)\cf1\highlight2 
+\par \cf7\highlight0   File "/home/vagrant/build/python/lib/python3.8/site-packages/pip/_internal/operations/prepare.py", line 480, in prepare_linked_requirement\cf1\highlight2 
+\par \cf7\highlight0     local_path = unpack_url(\cf1\highlight2 
+\par \cf7\highlight0   File "/home/vagrant/build/python/lib/python3.8/site-packages/pip/_internal/operations/prepare.py", line 282, in unpack_url\cf1\highlight2 
+\par \cf7\highlight0     return unpack_http_url(\cf1\highlight2 
+\par \cf7\highlight0   File "/home/vagrant/build/python/lib/python3.8/site-packages/pip/_internal/operations/prepare.py", line 164, in unpack_http_url\cf1\highlight2 
+\par \cf7\highlight0     unpack_file(from_path, location, content_type)\cf1\highlight2 
+\par \cf7\highlight0   File "/home/vagrant/build/python/lib/python3.8/site-packages/pip/_internal/utils/unpacking.py", line 261, in unpack_file\cf1\highlight2 
+\par \cf7\highlight0     untar_file(filename, location)\cf1\highlight2 
+\par \cf7\highlight0   File "/home/vagrant/build/python/lib/python3.8/site-packages/pip/_internal/utils/unpacking.py", line 222, in untar_file\cf1\highlight2 
+\par \cf7\highlight0     with open(path, 'wb') as destfp:\cf1\highlight2 
+\par \cf7\highlight0 UnicodeEncodeError: 'latin-1' codec can't encode characters in position 104-107: ordinal not in range(256)\cf1\highlight2 
+\par \cf0\highlight0 + git clone https://github.com/magma/magma.git /home/magma/magma\cf1\highlight2 
+\par \cf0\highlight0 Cloning into '/home/magma/magma'...\cf1\highlight2 
+\par \cf0\highlight0 remote: Enumerating objects: 312197, done.\cf1\highlight2 
+\par \cf0\highlight0 remote: Counting objects: 100% (1201/1201), done.\cf1\highlight2 
+\par \cf0\highlight0 remote: Compressing objects: 100% (307/307), done.\cf1\highlight2 
+\par \cf0\highlight0 remote: Total 312197 (delta 534), reused 1095 (delta 476), pack-reused 310996\cf1\highlight2 
+\par \cf0\highlight0 Receiving objects: 100% (312197/312197), 263.85 MiB | 5.93 MiB/s, done.\cf1\highlight2 
+\par \cf0\highlight0 Resolving deltas: 100% (210727/210727), done.\cf1\highlight2 
+\par \cf0\highlight0 Updating files: 100% (9216/9216), done.\cf1\highlight2 
+\par \cf0\highlight0 + cd /home/magma/magma\cf1\highlight2 
+\par \cf0\highlight0 + git checkout v1.8\cf1\highlight2 
+\par \cf0\highlight0 Branch 'v1.8' set up to track remote branch 'v1.8' from 'origin'.\cf1\highlight2 
+\par \cf0\highlight0 Switched to a new branch 'v1.8'\cf1\highlight2 
+\par \cf0\highlight0 + echo 'Generating localhost hostfile for Ansible'\cf1\highlight2 
+\par \cf0\highlight0 Generating localhost hostfile for Ansible\cf1\highlight2 
+\par \cf0\highlight0 + echo '[magma_deploy]\cf1\highlight2 
+\par \cf0\highlight0   127.0.0.1 ansible_connection=local'\cf1\highlight2 
+\par \cf0\highlight0 + su - magma -c 'ansible-playbook -e "MAGMA_ROOT='\\''/home/magma/magma'\\'' OUTPUT_DIR='\\''/tmp'\\''" -i /home/magma/magma/lte/gateway/deploy/agw_hosts /home/magma/magma/lte/gateway/deploy/magma_deploy.yml'\cf1\highlight2 
+\par \cf0\highlight0 -bash: ansible-playbook: command not found\cf1\highlight2 
+\par \cf0\highlight0 + echo 'Cleanup temp files'\cf1\highlight2 
+\par \cf0\highlight0 Cleanup temp files\cf1\highlight2 
+\par \cf0\highlight0 + cd /root\cf1\highlight2 
+\par \cf0\highlight0 + rm -rf /lib/systemd/system/agw_installation.service\cf1\highlight2 
+\par \cf0\highlight0 + rm -rf /home/magma/build\cf1\highlight2 
+\par \cf0\highlight0 + rm -rf /home/magma/magma\cf1\highlight2 
+\par \cf0\highlight0 + echo 'AGW installation is done, Run agw_post_install_ubuntu.sh install script after reboot to finish installation'\cf1\highlight2 
+\par \cf0\highlight0 AGW installation is done, Run agw_post_install_ubuntu.sh install script after reboot to finish installation\cf1\highlight2 
+\par \cf0\highlight0 + wget https://raw.githubusercontent.com/magma/magma/v1.8/lte/gateway/deploy/agw_post_install_ubuntu.sh -P /root/\cf1\highlight2 
+\par \cf0\highlight0 --2023-05-31 10:53:12--  https://raw.githubusercontent.com/magma/magma/v1.8/lte/gateway/deploy/agw_post_install_ubuntu.sh\cf1\highlight2 
+\par \cf0\highlight0 Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.110.133, 185.199.108.133, 185.199.109.133, ...\cf1\highlight2 
+\par \cf0\highlight0 Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.110.133|:443... connected.\cf1\highlight2 
+\par \cf0\highlight0 HTTP request sent, awaiting response... 200 OK\cf1\highlight2 
+\par \cf0\highlight0 Length: 4565 (4.5K) [text/plain]\cf1\highlight2 
+\par \cf0\highlight0 Saving to: '/root/agw_post_install_ubuntu.sh'\cf1\highlight2 
+\par 
+\par \cf0\highlight0 agw_post_install_ubuntu.sh         100%[=============================================================>]   4.46K  --.-KB/s    in 0s\cf1\highlight2 
+\par 
+\par \cf0\highlight0 2023-05-31 10:53:12 (17.3 MB/s) - '/root/agw_post_install_ubuntu.sh' saved [4565/4565]\cf1\highlight2 
+\par 
+\par \cf0\highlight0 + reboot\cf1\highlight2 
+\par \cf0\highlight0 Connection to 127.0.0.1 closed by remote host.\cf1\highlight2 
+\par \cf0\highlight0 Connection to 127.0.0.1 closed.\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_dp/magma/lte/gateway$ vagrant ssh magma\cf1\highlight2 
+\par \cf0\highlight0 Welcome to Ubuntu 20.04.5 LTS (GNU/Linux 5.4.0-135-generic x86_64)\cf1\highlight2 
+\par 
+\par \cf0\highlight0  * Documentation:  https://help.ubuntu.com\cf1\highlight2 
+\par \cf0\highlight0  * Management:     https://landscape.canonical.com\cf1\highlight2 
+\par \cf0\highlight0  * Support:        https://ubuntu.com/advantage\cf1\highlight2 
+\par \cf0\highlight0 Last login: Wed May 31 10:48:52 2023 from 10.0.2.2\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:~$\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:~$\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:~$ apt list -i| grep magma\cf1\highlight2 
+\par 
+\par \cf0\highlight0 WARNING: apt does not have a stable CLI interface. Use with caution in scripts.\cf1\highlight2 
+\par 
+\par \cf0\highlight0 libopenvswitch-dev/focal-ci,now 2.15.4-10-\cf9 magma\cf0  amd64 [installed]\cf1\highlight2 
+\par \cf0\highlight0 libopenvswitch/focal-ci,now 2.15.4-10-\cf9 magma\cf0  amd64 [installed]\cf1\highlight2 
+\par \cf9\highlight0 magma\cf0 -cpp-redis/focal-ci,focal-ci,now 4.3.1.1-2 amd64 [installed]\cf1\highlight2 
+\par \cf9\highlight0 magma\cf0 -libfluid/focal-ci,now 0.1.0.7-1 amd64 [installed]\cf1\highlight2 
+\par \cf9\highlight0 magma\cf0 -libtacopie/focal-ci,focal-ci,now 3.2.0.1-1 amd64 [installed,automatic]\cf1\highlight2 
+\par \cf9\highlight0 magma\cf0 -nghttpx/focal-ci,focal-ci,now 1.31.1-1 amd64 [installed]\cf1\highlight2 
+\par \cf0\highlight0 openvswitch-common/focal-ci,now 2.15.4-10-\cf9 magma\cf0  amd64 [installed]\cf1\highlight2 
+\par \cf0\highlight0 openvswitch-datapath-dkms/focal-ci,focal-ci,now 2.15.4-10-\cf9 magma\cf0  all [installed]\cf1\highlight2 
+\par \cf0\highlight0 openvswitch-switch/focal-ci,now 2.15.4-10-\cf9 magma\cf0  amd64 [installed]\cf1\highlight2 
+\par \cf0\highlight0 openvswitch-test/focal-ci,focal-ci,now 2.15.4-10-\cf9 magma\cf0  all [installed]\cf1\highlight2 
+\par \cf0\highlight0 python3-openvswitch/focal-ci,focal-ci,now 2.15.4-10-\cf9 magma\cf0  all [installed]\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:~$ cd /etc/apt/sources.list.d/\cf1\highlight2 
+\par \cf0\highlight0\f1 cal-ci mainma-dev:/etc/apt/sources.list.d$ add-apt- repository \lquote deb https://linuxfoundation.jfrog.io/artifactory/magma-packages-test foc\cf1\highlight2\f0 
+\par \cf0\highlight0 vagrant@magma-dev:/etc/apt/sources.list.d$ ls\cf1\highlight2 
+\par \cf0\highlight0 magma.list\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:/etc/apt/sources.list.d$ vi magma.list\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:/etc/apt/sources.list.d$\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:/etc/apt/sources.list.d$ wget -qO - https://linuxfoundation.jfrog.io/artifactory/api/security/keypair/magmaci/public | apt-key add -\cf1\highlight2 
+\par \cf0\highlight0 E: This command can only be used by root.\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:/etc/apt/sources.list.d$ sudo wget -qO - https://linuxfoundation.jfrog.io/artifactory/api/security/keypair/magmaci/public | apt-key add -\cf1\highlight2 
+\par \cf0\highlight0 E: This command can only be used by root.\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:/etc/apt/sources.list.d$ sudo su\cf1\highlight2 
+\par \cf0\highlight0 root@magma-dev:/etc/apt/sources.list.d# wget -qO - https://linuxfoundation.jfrog.io/artifactory/api/security/keypair/magmaci/public | apt-key add -\cf1\highlight2 
+\par \cf0\highlight0 OK\cf1\highlight2 
+\par \cf0\highlight0 root@magma-dev:/etc/apt/sources.list.d# exit\cf1\highlight2 
+\par \cf0\highlight0 exit\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:/etc/apt/sources.list.d$ sudo service magma@* stop\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:/etc/apt/sources.list.d$ sudo apt remove magma\cf1\highlight2 
+\par \cf0\highlight0 Reading package lists... Done\cf1\highlight2 
+\par \cf0\highlight0 Building dependency tree\cf1\highlight2 
+\par \cf0\highlight0 Reading state information... Done\cf1\highlight2 
+\par \cf0\highlight0 Package 'magma' is not installed, so not removed\cf1\highlight2 
+\par \cf0\highlight0 0 upgraded, 0 newly installed, 0 to remove and 141 not upgraded.\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:/etc/apt/sources.list.d$ sudo apt autoremove\cf1\highlight2 
+\par \cf0\highlight0 Reading package lists... Done\cf1\highlight2 
+\par \cf0\highlight0 Building dependency tree\cf1\highlight2 
+\par \cf0\highlight0 Reading state information... Done\cf1\highlight2 
+\par \cf0\highlight0 0 upgraded, 0 newly installed, 0 to remove and 141 not upgraded.\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:/etc/apt/sources.list.d$ ls\cf1\highlight2 
+\par \cf0\highlight0 magma.list\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:/etc/apt/sources.list.d$ cd ..\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:/etc/apt$ cd ..\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:/etc$ cd ..\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:/$ cd ..\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:/$ exit\cf1\highlight2 
+\par \cf0\highlight0 logout\cf1\highlight2 
+\par \cf0\highlight0 Connection to 127.0.0.1 closed.\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_dp/magma/lte/gateway$ vagrant ssh magma\cf1\highlight2 
+\par \cf0\highlight0 Welcome to Ubuntu 20.04.5 LTS (GNU/Linux 5.4.0-135-generic x86_64)\cf1\highlight2 
+\par 
+\par \cf0\highlight0  * Documentation:  https://help.ubuntu.com\cf1\highlight2 
+\par \cf0\highlight0  * Management:     https://landscape.canonical.com\cf1\highlight2 
+\par \cf0\highlight0  * Support:        https://ubuntu.com/advantage\cf1\highlight2 
+\par \cf0\highlight0 Last login: Wed May 31 10:53:40 2023 from 10.0.2.2\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:~$ sudo apt-get update\cf1\highlight2 
+\par \cf0\highlight0 Hit:1 http://us.archive.ubuntu.com/ubuntu focal InRelease\cf1\highlight2 
+\par \cf0\highlight0 Hit:2 http://security.ubuntu.com/ubuntu focal-security InRelease\cf1\highlight2 
+\par \cf0\highlight0 Get:3 http://us.archive.ubuntu.com/ubuntu focal-updates InRelease [114 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:4 http://us.archive.ubuntu.com/ubuntu focal-backports InRelease [108 kB]\cf1\highlight2 
+\par \cf0\highlight0 Hit:5 https://linuxfoundation.jfrog.io/artifactory/magma-packages-test focal-ci InRelease\cf1\highlight2 
+\par \cf0\highlight0 Fetched 222 kB in 2s (103 kB/s)\cf1\highlight2 
+\par \cf0\highlight0 Reading package lists... Done\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:~$ sudo apt install magma\cf1\highlight2 
+\par \cf0\highlight0 Reading package lists... Done\cf1\highlight2 
+\par \cf0\highlight0 Building dependency tree\cf1\highlight2 
+\par \cf0\highlight0 Reading state information... Done\cf1\highlight2 
+\par \cf0\highlight0 The following packages were automatically installed and are no longer required:\cf1\highlight2 
+\par \cf0\highlight0   python3-dnspython python3-eventlet python3-greenlet\cf1\highlight2 
+\par \cf0\highlight0 Use 'sudo apt autoremove' to remove them.\cf1\highlight2 
+\par \cf0\highlight0 The following additional packages will be installed:\cf1\highlight2 
+\par \cf0\highlight0   magma-dhcp-cli magma-sctpd nghttp2-proxy sentry-native wireguard wireguard-tools\cf1\highlight2 
+\par \cf0\highlight0 Suggested packages:\cf1\highlight2 
+\par \cf0\highlight0   openresolv | resolvconf\cf1\highlight2 
+\par \cf0\highlight0 The following packages will be REMOVED:\cf1\highlight2 
+\par \cf0\highlight0   python3-aioeventlet\cf1\highlight2 
+\par \cf0\highlight0 The following NEW packages will be installed:\cf1\highlight2 
+\par \cf0\highlight0   magma magma-dhcp-cli magma-sctpd nghttp2-proxy sentry-native wireguard wireguard-tools\cf1\highlight2 
+\par \cf0\highlight0 0 upgraded, 7 newly installed, 1 to remove and 141 not upgraded.\cf1\highlight2 
+\par \cf0\highlight0 Need to get 145 MB of archives.\cf1\highlight2 
+\par \cf0\highlight0 After this operation, 8,769 kB of additional disk space will be used.\cf1\highlight2 
+\par \cf0\highlight0 Do you want to continue? [Y/n] y\cf1\highlight2 
+\par \cf0\highlight0 Get:1 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 nghttp2-proxy amd64 1.40.0-1build1 [373 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:6 http://us.archive.ubuntu.com/ubuntu focal-updates/universe amd64 wireguard-tools amd64 1.0.20200513-1~20.04.2 [83.3 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:7 http://us.archive.ubuntu.com/ubuntu focal-updates/universe amd64 wireguard all 1.0.20200513-1~20.04.2 [3,264 B]\cf1\highlight2 
+\par \cf0\highlight0 Get:2 https://linuxfoundation.jfrog.io/artifactory/magma-packages-test focal-ci/main amd64 magma-dhcp-cli amd64 1.9.0-1683050472-94137ddd [6,042 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:3 https://linuxfoundation.jfrog.io/artifactory/magma-packages-test focal-ci/main amd64 sentry-native amd64 0.4.12-1 [2,297 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:4 https://linuxfoundation.jfrog.io/artifactory/magma-packages-test focal-ci/main amd64 magma-sctpd amd64 1.9.0-1683050472-94137ddd [7,570 kB]\cf1\highlight2 
+\par \cf0\highlight0 Get:5 https://linuxfoundation.jfrog.io/artifactory/magma-packages-test focal-ci/main amd64 magma amd64 1.9.0-1683050472-94137ddd [128 MB]\cf1\highlight2 
+\par \cf0\highlight0 Fetched 145 MB in 1min 9s (2,093 kB/s)\cf1\highlight2 
+\par \cf0\highlight0 (Reading database ... 148187 files and directories currently installed.)\cf1\highlight2 
+\par \cf0\highlight0 Removing python3-aioeventlet (0.5.1-2) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package nghttp2-proxy.\cf1\highlight2 
+\par \cf0\highlight0 (Reading database ... 148178 files and directories currently installed.)\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../0-nghttp2-proxy_1.40.0-1build1_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking nghttp2-proxy (1.40.0-1build1) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package magma-dhcp-cli.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../1-magma-dhcp-cli_1.9.0-1683050472-94137ddd_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking magma-dhcp-cli (1.9.0-1683050472-94137ddd) ...\cf1\highlight2 
+\par \cf0\highlight0\b dpkg:\b0  error processing archive /tmp/apt-dpkg-install-AY2mUP/1-magma-dhcp-cli_1.9.0-1683050472-94137ddd_amd64.deb (--unpack):\cf1\highlight2 
+\par \cf0\highlight0  trying to overwrite '/usr/local/lib/python3.8/dist-packages/scapy/VERSION', which is also in package python3-scapy 2.4.5\cf1\highlight2 
+\par \cf0\highlight0\b dpkg-deb:\b0  \cf9 error:\cf0  paste subprocess was killed by signal (Broken pipe)\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package sentry-native.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../2-sentry-native_0.4.12-1_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking sentry-native (0.4.12-1) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package wireguard-tools.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../3-wireguard-tools_1.0.20200513-1~20.04.2_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking wireguard-tools (1.0.20200513-1~20.04.2) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package wireguard.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../4-wireguard_1.0.20200513-1~20.04.2_all.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking wireguard (1.0.20200513-1~20.04.2) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package magma-sctpd.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../5-magma-sctpd_1.9.0-1683050472-94137ddd_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking magma-sctpd (1.9.0-1683050472-94137ddd) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package magma.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../6-magma_1.9.0-1683050472-94137ddd_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking magma (1.9.0-1683050472-94137ddd) ...\cf1\highlight2 
+\par \cf0\highlight0 Replacing files in old package python3-click (7.1.2) ...\cf1\highlight2 
+\par \cf0\highlight0 Replacing files in old package python3-eventlet (0.30.2) ...\cf1\highlight2 
+\par \cf0\highlight0 Replacing files in old package python3-greenlet (1.1.1) ...\cf1\highlight2 
+\par \cf0\highlight0 Replacing files in old package python3-lxml (4.9.1) ...\cf1\highlight2 
+\par \cf0\highlight0 Replacing files in old package python3-psutil (5.9.1) ...\cf1\highlight2 
+\par \cf0\highlight0\b dpkg:\b0  error processing archive /tmp/apt-dpkg-install-AY2mUP/6-magma_1.9.0-1683050472-94137ddd_amd64.deb (--unpack):\cf1\highlight2 
+\par \cf0\highlight0  trying to overwrite '/usr/local/lib/python3.8/dist-packages/typing_extensions.py', which is also in package python3-typing-extensions 3.7.4.3\cf1\highlight2 
+\par \cf0\highlight0\b dpkg-deb:\b0  \cf9 error:\cf0  paste subprocess was killed by signal (Broken pipe)\cf1\highlight2 
+\par \cf0\highlight0 Errors were encountered while processing:\cf1\highlight2 
+\par \cf0\highlight0  /tmp/apt-dpkg-install-AY2mUP/1-magma-dhcp-cli_1.9.0-1683050472-94137ddd_amd64.deb\cf1\highlight2 
+\par \cf0\highlight0  /tmp/apt-dpkg-install-AY2mUP/6-magma_1.9.0-1683050472-94137ddd_amd64.deb\cf1\highlight2 
+\par \cf9\highlight0 E: \cf0 Sub-process /usr/bin/dpkg returned an error code (1)\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:~$\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:~$\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:~$ sudo apt install -y magma -o Dpkg::Options: ="--force-overwrite"\cf1\highlight2 
+\par \cf9\highlight0 E: \cf0 Option Dpkg::Options:: Configuration item specification must have an =<val>.\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:~$ sudo apt install -y magma -o Dpkg::Options: ="--force-overwrite"^C\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:~$ sudo apt remove python3-scapy\cf1\highlight2 
+\par \cf0\highlight0 Reading package lists... Done\cf1\highlight2 
+\par \cf0\highlight0 Building dependency tree\cf1\highlight2 
+\par \cf0\highlight0 Reading state information... Done\cf1\highlight2 
+\par \cf0\highlight0 The following packages were automatically installed and are no longer required:\cf1\highlight2 
+\par \cf0\highlight0   magma-sctpd nghttp2-proxy python3-dnspython python3-eventlet python3-greenlet sentry-native wireguard wireguard-tools\cf1\highlight2 
+\par \cf0\highlight0 Use 'sudo apt autoremove' to remove them.\cf1\highlight2 
+\par \cf0\highlight0 The following packages will be REMOVED:\cf1\highlight2 
+\par \cf0\highlight0   python3-scapy\cf1\highlight2 
+\par \cf0\highlight0 0 upgraded, 0 newly installed, 1 to remove and 141 not upgraded.\cf1\highlight2 
+\par \cf0\highlight0 5 not fully installed or removed.\cf1\highlight2 
+\par \cf0\highlight0 After this operation, 5,705 kB disk space will be freed.\cf1\highlight2 
+\par \cf0\highlight0 Do you want to continue? [Y/n] y\cf1\highlight2 
+\par \cf0\highlight0 (Reading database ... 148297 files and directories currently installed.)\cf1\highlight2 
+\par \cf0\highlight0 Removing python3-scapy (2.4.5) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up sentry-native (0.4.12-1) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up nghttp2-proxy (1.40.0-1build1) ...\cf1\highlight2 
+\par \cf0\highlight0 Created symlink /etc/systemd/system/multi-user.target.wants/nghttpx.service -> /lib/systemd/system/nghttpx.service.\cf1\highlight2 
+\par \cf0\highlight0 Setting up wireguard-tools (1.0.20200513-1~20.04.2) ...\cf1\highlight2 
+\par \cf0\highlight0 wg-quick.target is a disabled or a static unit, not starting it.\cf1\highlight2 
+\par \cf0\highlight0 Setting up magma-sctpd (1.9.0-1683050472-94137ddd) ...\cf1\highlight2 
+\par \cf0\highlight0 Setting up wireguard (1.0.20200513-1~20.04.2) ...\cf1\highlight2 
+\par \cf0\highlight0 Processing triggers for systemd (245.4-4ubuntu3.19) ...\cf1\highlight2 
+\par \cf0\highlight0 Processing triggers for man-db (2.9.1-1) ...\cf1\highlight2 
+\par \cf0\highlight0 Processing triggers for rsyslog (8.2001.0-1ubuntu1.3) ...\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:~$ ar x /tmp/apt-dpkg-install-AY2mUP/1-magma-dhcp-cli_1.9.0-1683050472-94137ddd_amd64.deb\cf1\highlight2 
+\par \cf0\highlight0 ar: /tmp/apt-dpkg-install-AY2mUP/1-magma-dhcp-cli_1.9.0-1683050472-94137ddd_amd64.deb: No such file or directory\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:~$ ar x /tmp/apt-dpkg-install-AY2mUP/1-magma-dhcp-cli_1.9.0-1683050472-94137ddd_amd64.deb^C\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:~$\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:~$\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:~$\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:~$ sudo service magma@mme status\cf1\highlight2 
+\par \cf0\highlight0 * magma@mme.service - Magma OAI MME service\cf1\highlight2 
+\par \cf0\highlight0      Loaded: loaded (/etc/systemd/system/magma@mme.service; disabled; vendor preset: enabled)\cf1\highlight2 
+\par \cf0\highlight0      Active: inactive (dead)\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:~$ sudo service magma@mme status\cf1\highlight2 
+\par \cf0\highlight0 * magma@mme.service - Magma OAI MME service\cf1\highlight2 
+\par \cf0\highlight0      Loaded: loaded (/etc/systemd/system/magma@mme.service; disabled; vendor preset: enabled)\cf1\highlight2 
+\par \cf0\highlight0      Active: inactive (dead)\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:~$ apt list -i | grep magma\cf1\highlight2 
+\par 
+\par \cf0\highlight0 WARNING: apt does not have a stable CLI interface. Use with caution in scripts.\cf1\highlight2 
+\par 
+\par \cf0\highlight0 libopenvswitch-dev/focal-ci,now 2.15.4-10-\cf9 magma\cf0  amd64 [installed]\cf1\highlight2 
+\par \cf0\highlight0 libopenvswitch/focal-ci,now 2.15.4-10-\cf9 magma\cf0  amd64 [installed]\cf1\highlight2 
+\par \cf9\highlight0 magma\cf0 -cpp-redis/focal-ci,focal-ci,now 4.3.1.1-2 amd64 [installed]\cf1\highlight2 
+\par \cf9\highlight0 magma\cf0 -libfluid/focal-ci,now 0.1.0.7-1 amd64 [installed]\cf1\highlight2 
+\par \cf9\highlight0 magma\cf0 -libtacopie/focal-ci,focal-ci,now 3.2.0.1-1 amd64 [installed,automatic]\cf1\highlight2 
+\par \cf9\highlight0 magma\cf0 -nghttpx/focal-ci,focal-ci,now 1.31.1-1 amd64 [installed]\cf1\highlight2 
+\par \cf9\highlight0 magma\cf0 -sctpd/focal-ci,now 1.9.0-1683050472-94137ddd amd64 [installed,auto-removable]\cf1\highlight2 
+\par \cf0\highlight0 openvswitch-common/focal-ci,now 2.15.4-10-\cf9 magma\cf0  amd64 [installed]\cf1\highlight2 
+\par \cf0\highlight0 openvswitch-datapath-dkms/focal-ci,focal-ci,now 2.15.4-10-\cf9 magma\cf0  all [installed]\cf1\highlight2 
+\par \cf0\highlight0 openvswitch-switch/focal-ci,now 2.15.4-10-\cf9 magma\cf0  amd64 [installed]\cf1\highlight2 
+\par \cf0\highlight0 openvswitch-test/focal-ci,focal-ci,now 2.15.4-10-\cf9 magma\cf0  all [installed]\cf1\highlight2 
+\par \cf0\highlight0 python3-openvswitch/focal-ci,focal-ci,now 2.15.4-10-\cf9 magma\cf0  all [installed]\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:~$ ^C\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:~$ sudo su\cf1\highlight2 
+\par \cf0\highlight0 root@magma-dev:/home/vagrant# wget https://raw.githubusercontent.com/magma/magma/v1.8/lte/gateway/deploy/agw_install_ubuntu.sh\cf1\highlight2 
+\par \cf0\highlight0 --2023-05-31 11:32:35--  https://raw.githubusercontent.com/magma/magma/v1.8/lte/gateway/deploy/agw_install_ubuntu.sh\cf1\highlight2 
+\par \cf0\highlight0 Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.108.133, 185.199.111.133, 185.199.109.133, ...\cf1\highlight2 
+\par \cf0\highlight0 Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.108.133|:443... connected.\cf1\highlight2 
+\par \cf0\highlight0 HTTP request sent, awaiting response... 200 OK\cf1\highlight2 
+\par \cf0\highlight0 Length: 6871 (6.7K) [text/plain]\cf1\highlight2 
+\par \cf0\highlight0 Saving to: 'agw_install_ubuntu.sh.1'\cf1\highlight2 
+\par 
+\par \cf0\highlight0 agw_install_ubuntu.sh.1            100%[=============================================================>]   6.71K  --.-KB/s    in 0s\cf1\highlight2 
+\par 
+\par \cf0\highlight0 2023-05-31 11:32:35 (32.0 MB/s) - 'agw_install_ubuntu.sh.1' saved [6871/6871]\cf1\highlight2 
+\par 
+\par \cf0\highlight0 root@magma-dev:/home/vagrant# bash agw_install_ubuntu.sh\cf1\highlight2 
+\par \cf0\highlight0 + addr1=\cf1\highlight2 
+\par \cf0\highlight0 + gw_addr=\cf1\highlight2 
+\par \cf0\highlight0 + MAGMA_USER=magma\cf1\highlight2 
+\par \cf0\highlight0 + AGW_INSTALL_CONFIG_LINK=/etc/systemd/system/multi-user.target.wants/agw_installation.service\cf1\highlight2 
+\par \cf0\highlight0 + AGW_INSTALL_CONFIG=/lib/systemd/system/agw_installation.service\cf1\highlight2 
+\par \cf0\highlight0 + AGW_SCRIPT_PATH=/root/agw_install_ubuntu.sh\cf1\highlight2 
+\par \cf0\highlight0 + DEPLOY_PATH=/home/magma/magma/lte/gateway/deploy\cf1\highlight2 
+\par \cf0\highlight0 + SUCCESS_MESSAGE=ok\cf1\highlight2 
+\par \cf0\highlight0 + NEED_REBOOT=0\cf1\highlight2 
+\par \cf0\highlight0 ++ whoami\cf1\highlight2 
+\par \cf0\highlight0 + WHOAMI=root\cf1\highlight2 
+\par \cf0\highlight0 + MAGMA_VERSION=v1.8\cf1\highlight2 
+\par \cf0\highlight0 + CLOUD_INSTALL=cloud\cf1\highlight2 
+\par \cf0\highlight0 + GIT_URL=https://github.com/magma/magma.git\cf1\highlight2 
+\par \cf0\highlight0 + INTERFACE_DIR=/etc/network/interfaces.d\cf1\highlight2 
+\par \cf0\highlight0 + echo 'Checking if the script has been executed by root user'\cf1\highlight2 
+\par \cf0\highlight0 Checking if the script has been executed by root user\cf1\highlight2 
+\par \cf0\highlight0 + '[' root '!=' root ']'\cf1\highlight2 
+\par \cf0\highlight0 + echo 'Checking if Ubuntu is installed'\cf1\highlight2 
+\par \cf0\highlight0 Checking if Ubuntu is installed\cf1\highlight2 
+\par \cf0\highlight0 + grep -q Ubuntu /etc/issue\cf1\highlight2 
+\par \cf0\highlight0 + '[' '' '!=' ok ']'\cf1\highlight2 
+\par \cf0\highlight0 + wget https://raw.githubusercontent.com/magma/magma/v1.8/lte/gateway/deploy/agw_pre_check_ubuntu.sh\cf1\highlight2 
+\par \cf0\highlight0 --2023-05-31 11:32:44--  https://raw.githubusercontent.com/magma/magma/v1.8/lte/gateway/deploy/agw_pre_check_ubuntu.sh\cf1\highlight2 
+\par \cf0\highlight0 Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.111.133, 185.199.108.133, 185.199.109.133, ...\cf1\highlight2 
+\par \cf0\highlight0 Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.111.133|:443... connected.\cf1\highlight2 
+\par \cf0\highlight0 HTTP request sent, awaiting response... 200 OK\cf1\highlight2 
+\par \cf0\highlight0 Length: 1399 (1.4K) [text/plain]\cf1\highlight2 
+\par \cf0\highlight0 Saving to: 'agw_pre_check_ubuntu.sh.1'\cf1\highlight2 
+\par 
+\par \cf0\highlight0 agw_pre_check_ubuntu.sh.1          100%[=============================================================>]   1.37K  --.-KB/s    in 0s\cf1\highlight2 
+\par 
+\par \cf0\highlight0 2023-05-31 11:32:44 (12.2 MB/s) - 'agw_pre_check_ubuntu.sh.1' saved [1399/1399]\cf1\highlight2 
+\par 
+\par \cf0\highlight0 + [[ -f ./agw_pre_check_ubuntu.sh ]]\cf1\highlight2 
+\par \cf0\highlight0 + bash agw_pre_check_ubuntu.sh\cf1\highlight2 
+\par \cf0\highlight0 - Check if Ubuntu is installed\cf1\highlight2 
+\par \cf0\highlight0 Ubuntu is installed\cf1\highlight2 
+\par \cf0\highlight0 - Check for magma user\cf1\highlight2 
+\par \cf0\highlight0 magma user configured\cf1\highlight2 
+\par \cf0\highlight0 - Check if both interfaces are named eth0 and eth1\cf1\highlight2 
+\par \cf0\highlight0 + true\cf1\highlight2 
+\par \cf0\highlight0 + read -p 'Do you accept those modifications and want to proceed with magma installation?(y/n)' yn\cf1\highlight2 
+\par \cf0\highlight0 Do you accept those modifications and want to proceed with magma installation?(y/n)y\cf1\highlight2 
+\par \cf0\highlight0 + case $yn in\cf1\highlight2 
+\par \cf0\highlight0 + break\cf1\highlight2 
+\par \cf0\highlight0 + apt-get update\cf1\highlight2 
+\par \cf0\highlight0 Get:1 http://security.ubuntu.com/ubuntu focal-security InRelease [114 kB]\cf1\highlight2 
+\par \cf0\highlight0 Hit:2 http://us.archive.ubuntu.com/ubuntu focal InRelease\cf1\highlight2 
+\par \cf0\highlight0 Hit:3 http://us.archive.ubuntu.com/ubuntu focal-updates InRelease\cf1\highlight2 
+\par \cf0\highlight0 Hit:4 https://linuxfoundation.jfrog.io/artifactory/magma-packages-test focal-ci InRelease\cf1\highlight2 
+\par \cf0\highlight0 Hit:5 http://us.archive.ubuntu.com/ubuntu focal-backports InRelease\cf1\highlight2 
+\par \cf0\highlight0 Fetched 114 kB in 2s (63.1 kB/s)\cf1\highlight2 
+\par \cf0\highlight0 Reading package lists... Done\cf1\highlight2 
+\par \cf0\highlight0 + echo 'Need to check if both interfaces are named eth0 and eth1'\cf1\highlight2 
+\par \cf0\highlight0 Need to check if both interfaces are named eth0 and eth1\cf1\highlight2 
+\par \cf0\highlight0 ++ ip -br a\cf1\highlight2 
+\par \cf0\highlight0 + INTERFACES='lo               UNKNOWN        127.0.0.1/8 ::1/128\cf1\highlight2 
+\par \cf0\highlight0 eth0             UP             10.0.2.15/24 2020::10/64 fe80::a00:27ff:febb:58d1/64\cf1\highlight2 
+\par \cf0\highlight0 eth1             UP             192.168.60.142/24 fe80::a00:27ff:fe59:ed09/64\cf1\highlight2 
+\par \cf0\highlight0 eth2             UP             192.168.60.150/24 fe80::a00:27ff:fe80:b6e6/64\cf1\highlight2 
+\par \cf0\highlight0 eth3             UP             3001::10/64 fe80::a00:27ff:fe71:9f3e/64\cf1\highlight2 
+\par \cf0\highlight0 proxy_port_ns@proxy_port DOWN\cf1\highlight2 
+\par \cf0\highlight0 proxy_port@proxy_port_ns LOWERLAYERDOWN\cf1\highlight2 
+\par \cf0\highlight0 ovs-system       DOWN\cf1\highlight2 
+\par \cf0\highlight0 gtp_br0          UNKNOWN        192.168.128.1/24 fe80::b420:a4ff:fed8:264b/64\cf1\highlight2 
+\par \cf0\highlight0 gtpu_sys_2152    UNKNOWN        fe80::5c29:88c2:b6f9:1c75/64\cf1\highlight2 
+\par \cf0\highlight0 mtr0             UNKNOWN        10.1.0.1/24 fe80::7c66:c7ff:fe9c:9b1e/64\cf1\highlight2 
+\par \cf0\highlight0 ipfix0           UNKNOWN        127.0.0.10/24 fe80::9ce8:b6ff:fe4d:d3a1/64\cf1\highlight2 
+\par \cf0\highlight0 li_port          UNKNOWN        127.1.0.0/24 fe80::b018:92ff:fe2d:a1aa/64\cf1\highlight2 
+\par \cf0\highlight0 docker0          DOWN           172.17.0.1/16\cf1\highlight2 
+\par \cf0\highlight0 uplink_br0       UNKNOWN        fe80::a4af:ceff:feb6:ee41/64\cf1\highlight2 
+\par \cf0\highlight0 dhcp0            UNKNOWN        fe80::e47d:50ff:fe12:7836/64 '\cf1\highlight2 
+\par \cf0\highlight0 + [[ '' != \\c\\l\\o\\u\\d ]]\cf1\highlight2 
+\par \cf0\highlight0 + [[ ! lo               UNKNOWN        127.0.0.1/8 ::1/128\cf1\highlight2 
+\par \cf0\highlight0 eth0             UP             10.0.2.15/24 2020::10/64 fe80::a00:27ff:febb:58d1/64\cf1\highlight2 
+\par \cf0\highlight0 eth1             UP             192.168.60.142/24 fe80::a00:27ff:fe59:ed09/64\cf1\highlight2 
+\par \cf0\highlight0 eth2             UP             192.168.60.150/24 fe80::a00:27ff:fe80:b6e6/64\cf1\highlight2 
+\par \cf0\highlight0 eth3             UP             3001::10/64 fe80::a00:27ff:fe71:9f3e/64\cf1\highlight2 
+\par \cf0\highlight0 proxy_port_ns@proxy_port DOWN\cf1\highlight2 
+\par \cf0\highlight0 proxy_port@proxy_port_ns LOWERLAYERDOWN\cf1\highlight2 
+\par \cf0\highlight0 ovs-system       DOWN\cf1\highlight2 
+\par \cf0\highlight0 gtp_br0          UNKNOWN        192.168.128.1/24 fe80::b420:a4ff:fed8:264b/64\cf1\highlight2 
+\par \cf0\highlight0 gtpu_sys_2152    UNKNOWN        fe80::5c29:88c2:b6f9:1c75/64\cf1\highlight2 
+\par \cf0\highlight0 mtr0             UNKNOWN        10.1.0.1/24 fe80::7c66:c7ff:fe9c:9b1e/64\cf1\highlight2 
+\par \cf0\highlight0 ipfix0           UNKNOWN        127.0.0.10/24 fe80::9ce8:b6ff:fe4d:d3a1/64\cf1\highlight2 
+\par \cf0\highlight0 li_port          UNKNOWN        127.1.0.0/24 fe80::b018:92ff:fe2d:a1aa/64\cf1\highlight2 
+\par \cf0\highlight0 docker0          DOWN           172.17.0.1/16\cf1\highlight2 
+\par \cf0\highlight0 uplink_br0       UNKNOWN        fe80::a4af:ceff:feb6:ee41/64\cf1\highlight2 
+\par \cf0\highlight0 dhcp0            UNKNOWN        fe80::e47d:50ff:fe12:7836/64  == *\\e\\t\\h\\0* ]]\cf1\highlight2 
+\par \cf0\highlight0 + [[ ! lo               UNKNOWN        127.0.0.1/8 ::1/128\cf1\highlight2 
+\par \cf0\highlight0 eth0             UP             10.0.2.15/24 2020::10/64 fe80::a00:27ff:febb:58d1/64\cf1\highlight2 
+\par \cf0\highlight0 eth1             UP             192.168.60.142/24 fe80::a00:27ff:fe59:ed09/64\cf1\highlight2 
+\par \cf0\highlight0 eth2             UP             192.168.60.150/24 fe80::a00:27ff:fe80:b6e6/64\cf1\highlight2 
+\par \cf0\highlight0 eth3             UP             3001::10/64 fe80::a00:27ff:fe71:9f3e/64\cf1\highlight2 
+\par \cf0\highlight0 proxy_port_ns@proxy_port DOWN\cf1\highlight2 
+\par \cf0\highlight0 proxy_port@proxy_port_ns LOWERLAYERDOWN\cf1\highlight2 
+\par \cf0\highlight0 ovs-system       DOWN\cf1\highlight2 
+\par \cf0\highlight0 gtp_br0          UNKNOWN        192.168.128.1/24 fe80::b420:a4ff:fed8:264b/64\cf1\highlight2 
+\par \cf0\highlight0 gtpu_sys_2152    UNKNOWN        fe80::5c29:88c2:b6f9:1c75/64\cf1\highlight2 
+\par \cf0\highlight0 mtr0             UNKNOWN        10.1.0.1/24 fe80::7c66:c7ff:fe9c:9b1e/64\cf1\highlight2 
+\par \cf0\highlight0 ipfix0           UNKNOWN        127.0.0.10/24 fe80::9ce8:b6ff:fe4d:d3a1/64\cf1\highlight2 
+\par \cf0\highlight0 li_port          UNKNOWN        127.1.0.0/24 fe80::b018:92ff:fe2d:a1aa/64\cf1\highlight2 
+\par \cf0\highlight0 docker0          DOWN           172.17.0.1/16\cf1\highlight2 
+\par \cf0\highlight0 uplink_br0       UNKNOWN        fe80::a4af:ceff:feb6:ee41/64\cf1\highlight2 
+\par \cf0\highlight0 dhcp0            UNKNOWN        fe80::e47d:50ff:fe12:7836/64  == *\\e\\t\\h\\1* ]]\cf1\highlight2 
+\par \cf0\highlight0 + grep -q 'GRUB_CMDLINE_LINUX="net.ifnames=0 biosdevname=0"' /etc/default/grub\cf1\highlight2 
+\par \cf0\highlight0 + echo 'Interfaces name are correct, let'\\''s check if network and DNS are up'\cf1\highlight2 
+\par \cf0\highlight0 Interfaces name are correct, let's check if network and DNS are up\cf1\highlight2 
+\par \cf0\highlight0 + nslookup google.com\cf1\highlight2 
+\par \cf0\highlight0 Server:         8.8.8.8\cf1\highlight2 
+\par \cf0\highlight0 Address:        8.8.8.8#53\cf1\highlight2 
+\par 
+\par \cf0\highlight0 Non-authoritative answer:\cf1\highlight2 
+\par \cf0\highlight0 Name:   google.com\cf1\highlight2 
+\par \cf0\highlight0 Address: 216.58.200.142\cf1\highlight2 
+\par \cf0\highlight0 Name:   google.com\cf1\highlight2 
+\par \cf0\highlight0 Address: 2404:6800:4007:803::200e\cf1\highlight2 
+\par 
+\par \cf0\highlight0 + ping -c 1 -W 1 -I eth0 8.8.8.8\cf1\highlight2 
+\par \cf0\highlight0 PING 8.8.8.8 (8.8.8.8) from 10.0.2.15 eth0: 56(84) bytes of data.\cf1\highlight2 
+\par \cf0\highlight0 64 bytes from 8.8.8.8: icmp_seq=1 ttl=63 time=14.5 ms\cf1\highlight2 
+\par 
+\par \cf0\highlight0 --- 8.8.8.8 ping statistics ---\cf1\highlight2 
+\par \cf0\highlight0 1 packets transmitted, 1 received, 0% packet loss, time 0ms\cf1\highlight2 
+\par \cf0\highlight0 rtt min/avg/max/mdev = 14.517/14.517/14.517/0.000 ms\cf1\highlight2 
+\par \cf0\highlight0 + echo 'Making sure magma user is sudoers'\cf1\highlight2 
+\par \cf0\highlight0 Making sure magma user is sudoers\cf1\highlight2 
+\par \cf0\highlight0 + grep -q 'magma ALL=(ALL) NOPASSWD:ALL' /etc/sudoers\cf1\highlight2 
+\par \cf0\highlight0 + '[' 0 = 1 ']'\cf1\highlight2 
+\par \cf0\highlight0 + echo 'Checking if magma has been installed'\cf1\highlight2 
+\par \cf0\highlight0 Checking if magma has been installed\cf1\highlight2 
+\par \cf0\highlight0 ++ apt-cache show magma echo ok\cf1\highlight2 
+\par \cf0\highlight0 + MAGMA_INSTALLED=\cf1\highlight2 
+\par \cf0\highlight0 + '[' '' '!=' ok ']'\cf1\highlight2 
+\par \cf0\highlight0 + echo 'Magma not installed, processing installation'\cf1\highlight2 
+\par \cf0\highlight0 Magma not installed, processing installation\cf1\highlight2 
+\par \cf0\highlight0 + apt-get -y install curl make virtualenv zip rsync git software-properties-common python3-pip python-dev apt-transport-https\cf1\highlight2 
+\par \cf0\highlight0 Reading package lists... Done\cf1\highlight2 
+\par \cf0\highlight0 Building dependency tree\cf1\highlight2 
+\par \cf0\highlight0 Reading state information... Done\cf1\highlight2 
+\par \cf0\highlight0 Note, selecting 'python-dev-is-python2' instead of 'python-dev'\cf1\highlight2 
+\par \cf0\highlight0 make is already the newest version (4.2.1-1.2).\cf1\highlight2 
+\par \cf0\highlight0 zip is already the newest version (3.0-11build1).\cf1\highlight2 
+\par \cf0\highlight0 python-dev-is-python2 is already the newest version (2.7.17-4).\cf1\highlight2 
+\par \cf0\highlight0 curl is already the newest version (7.68.0-1ubuntu2.18).\cf1\highlight2 
+\par \cf0\highlight0 git is already the newest version (1:2.25.1-1ubuntu3.11).\cf1\highlight2 
+\par \cf0\highlight0 rsync is already the newest version (3.1.3-8ubuntu0.5).\cf1\highlight2 
+\par \cf0\highlight0 software-properties-common is already the newest version (0.99.9.11).\cf1\highlight2 
+\par \cf0\highlight0 apt-transport-https is already the newest version (2.0.9).\cf1\highlight2 
+\par \cf0\highlight0 python3-pip is already the newest version (20.0.2-5ubuntu1.8).\cf1\highlight2 
+\par \cf0\highlight0 virtualenv is already the newest version (20.0.17-1ubuntu0.4).\cf1\highlight2 
+\par \cf0\highlight0 The following packages were automatically installed and are no longer required:\cf1\highlight2 
+\par \cf0\highlight0   magma-sctpd nghttp2-proxy python3-dnspython python3-eventlet python3-greenlet sentry-native wireguard wireguard-tools\cf1\highlight2 
+\par \cf0\highlight0 Use 'sudo apt autoremove' to remove them.\cf1\highlight2 
+\par \cf0\highlight0 0 upgraded, 0 newly installed, 0 to remove and 141 not upgraded.\cf1\highlight2 
+\par \cf0\highlight0 + alias python=python3\cf1\highlight2 
+\par \cf0\highlight0 + pip3 install ansible==5.10.0\cf1\highlight2 
+\par \cf8\highlight0 WARNING: The directory '/home/vagrant/magma/.cache/pip' or its parent directory is not owned or is not writable by the current user. The cache has been disabled. Check the permissions and owner of that directory. If executing pip with sudo, you may want sudo's -H flag.\cf1\highlight2 
+\par \cf0\highlight0 Collecting ansible==5.10.0\cf1\highlight2 
+\par \cf0\highlight0   Downloading ansible-5.10.0.tar.gz (36.9 MB)\cf1\highlight2 
+\par \cf0\highlight0      |################################| 36.9 MB 10.1 MB/s\cf1\highlight2 
+\par \cf0\highlight0 Collecting ansible-core~=2.12.7\cf1\highlight2 
+\par \cf0\highlight0   Downloading ansible-core-2.12.10.tar.gz (7.8 MB)\cf1\highlight2 
+\par \cf0\highlight0      |################################| 7.8 MB 11.2 MB/s\cf1\highlight2 
+\par \cf7\highlight0 ERROR: Exception:\cf1\highlight2 
+\par \cf7\highlight0 Traceback (most recent call last):\cf1\highlight2 
+\par \cf7\highlight0   File "/home/vagrant/build/python/lib/python3.8/site-packages/pip/_internal/cli/base_command.py", line 186, in _main\cf1\highlight2 
+\par \cf7\highlight0     status = self.run(options, args)\cf1\highlight2 
+\par \cf7\highlight0   File "/home/vagrant/build/python/lib/python3.8/site-packages/pip/_internal/commands/install.py", line 357, in run\cf1\highlight2 
+\par \cf7\highlight0     resolver.resolve(requirement_set)\cf1\highlight2 
+\par \cf7\highlight0   File "/home/vagrant/build/python/lib/python3.8/site-packages/pip/_internal/legacy_resolve.py", line 177, in resolve\cf1\highlight2 
+\par \cf7\highlight0     discovered_reqs.extend(self._resolve_one(requirement_set, req))\cf1\highlight2 
+\par \cf7\highlight0   File "/home/vagrant/build/python/lib/python3.8/site-packages/pip/_internal/legacy_resolve.py", line 333, in _resolve_one\cf1\highlight2 
+\par \cf7\highlight0     abstract_dist = self._get_abstract_dist_for(req_to_install)\cf1\highlight2 
+\par \cf7\highlight0   File "/home/vagrant/build/python/lib/python3.8/site-packages/pip/_internal/legacy_resolve.py", line 282, in _get_abstract_dist_for\cf1\highlight2 
+\par \cf7\highlight0     abstract_dist = self.preparer.prepare_linked_requirement(req)\cf1\highlight2 
+\par \cf7\highlight0   File "/home/vagrant/build/python/lib/python3.8/site-packages/pip/_internal/operations/prepare.py", line 480, in prepare_linked_requirement\cf1\highlight2 
+\par \cf7\highlight0     local_path = unpack_url(\cf1\highlight2 
+\par \cf7\highlight0   File "/home/vagrant/build/python/lib/python3.8/site-packages/pip/_internal/operations/prepare.py", line 282, in unpack_url\cf1\highlight2 
+\par \cf7\highlight0     return unpack_http_url(\cf1\highlight2 
+\par \cf7\highlight0   File "/home/vagrant/build/python/lib/python3.8/site-packages/pip/_internal/operations/prepare.py", line 164, in unpack_http_url\cf1\highlight2 
+\par \cf7\highlight0     unpack_file(from_path, location, content_type)\cf1\highlight2 
+\par \cf7\highlight0   File "/home/vagrant/build/python/lib/python3.8/site-packages/pip/_internal/utils/unpacking.py", line 261, in unpack_file\cf1\highlight2 
+\par \cf7\highlight0     untar_file(filename, location)\cf1\highlight2 
+\par \cf7\highlight0   File "/home/vagrant/build/python/lib/python3.8/site-packages/pip/_internal/utils/unpacking.py", line 222, in untar_file\cf1\highlight2 
+\par \cf7\highlight0     with open(path, 'wb') as destfp:\cf1\highlight2 
+\par \cf7\highlight0 UnicodeEncodeError: 'latin-1' codec can't encode characters in position 104-107: ordinal not in range(256)\cf1\highlight2 
+\par \cf0\highlight0 + git clone https://github.com/magma/magma.git /home/magma/magma\cf1\highlight2 
+\par \cf0\highlight0 Cloning into '/home/magma/magma'...\cf1\highlight2 
+\par \cf0\highlight0 remote: Enumerating objects: 312197, done.\cf1\highlight2 
+\par \cf0\highlight0 remote: Counting objects: 100% (1201/1201), done.\cf1\highlight2 
+\par \cf0\highlight0 remote: Compressing objects: 100% (307/307), done.\cf1\highlight2 
+\par \cf0\highlight0 remote: Total 312197 (delta 534), reused 1095 (delta 476), pack-reused 310996\cf1\highlight2 
+\par \cf0\highlight0 Receiving objects: 100% (312197/312197), 263.85 MiB | 3.83 MiB/s, done.\cf1\highlight2 
+\par \cf0\highlight0 Resolving deltas: 100% (210727/210727), done.\cf1\highlight2 
+\par \cf0\highlight0 + cd /home/magma/magma\cf1\highlight2 
+\par \cf0\highlight0 + git checkout v1.8\cf1\highlight2 
+\par \cf0\highlight0 Branch 'v1.8' set up to track remote branch 'v1.8' from 'origin'.\cf1\highlight2 
+\par \cf0\highlight0 Switched to a new branch 'v1.8'\cf1\highlight2 
+\par \cf0\highlight0 + echo 'Generating localhost hostfile for Ansible'\cf1\highlight2 
+\par \cf0\highlight0 Generating localhost hostfile for Ansible\cf1\highlight2 
+\par \cf0\highlight0 + echo '[magma_deploy]\cf1\highlight2 
+\par \cf0\highlight0   127.0.0.1 ansible_connection=local'\cf1\highlight2 
+\par \cf0\highlight0 + su - magma -c 'ansible-playbook -e "MAGMA_ROOT='\\''/home/magma/magma'\\'' OUTPUT_DIR='\\''/tmp'\\''" -i /home/magma/magma/lte/gateway/deploy/agw_hosts /home/magma/magma/lte/gateway/deploy/magma_deploy.yml'\cf1\highlight2 
+\par \cf0\highlight0 -bash: ansible-playbook: command not found\cf1\highlight2 
+\par \cf0\highlight0 + echo 'Cleanup temp files'\cf1\highlight2 
+\par \cf0\highlight0 Cleanup temp files\cf1\highlight2 
+\par \cf0\highlight0 + cd /root\cf1\highlight2 
+\par \cf0\highlight0 + rm -rf /lib/systemd/system/agw_installation.service\cf1\highlight2 
+\par \cf0\highlight0 + rm -rf /home/magma/build\cf1\highlight2 
+\par \cf0\highlight0 + rm -rf /home/magma/magma\cf1\highlight2 
+\par \cf0\highlight0 + echo 'AGW installation is done, Run agw_post_install_ubuntu.sh install script after reboot to finish installation'\cf1\highlight2 
+\par \cf0\highlight0 AGW installation is done, Run agw_post_install_ubuntu.sh install script after reboot to finish installation\cf1\highlight2 
+\par \cf0\highlight0 + wget https://raw.githubusercontent.com/magma/magma/v1.8/lte/gateway/deploy/agw_post_install_ubuntu.sh -P /root/\cf1\highlight2 
+\par \cf0\highlight0 --2023-05-31 11:34:44--  https://raw.githubusercontent.com/magma/magma/v1.8/lte/gateway/deploy/agw_post_install_ubuntu.sh\cf1\highlight2 
+\par \cf0\highlight0 Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.108.133, 185.199.109.133, 185.199.110.133, ...\cf1\highlight2 
+\par \cf0\highlight0 Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.108.133|:443... connected.\cf1\highlight2 
+\par \cf0\highlight0 HTTP request sent, awaiting response... 200 OK\cf1\highlight2 
+\par \cf0\highlight0 Length: 4565 (4.5K) [text/plain]\cf1\highlight2 
+\par \cf0\highlight0 Saving to: '/root/agw_post_install_ubuntu.sh.1'\cf1\highlight2 
+\par 
+\par \cf0\highlight0 agw_post_install_ubuntu.sh.1       100%[=============================================================>]   4.46K  --.-KB/s    in 0s\cf1\highlight2 
+\par 
+\par \cf0\highlight0 2023-05-31 11:34:45 (25.2 MB/s) - '/root/agw_post_install_ubuntu.sh.1' saved [4565/4565]\cf1\highlight2 
+\par 
+\par \cf0\highlight0 + reboot\cf1\highlight2 
+\par \cf0\highlight0 Connection to 127.0.0.1 closed by remote host.\cf1\highlight2 
+\par \cf0\highlight0 Connection to 127.0.0.1 closed.\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_dp/magma/lte/gateway$ vagrant ssh magma\cf1\highlight2 
+\par \cf0\highlight0 Welcome to Ubuntu 20.04.5 LTS (GNU/Linux 5.4.0-135-generic x86_64)\cf1\highlight2 
+\par 
+\par \cf0\highlight0  * Documentation:  https://help.ubuntu.com\cf1\highlight2 
+\par \cf0\highlight0  * Management:     https://landscape.canonical.com\cf1\highlight2 
+\par \cf0\highlight0  * Support:        https://ubuntu.com/advantage\cf1\highlight2 
+\par \cf0\highlight0 Last login: Wed May 31 10:56:28 2023 from 10.0.2.2\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:~$ apt list -i| grep magma\cf1\highlight2 
+\par 
+\par \cf0\highlight0 WARNING: apt does not have a stable CLI interface. Use with caution in scripts.\cf1\highlight2 
+\par 
+\par \cf0\highlight0 libopenvswitch-dev/focal-ci,now 2.15.4-10-\cf9 magma\cf0  amd64 [installed]\cf1\highlight2 
+\par \cf0\highlight0 libopenvswitch/focal-ci,now 2.15.4-10-\cf9 magma\cf0  amd64 [installed]\cf1\highlight2 
+\par \cf9\highlight0 magma\cf0 -cpp-redis/focal-ci,focal-ci,now 4.3.1.1-2 amd64 [installed]\cf1\highlight2 
+\par \cf9\highlight0 magma\cf0 -libfluid/focal-ci,now 0.1.0.7-1 amd64 [installed]\cf1\highlight2 
+\par \cf9\highlight0 magma\cf0 -libtacopie/focal-ci,focal-ci,now 3.2.0.1-1 amd64 [installed,automatic]\cf1\highlight2 
+\par \cf9\highlight0 magma\cf0 -nghttpx/focal-ci,focal-ci,now 1.31.1-1 amd64 [installed]\cf1\highlight2 
+\par \cf9\highlight0 magma\cf0 -sctpd/focal-ci,now 1.9.0-1683050472-94137ddd amd64 [installed,auto-removable]\cf1\highlight2 
+\par \cf0\highlight0 openvswitch-common/focal-ci,now 2.15.4-10-\cf9 magma\cf0  amd64 [installed]\cf1\highlight2 
+\par \cf0\highlight0 openvswitch-datapath-dkms/focal-ci,focal-ci,now 2.15.4-10-\cf9 magma\cf0  all [installed]\cf1\highlight2 
+\par \cf0\highlight0 openvswitch-switch/focal-ci,now 2.15.4-10-\cf9 magma\cf0  amd64 [installed]\cf1\highlight2 
+\par \cf0\highlight0 openvswitch-test/focal-ci,focal-ci,now 2.15.4-10-\cf9 magma\cf0  all [installed]\cf1\highlight2 
+\par \cf0\highlight0 python3-openvswitch/focal-ci,focal-ci,now 2.15.4-10-\cf9 magma\cf0  all [installed]\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:~$ cd /etc/apt/sources.list.d/\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:/etc/apt/sources.list.d$ ls\cf1\highlight2 
+\par \cf0\highlight0 magma.list\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:/etc/apt/sources.list.d$ vim magma.list\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:/etc/apt/sources.list.d$ sudo su\cf1\highlight2 
+\par \cf0\highlight0 root@magma-dev:/etc/apt/sources.list.d# wget -qO - https://linuxfoundation.jfrog.io/artifactory/api/security/keypair/magmaci/public | apt-key add -\cf1\highlight2 
+\par \cf0\highlight0 OK\cf1\highlight2 
+\par \cf0\highlight0 root@magma-dev:/etc/apt/sources.list.d# sudo service magma@* stop\cf1\highlight2 
+\par \cf0\highlight0 root@magma-dev:/etc/apt/sources.list.d# sudo apt remove magma\cf1\highlight2 
+\par \cf0\highlight0 Reading package lists... Done\cf1\highlight2 
+\par \cf0\highlight0 Building dependency tree\cf1\highlight2 
+\par \cf0\highlight0 Reading state information... Done\cf1\highlight2 
+\par \cf0\highlight0 Package 'magma' is not installed, so not removed\cf1\highlight2 
+\par \cf0\highlight0 The following packages were automatically installed and are no longer required:\cf1\highlight2 
+\par \cf0\highlight0   magma-sctpd nghttp2-proxy python3-dnspython python3-eventlet python3-greenlet sentry-native wireguard wireguard-tools\cf1\highlight2 
+\par \cf0\highlight0 Use 'sudo apt autoremove' to remove them.\cf1\highlight2 
+\par \cf0\highlight0 0 upgraded, 0 newly installed, 0 to remove and 141 not upgraded.\cf1\highlight2 
+\par \cf0\highlight0 root@magma-dev:/etc/apt/sources.list.d# sudo apt autoremove\cf1\highlight2 
+\par \cf0\highlight0 Reading package lists... Done\cf1\highlight2 
+\par \cf0\highlight0 Building dependency tree\cf1\highlight2 
+\par \cf0\highlight0 Reading state information... Done\cf1\highlight2 
+\par \cf0\highlight0 The following packages will be REMOVED:\cf1\highlight2 
+\par \cf0\highlight0   magma-sctpd nghttp2-proxy python3-dnspython python3-eventlet python3-greenlet sentry-native wireguard wireguard-tools\cf1\highlight2 
+\par \cf0\highlight0 0 upgraded, 0 newly installed, 8 to remove and 141 not upgraded.\cf1\highlight2 
+\par \cf0\highlight0 After this operation, 10.5 MB disk space will be freed.\cf1\highlight2 
+\par \cf0\highlight0 Do you want to continue? [Y/n] y\cf1\highlight2 
+\par \cf0\highlight0 (Reading database ... 147964 files and directories currently installed.)\cf1\highlight2 
+\par \cf0\highlight0 Removing magma-sctpd (1.9.0-1683050472-94137ddd) ...\cf1\highlight2 
+\par \cf0\highlight0 Removing nghttp2-proxy (1.40.0-1build1) ...\cf1\highlight2 
+\par \cf0\highlight0 Removing python3-eventlet (0.30.2) ...\cf1\highlight2 
+\par \cf0\highlight0 Removing python3-dnspython (1.16.0-1ubuntu1) ...\cf1\highlight2 
+\par \cf0\highlight0 Removing python3-greenlet (1.1.1) ...\cf1\highlight2 
+\par \cf0\highlight0 Removing sentry-native (0.4.12-1) ...\cf1\highlight2 
+\par \cf0\highlight0\b dpkg:\b0  \cf4 warning:\cf0  while removing sentry-native, directory '/lib/cmake' not empty so not removed\cf1\highlight2 
+\par \cf0\highlight0 Removing wireguard (1.0.20200513-1~20.04.2) ...\cf1\highlight2 
+\par \cf0\highlight0 Removing wireguard-tools (1.0.20200513-1~20.04.2) ...\cf1\highlight2 
+\par \cf0\highlight0 Processing triggers for man-db (2.9.1-1) ...\cf1\highlight2 
+\par \cf0\highlight0 root@magma-dev:/etc/apt/sources.list.d# sudo apt-get update\cf1\highlight2 
+\par \cf0\highlight0 Hit:1 http://us.archive.ubuntu.com/ubuntu focal InRelease\cf1\highlight2 
+\par \cf0\highlight0 Get:2 http://security.ubuntu.com/ubuntu focal-security InRelease [114 kB]\cf1\highlight2 
+\par \cf0\highlight0 Hit:3 http://us.archive.ubuntu.com/ubuntu focal-updates InRelease\cf1\highlight2 
+\par \cf0\highlight0 Hit:4 http://us.archive.ubuntu.com/ubuntu focal-backports InRelease\cf1\highlight2 
+\par \cf0\highlight0 Hit:5 https://linuxfoundation.jfrog.io/artifactory/magma-packages-test focal-ci InRelease\cf1\highlight2 
+\par \cf0\highlight0 Fetched 114 kB in 2s (71.1 kB/s)\cf1\highlight2 
+\par \cf0\highlight0 Reading package lists... Done\cf1\highlight2 
+\par \cf0\highlight0 root@magma-dev:/etc/apt/sources.list.d# sudo apt install magma\cf1\highlight2 
+\par \cf0\highlight0 Reading package lists... Done\cf1\highlight2 
+\par \cf0\highlight0 Building dependency tree\cf1\highlight2 
+\par \cf0\highlight0 Reading state information... Done\cf1\highlight2 
+\par \cf0\highlight0 The following additional packages will be installed:\cf1\highlight2 
+\par \cf0\highlight0   magma-dhcp-cli magma-sctpd nghttp2-proxy sentry-native wireguard wireguard-tools\cf1\highlight2 
+\par \cf0\highlight0 Suggested packages:\cf1\highlight2 
+\par \cf0\highlight0   openresolv | resolvconf\cf1\highlight2 
+\par \cf0\highlight0 The following NEW packages will be installed:\cf1\highlight2 
+\par \cf0\highlight0   magma magma-dhcp-cli magma-sctpd nghttp2-proxy sentry-native wireguard wireguard-tools\cf1\highlight2 
+\par \cf0\highlight0 0 upgraded, 7 newly installed, 0 to remove and 141 not upgraded.\cf1\highlight2 
+\par \cf0\highlight0 Need to get 0 B/145 MB of archives.\cf1\highlight2 
+\par \cf0\highlight0 After this operation, 8,782 kB of additional disk space will be used.\cf1\highlight2 
+\par \cf0\highlight0 Do you want to continue? [Y/n] y\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package nghttp2-proxy.\cf1\highlight2 
+\par \cf0\highlight0 (Reading database ... 147556 files and directories currently installed.)\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../0-nghttp2-proxy_1.40.0-1build1_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking nghttp2-proxy (1.40.0-1build1) ...\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../1-magma-dhcp-cli_1.9.0-1683050472-94137ddd_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking magma-dhcp-cli (1.9.0-1683050472-94137ddd) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package sentry-native.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../2-sentry-native_0.4.12-1_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking sentry-native (0.4.12-1) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package wireguard-tools.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../3-wireguard-tools_1.0.20200513-1~20.04.2_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking wireguard-tools (1.0.20200513-1~20.04.2) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package wireguard.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../4-wireguard_1.0.20200513-1~20.04.2_all.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking wireguard (1.0.20200513-1~20.04.2) ...\cf1\highlight2 
+\par \cf0\highlight0 Selecting previously unselected package magma-sctpd.\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../5-magma-sctpd_1.9.0-1683050472-94137ddd_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking magma-sctpd (1.9.0-1683050472-94137ddd) ...\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../6-magma_1.9.0-1683050472-94137ddd_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking magma (1.9.0-1683050472-94137ddd) ...\cf1\highlight2 
+\par \cf0\highlight0 Replacing files in old package python3-click (7.1.2) ...\cf1\highlight2 
+\par \cf0\highlight0 Replacing files in old package python3-lxml (4.9.1) ...\cf1\highlight2 
+\par \cf0\highlight0 Replacing files in old package python3-psutil (5.9.1) ...\cf1\highlight2 
+\par \cf0\highlight0\b dpkg:\b0  error processing archive /tmp/apt-dpkg-install-LnTaOD/6-magma_1.9.0-1683050472-94137ddd_amd64.deb (--unpack):\cf1\highlight2 
+\par \cf0\highlight0  trying to overwrite '/usr/local/lib/python3.8/dist-packages/typing_extensions.py', which is also in package python3-typing-extensions 3.7.4.3\cf1\highlight2 
+\par \cf0\highlight0\b dpkg-deb:\b0  \cf9 error:\cf0  paste subprocess was killed by signal (Broken pipe)\cf1\highlight2 
+\par \cf0\highlight0 Errors were encountered while processing:\cf1\highlight2 
+\par \cf0\highlight0  /tmp/apt-dpkg-install-LnTaOD/6-magma_1.9.0-1683050472-94137ddd_amd64.deb\cf1\highlight2 
+\par \cf9\highlight0 E: \cf0 Sub-process /usr/bin/dpkg returned an error code (1)\cf1\highlight2 
+\par \cf0\highlight0 root@magma-dev:/etc/apt/sources.list.d# exit\cf1\highlight2 
+\par \cf0\highlight0 exit\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:/etc/apt/sources.list.d$ exit\cf1\highlight2 
+\par \cf0\highlight0 logout\cf1\highlight2 
+\par \cf0\highlight0 Connection to 127.0.0.1 closed.\cf1\highlight2 
+\par \cf0\highlight0 priya@saturn:~/athira/magma_dp/magma/lte/gateway$ vagrant ssh magma\cf1\highlight2 
+\par \cf0\highlight0 Welcome to Ubuntu 20.04.5 LTS (GNU/Linux 5.4.0-135-generic x86_64)\cf1\highlight2 
+\par 
+\par \cf0\highlight0  * Documentation:  https://help.ubuntu.com\cf1\highlight2 
+\par \cf0\highlight0  * Management:     https://landscape.canonical.com\cf1\highlight2 
+\par \cf0\highlight0  * Support:        https://ubuntu.com/advantage\cf1\highlight2 
+\par \cf0\highlight0 Last login: Wed May 31 11:35:04 2023 from 10.0.2.2\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:~$ sudo apt install magma\cf1\highlight2 
+\par \cf0\highlight0 Reading package lists... Done\cf1\highlight2 
+\par \cf0\highlight0 Building dependency tree\cf1\highlight2 
+\par \cf0\highlight0 Reading state information... Done\cf1\highlight2 
+\par \cf0\highlight0 The following NEW packages will be installed:\cf1\highlight2 
+\par \cf0\highlight0   magma\cf1\highlight2 
+\par \cf0\highlight0 0 upgraded, 1 newly installed, 0 to remove and 141 not upgraded.\cf1\highlight2 
+\par \cf0\highlight0 6 not fully installed or removed.\cf1\highlight2 
+\par \cf0\highlight0 Need to get 0 B/128 MB of archives.\cf1\highlight2 
+\par \cf0\highlight0 After this operation, 0 B of additional disk space will be used.\cf1\highlight2 
+\par \cf0\highlight0 (Reading database ... 148013 files and directories currently installed.)\cf1\highlight2 
+\par \cf0\highlight0 Preparing to unpack .../magma_1.9.0-1683050472-94137ddd_amd64.deb ...\cf1\highlight2 
+\par \cf0\highlight0 Unpacking magma (1.9.0-1683050472-94137ddd) ...\cf1\highlight2 
+\par \cf0\highlight0 Replacing files in old package python3-click (7.1.2) ...\cf1\highlight2 
+\par \cf0\highlight0 Replacing files in old package python3-lxml (4.9.1) ...\cf1\highlight2 
+\par \cf0\highlight0 Replacing files in old package python3-psutil (5.9.1) ...\cf1\highlight2 
+\par \cf0\highlight0\b dpkg:\b0  error processing archive /var/cache/apt/archives/magma_1.9.0-1683050472-94137ddd_amd64.deb (--unpack):\cf1\highlight2 
+\par \cf0\highlight0  trying to overwrite '/usr/local/lib/python3.8/dist-packages/typing_extensions.py', which is also in package python3-typing-extensions 3.7.4.3\cf1\highlight2 
+\par \cf0\highlight0\b dpkg-deb:\b0  \cf9 error:\cf0  paste subprocess was killed by signal (Broken pipe)\cf1\highlight2 
+\par \cf0\highlight0 Errors were encountered while processing:\cf1\highlight2 
+\par \cf0\highlight0  /var/cache/apt/archives/magma_1.9.0-1683050472-94137ddd_amd64.deb\cf1\highlight2 
+\par \cf9\highlight0 E: \cf0 Sub-process /usr/bin/dpkg returned an error code (1)\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:~$ sudo apt install -y magma -o Dpkg::Options: ="--force-overwrite"\cf1\highlight2 
+\par \cf9\highlight0 E: \cf0 Option Dpkg::Options:: Configuration item specification must have an =<val>.\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:~$ apt list -i | grep magma\cf1\highlight2 
+\par 
+\par \cf0\highlight0 WARNING: apt does not have a stable CLI interface. Use with caution in scripts.\cf1\highlight2 
+\par 
+\par \cf0\highlight0 libopenvswitch-dev/focal-ci,now 2.15.4-10-\cf9 magma\cf0  amd64 [installed]\cf1\highlight2 
+\par \cf0\highlight0 libopenvswitch/focal-ci,now 2.15.4-10-\cf9 magma\cf0  amd64 [installed]\cf1\highlight2 
+\par \cf9\highlight0 magma\cf0 -cpp-redis/focal-ci,focal-ci,now 4.3.1.1-2 amd64 [installed]\cf1\highlight2 
+\par \cf9\highlight0 magma\cf0 -dhcp-cli/focal-ci,now 1.9.0-1683050472-94137ddd amd64 [installed,auto-removable]\cf1\highlight2 
+\par \cf9\highlight0 magma\cf0 -libfluid/focal-ci,now 0.1.0.7-1 amd64 [installed]\cf1\highlight2 
+\par \cf9\highlight0 magma\cf0 -libtacopie/focal-ci,focal-ci,now 3.2.0.1-1 amd64 [installed,automatic]\cf1\highlight2 
+\par \cf9\highlight0 magma\cf0 -nghttpx/focal-ci,focal-ci,now 1.31.1-1 amd64 [installed]\cf1\highlight2 
+\par \cf9\highlight0 magma\cf0 -sctpd/focal-ci,now 1.9.0-1683050472-94137ddd amd64 [installed,auto-removable]\cf1\highlight2 
+\par \cf0\highlight0 openvswitch-common/focal-ci,now 2.15.4-10-\cf9 magma\cf0  amd64 [installed]\cf1\highlight2 
+\par \cf0\highlight0 openvswitch-datapath-dkms/focal-ci,focal-ci,now 2.15.4-10-\cf9 magma\cf0  all [installed]\cf1\highlight2 
+\par \cf0\highlight0 openvswitch-switch/focal-ci,now 2.15.4-10-\cf9 magma\cf0  amd64 [installed]\cf1\highlight2 
+\par \cf0\highlight0 openvswitch-test/focal-ci,focal-ci,now 2.15.4-10-\cf9 magma\cf0  all [installed]\cf1\highlight2 
+\par \cf0\highlight0 python3-openvswitch/focal-ci,focal-ci,now 2.15.4-10-\cf9 magma\cf0  all [installed]\cf1\highlight2 
+\par \cf0\highlight0 vagrant@magma-dev:~$\cf1\highlight2 
+\par \pard\cf0\highlight0\f2 
+\par }
+ 
