@@ -1,7 +1,3 @@
-
-root@b8f0a28e327b:/app/com_protos#
-root@b8f0a28e327b:/app/com_protos#
-root@b8f0a28e327b:/app/com_protos# cat pmn_subscriber_cli.py
 #!/usr/bin/env python3
 
 import argparse
@@ -33,6 +29,14 @@ from lte.protos.models.ecgi_pb2 import Ecgi
 from lte.protos.models.ncgi_pb2 import Ncgi
 from lte.protos.models.tai_pb2 import Tai
 from lte.protos.models.presence_info_pb2 import PresenceInfo
+from lte.protos.models.dnn_configuration_pb2 import DnnConfiguration
+from lte.protos.models.pdu_session_types_pb2 import PduSessionTypes
+from lte.protos.models.pdu_session_type_pb2 import InternalPduSessionType
+from lte.protos.models.ssc_mode_pb2 import InternalSscMode
+from lte.protos.models.ssc_modes_pb2 import SscModes
+from lte.protos.models.subscribed_default_qos_pb2 import SubscribedDefaultQos
+from lte.protos.models.arp_pb2 import Arp
+from lte.protos.models.ambr_pb2 import Ambr
 
 def assemble_am1(args) -> AccessAndMobilitySubscriptionData:
 
@@ -81,26 +85,41 @@ def assemble_smPolicySnssaiData(args) -> SmPolicySnssaiData:
                               smPolicyDnnData=({apn_name1:sm_policy_dnn_data1,
                                                 apn_name2:sm_policy_dnn_data2}))
 
-def assemble_smsdata(smsdata):
-    snssai=Snssai(sst=1,sd="000001")
-    smsdata.singleNssai.MergeFrom(snssai)
-    mapEntry = smsdata.dnnConfigurations["apn1"]
-    mapEntry.pduSessionTypes.defaultSessionType.pduSessTypes="IPV4"
-    arrayEntry = mapEntry.pduSessionTypes.allowedSessionTypes.add()
-    arrayEntry.pduSessTypes="IPV4V6"
-    mapEntry.internal_5gQosProfile.internal_5qi=9
-    mapEntry.internal_5gQosProfile.arp.priorityLevel=7
-    #dum.internal_5gQosProfile.arp.preemptCap= Empty in protos
-    #dum.internal_5gQosProfile.arp.preemptVuln= Empty in protos
-    mapEntry.sessionAmbr.uplink="1000 Mbps"
-    mapEntry.sessionAmbr.downlink="2000 Mbps"
-    mapEntry.sscModes.defaultSscMode.sscModes="SSC_MODE_1"
-    arrayEntry = mapEntry.sscModes.allowedSscModes.add()
-    arrayEntry.sscModes="SSC_MODE_1"
-    arrayEntry = mapEntry.sscModes.allowedSscModes.add()
-    arrayEntry.sscModes="SSC_MODE_2"
-    arrayEntry = mapEntry.sscModes.allowedSscModes.add()
-    arrayEntry.sscModes="SSC_MODE_3"
+def assemble_plmnSmData(args):
+    snssai=Snssai(sst=args.st,sd=args.sd)
+    apn1_dnn_conf=DnnConfiguration(
+          pduSessionTypes=PduSessionTypes(
+            allowedSessionTypes=[InternalPduSessionType(pduSessTypes="IPV4V6")],
+            defaultSessionType=InternalPduSessionType(pduSessTypes="IPV4")),
+         internal_5gQosProfile=SubscribedDefaultQos(
+            internal_5qi=9,
+            arp=Arp(preemptCap="NOT_PREEMPT",preemptVuln="PREEMPTABLE",
+                    priorityLevel=7)),
+            sessionAmbr=Ambr(downlink="2000 Mbps", uplink="1000 Mbps"),
+            sscModes=SscModes(
+                     defaultSscMode=InternalSscMode(sscModes="SSC_MODE_1"),
+                     allowedSscModes=[InternalSscMode(sscModes="SSC_MODE_1"),
+                                      InternalSscMode(sscModes="SSC_MODE_2"),
+                                      InternalSscMode(sscModes="SSC_MODE_3")]))
+
+    ims_dnn_conf=DnnConfiguration(
+          pduSessionTypes=PduSessionTypes(
+            allowedSessionTypes=[InternalPduSessionType(pduSessTypes="IPV4V6")],
+            defaultSessionType=InternalPduSessionType(pduSessTypes="IPV4")),
+         internal_5gQosProfile=SubscribedDefaultQos(
+            internal_5qi=5,
+            arp=Arp(preemptCap="NOT_PREEMPT",preemptVuln="PREEMPTABLE",
+                    priorityLevel=7)),
+            sessionAmbr=Ambr(downlink="2000 Mbps", uplink="1000 Mbps"),
+            sscModes=SscModes(
+                     defaultSscMode=InternalSscMode(sscModes="SSC_MODE_1"),
+                     allowedSscModes=[InternalSscMode(sscModes="SSC_MODE_1"),
+                                      InternalSscMode(sscModes="SSC_MODE_2"),
+                                      InternalSscMode(sscModes="SSC_MODE_3")]))
+
+    return SessionManagementSubscriptionData(singleNssai=Snssai(sst=args.st,sd=args.sd),
+                                             dnnConfigurations=({"apn1": apn1_dnn_conf,
+                                                                 "ims": ims_dnn_conf}))
 
 def assemble_am_policy_data(args) -> AmPolicyData:
     ecgiList=[Ecgi(eutraCellId="C2e48fF", plmnId=PlmnId(mcc=args.mcc, mnc=args.mnc)),
@@ -176,7 +195,7 @@ def assemble_auth_subs_data(auth_subs_data, args):
     auth_subs_data.encTopcKey="some_key"
     auth_subs_data.vectorGenerationInHss=True
     #authsubsData.n5gcA    # smsdata = SessionManagementSubscriptionData()
-    # assemble_smsdata(smsdata)uthMethod=AuthMethod()
+    # assemble_plmnSmData(smsdata)uthMethod=AuthMethod()
     auth_subs_data.rgAuthenticationInd=True
     auth_subs_data.supi="001010000000001"
 
@@ -189,6 +208,8 @@ def add_subscriber(client, args):
 
     auth_subs_data = AuthenticationSubscription()
     assemble_auth_subs_data(auth_subs_data, args)
+
+    plmnSmData = assemble_plmnSmData(args)
 
     sms_data = SmsSubscriptionData()
     assemble_sms_data(sms_data)
@@ -203,18 +224,17 @@ def add_subscriber(client, args):
 
     pmn_subs_data=PMNSubscriberData(am1=am1,
                       plmnSmfSelData=\
-                      ({"{}-{}".format(args.st, args.sd):plmnSmfSelData}),
+                      ({"{}-{}".format(args.mcc, args.mnc):plmnSmfSelData}),
                       smPolicySnssaiData=\
                       ({"{}-{}".format(args.st, args.sd):smPolicySnssaiData}),
                       auth_subs_data=auth_subs_data,
+                      plmnSmData=\
+                      ({"{}-{}".format(args.mcc, args.mnc):plmnSmData}),
                       am_policy_data=am_policy_data,
                       ue_policy_data = ue_policy_data,
                       sms_data=sms_data,
                       sms_mng_data=sms_mng_data,
                       )
-
-    smsdata = pmn_subs_data.plmnSmData["001-01"]
-    assemble_smsdata(smsdata)
 
     from google.protobuf.json_format import MessageToJson
     print(MessageToJson(pmn_subs_data))
