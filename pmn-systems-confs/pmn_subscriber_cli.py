@@ -85,7 +85,7 @@ def assemble_smPolicySnssaiData(args) -> SmPolicySnssaiData:
                               smPolicyDnnData=({apn_name1:sm_policy_dnn_data1,
                                                 apn_name2:sm_policy_dnn_data2}))
 
-def assemble_plmnSmData(args):
+def assemble_plmnSmData(args) -> SessionManagementSubscriptionData:
     snssai=Snssai(sst=args.st,sd=args.sd)
     apn1_dnn_conf=DnnConfiguration(
           pduSessionTypes=PduSessionTypes(
@@ -176,38 +176,28 @@ def assemble_sms_mng_data(sms_mng_data):
     # sms_mng_data.moSmsBarringAll =
     sms_mng_data.moSmsBarringRoaming=True
 
-def assemble_auth_subs_data(auth_subs_data, args):
-    auth_subs_data.KTAB="AUTHSUBS"
-    #authsubsData.authenticationMethod=AuthMethod()
-    auth_subs_data.algorithmId="MILENAGE.1"
-    auth_subs_data.authenticationManagementField="8000"
-    auth_subs_data.protectionParameterId="none"
-    sequenceNumber = SequenceNumber(
-        difSign = Sign.Sign_POSITIVE,
-        indLength = 5,
-        sqnScheme="NON_TIME_BASED",
-        lastIndexes={"ausf":22},
-        sqn="000000000ac0"
-    )
-    auth_subs_data.sequenceNumber.MergeFrom(sequenceNumber)
-    auth_subs_data.encOpcKey=args.opc
-    auth_subs_data.encPermanentKey=args.auth_key
-    auth_subs_data.encTopcKey="some_key"
-    auth_subs_data.vectorGenerationInHss=True
-    #authsubsData.n5gcA    # smsdata = SessionManagementSubscriptionData()
-    # assemble_plmnSmData(smsdata)uthMethod=AuthMethod()
-    auth_subs_data.rgAuthenticationInd=True
-    auth_subs_data.supi="001010000000001"
+def assemble_auth_subs_data(args) -> AuthenticationSubscription:
+    return AuthenticationSubscription(KTAB="AUTHSUBS", algorithmId="MILENAGE.1",
+                                      authenticationManagementField="8000",
+                                      authenticationMethod="5G_AKA",
+                                      encOpcKey=args.opc,
+                                      encPermanentKey=args.auth_key,
+                                      protectionParameterId="none",
+                                      sequenceNumber=\
+                                       SequenceNumber(difSign=Sign.Sign_POSITIVE,
+                                                      indLength=5,
+                                                      lastIndexes=({"ausf":22}),
+                                                      sqn="000000000ac0"))
 
 def add_subscriber(client, args):
+
     am1 = assemble_am1(args)
 
     plmnSmfSelData = assemble_plmnSmfSelData(args)
 
     smPolicySnssaiData = assemble_smPolicySnssaiData(args)
 
-    auth_subs_data = AuthenticationSubscription()
-    assemble_auth_subs_data(auth_subs_data, args)
+    auth_subs_data = assemble_auth_subs_data(args)
 
     plmnSmData = assemble_plmnSmData(args)
 
