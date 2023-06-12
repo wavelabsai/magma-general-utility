@@ -8,6 +8,9 @@ from lte.protos.models.any_type_pb2 import AnyType
 from lte.protos.models.access_and_mobility_subscription_data_pb2 import AccessAndMobilitySubscriptionData
 from lte.protos.models.authentication_subscription_pb2 import AuthenticationSubscription
 from lte.protos.pmn_systems_pb2_grpc import PMNSubscriberConfigServicerStub
+from lte.protos.pmn_systems_pb2 import SmfSelection
+from lte.protos.pmn_systems_pb2 import SmDataPolicy
+from lte.protos.pmn_systems_pb2 import SmData
 from lte.protos.models.snssai_pb2 import Snssai
 from lte.protos.models.nssai_pb2 import Nssai
 from lte.protos.models.ambr_rm_pb2 import AmbrRm
@@ -51,18 +54,21 @@ def assemble_am1(args) -> AccessAndMobilitySubscriptionData:
               subscribedDnnList=[args.dnn_name],
               plmnAmData=plmnAmData)
 
-def assemble_plmnSmfSelData(args) -> SmfSelectionSubscriptionData:
+def assemble_smfSel(args) -> SmfSelection:
     dnnInfos = [DnnInfo(dnn="{}.mcc{}.mnc{}.gprs".format(args.dnn_name, args.mcc, args.mnc),
                         iwkEpsInd=True),
                 DnnInfo(dnn="ims.mcc{}.mnc{}.gprs".format(args.mcc, args.mnc),
                         iwkEpsInd=True)]
 
-    return SmfSelectionSubscriptionData(
-             subscribedSnssaiInfos=({"{}-{}".format(args.st, args.sd):
-                                    SnssaiInfo(dnnInfos=dnnInfos)}))
+    smfSelectionSubscriptionData=\
+            SmfSelectionSubscriptionData(
+            subscribedSnssaiInfos=({"{}-{}".format(args.st, args.sd):
+                                   SnssaiInfo(dnnInfos=dnnInfos)}))
 
+    return SmfSelection(plmnSmfSelData=\
+            ({"{}-{}".format(args.mcc, args.mnc):smfSelectionSubscriptionData}))
 
-def assemble_smPolicySnssaiData(args) -> SmPolicySnssaiData:
+def assemble_smDataPolicy(args) -> SmDataPolicy:
     apn_name1="{}.mnc{}.mcc{}.gprs".format(args.dnn_name, args.mcc, args.mnc)
     sm_policy_dnn_data1 = SmPolicyDnnData(dnn=apn_name1,
                                           allowedServices=["A", "B"],
@@ -80,13 +86,15 @@ def assemble_smPolicySnssaiData(args) -> SmPolicySnssaiData:
                                           subscCats=["Brass"])
 
 
-    snssai=Snssai(sst=args.st,sd=args.sd)
-    return SmPolicySnssaiData(snssai=snssai,
+    smPolicySnssaiData=SmPolicySnssaiData(snssai=Snssai(sst=args.st,sd=args.sd),
                               smPolicyDnnData=({apn_name1:sm_policy_dnn_data1,
                                                 apn_name2:sm_policy_dnn_data2}))
 
-def assemble_plmnSmData(args) -> SessionManagementSubscriptionData:
-    snssai=Snssai(sst=args.st,sd=args.sd)
+    return SmDataPolicy(smPolicySnssaiData=\
+                       ({"{}-{}".format(args.st, args.sd):smPolicySnssaiData}))
+
+def assemble_smData(args) -> SmData:
+    #snssai=Snssai(sst=args.st,sd=args.sd)
     apn1_dnn_conf=DnnConfiguration(
           pduSessionTypes=PduSessionTypes(
             allowedSessionTypes=[InternalPduSessionType(pduSessTypes="IPV4V6")],
@@ -117,9 +125,15 @@ def assemble_plmnSmData(args) -> SessionManagementSubscriptionData:
                                       InternalSscMode(sscModes="SSC_MODE_2"),
                                       InternalSscMode(sscModes="SSC_MODE_3")]))
 
-    return SessionManagementSubscriptionData(singleNssai=Snssai(sst=args.st,sd=args.sd),
-                                             dnnConfigurations=({"apn1": apn1_dnn_conf,
-                                                                 "ims": ims_dnn_conf}))
+    sessionManagementSubscriptionData=\
+            SessionManagementSubscriptionData(
+                    singleNssai=Snssai(sst=args.st,sd=args.sd),
+                    dnnConfigurations=({"apn1": apn1_dnn_conf,
+                                        "ims": ims_dnn_conf}))
+
+    return SmData(plmnSmData=\
+               ({"{}-{}".format(args.mcc, args.mnc):
+                sessionManagementSubscriptionData}))
 
 def assemble_am_policy_data(args) -> AmPolicyData:
     ecgiList=[Ecgi(eutraCellId="C2e48fF", plmnId=PlmnId(mcc=args.mcc, mnc=args.mnc)),
@@ -193,13 +207,13 @@ def add_subscriber(client, args):
 
     am1 = assemble_am1(args)
 
-    plmnSmfSelData = assemble_plmnSmfSelData(args)
+    smfSel = assemble_smfSel(args)
 
-    smPolicySnssaiData = assemble_smPolicySnssaiData(args)
+    smDataPolicy = assemble_smDataPolicy(args)
 
     auth_subs_data = assemble_auth_subs_data(args)
 
-    plmnSmData = assemble_plmnSmData(args)
+    smData = assemble_smData(args)
 
     sms_data = SmsSubscriptionData()
     assemble_sms_data(sms_data)
@@ -212,19 +226,13 @@ def add_subscriber(client, args):
     ue_policy_data = UePolicySet()
     assemble_ue_policy_data(ue_policy_data)
 
-    pmn_subs_data=PMNSubscriberData(am1=am1,
-                      plmnSmfSelData=\
-                      ({"{}-{}".format(args.mcc, args.mnc):plmnSmfSelData}),
-                      smPolicySnssaiData=\
-                      ({"{}-{}".format(args.st, args.sd):smPolicySnssaiData}),
-                      auth_subs_data=auth_subs_data,
-                      plmnSmData=\
-                      ({"{}-{}".format(args.mcc, args.mnc):plmnSmData}),
-                      am_policy_data=am_policy_data,
-                      ue_policy_data = ue_policy_data,
-                      sms_data=sms_data,
-                      sms_mng_data=sms_mng_data,
-                      )
+    pmn_subs_data=\
+        PMNSubscriberData(am1=am1, smfSel=smfSel, smDataPolicy=smDataPolicy,
+                          auth_subs_data=auth_subs_data, smData=smData,
+                          am_policy_data=am_policy_data,
+                          ue_policy_data = ue_policy_data,
+                          sms_data=sms_data,
+                          sms_mng_data=sms_mng_data,)
 
     from google.protobuf.json_format import MessageToJson
     print(MessageToJson(pmn_subs_data))
