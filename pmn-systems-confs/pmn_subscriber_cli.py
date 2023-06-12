@@ -40,6 +40,10 @@ from lte.protos.models.ssc_modes_pb2 import SscModes
 from lte.protos.models.subscribed_default_qos_pb2 import SubscribedDefaultQos
 from lte.protos.models.arp_pb2 import Arp
 from lte.protos.models.ambr_pb2 import Ambr
+from lte.protos.models.plmn_route_selection_descriptor_pb2 import PlmnRouteSelectionDescriptor
+from lte.protos.models.snssai_route_selection_descriptor_pb2 import SnssaiRouteSelectionDescriptor
+from lte.protos.models.dnn_route_selection_descriptor_pb2 import DnnRouteSelectionDescriptor
+from lte.protos.models.ue_policy_section_pb2 import UePolicySection
 
 def assemble_am1(args) -> AccessAndMobilitySubscriptionData:
 
@@ -157,26 +161,56 @@ def assemble_am_policy_data(args) -> AmPolicyData:
     return AmPolicyData(praInfos=({"ad__3":presenceInfo}),
                         subscCats=["Brass", "sit", "bronze"])
 
-def assemble_ue_policy_data(ue_policy_data):
-    plmnId = PlmnId(mcc="001",mnc="01")
-    snssai=Snssai(sst=1,sd="000001")
-    ue_policy_data.subscCats.MergeFrom(["Categorieslist"])
-    ue_policy_data.upsis.MergeFrom(["UpsiInfo1"])
-    mapEntry = ue_policy_data.uePolicySections["ade"]
-    mapEntry.uePolicySectionInfo = bytes("C0RF",'utf-8')
-    mapEntry.upsi = "UPSI-Data"
-    mapEntry = ue_policy_data.allowedRouteSelDescs["deserunt38"]
-    mapEntry.servingPlmn.CopyFrom(plmnId)
-    arrayEntry = mapEntry.snssaiRouteSelDescs.add()
-    arrayEntry.snssai.CopyFrom(snssai)
-    subArrayEntry = arrayEntry.dnnRouteSelDescs.add()
-    subArrayEntry.dnn = "apn1.mnc001.mcc001.gprs"
-    arrayEntry = subArrayEntry.sscModes.add()
-    arrayEntry.sscModes = "SSC_MODE_1"
-    arrayEntry = subArrayEntry.pduSessTypes.add()
-    arrayEntry.pduSessTypes="IPV4"
-    arrayEntry = subArrayEntry.pduSessTypes.add()
-    arrayEntry.pduSessTypes="IPV4V6"
+def assemble_ue_policy_data(args):
+    plmnRouteSelectionDescriptor=\
+          PlmnRouteSelectionDescriptor(servingPlmn=\
+                                       PlmnId(mcc=args.mcc,mnc=args.mnc),
+          snssaiRouteSelDescs=[
+               SnssaiRouteSelectionDescriptor(
+                 snssai=Snssai(sst=args.st,sd=args.sd),
+                 dnnRouteSelDescs=\
+                   [DnnRouteSelectionDescriptor(
+                    dnn="{}.mnc{}.mcc{}.gprs".format(args.dnn_name, args.mnc,
+                                                     args.mcc),
+                    sscModes=[InternalSscMode(sscModes="SSC_MODE_1")],
+                    pduSessTypes=[InternalPduSessionType(pduSessTypes="IPV4"),
+                                  InternalPduSessionType(pduSessTypes="IPV4V6")]),
+                    DnnRouteSelectionDescriptor(
+                    dnn="{}.mnc{}.mcc{}.gprs".format(args.dnn_name, args.mnc,
+                                                     args.mcc),
+                    sscModes=[InternalSscMode(sscModes="SSC_MODE_1"),
+                              InternalSscMode(sscModes="SSC_MODE_2"),
+                              InternalSscMode(sscModes="SSC_MODE_3")],
+                    pduSessTypes=[InternalPduSessionType(pduSessTypes="IPV46"),
+                                  InternalPduSessionType(pduSessTypes="IPV4V6"),
+                                  InternalPduSessionType(
+                                               pduSessTypes="UNSTRUCTURED")])]),
+               SnssaiRouteSelectionDescriptor(
+                 snssai=Snssai(sst=2,sd="00002"),
+                 dnnRouteSelDescs=\
+                   [DnnRouteSelectionDescriptor(
+                    dnn="{}.mnc{}.mcc{}.gprs".format(args.dnn_name, args.mnc,
+                                                     args.mcc),
+                    sscModes=[InternalSscMode(sscModes="SSC_MODE_1")],
+                    pduSessTypes=[InternalPduSessionType(pduSessTypes="IPV4"),
+                                  InternalPduSessionType(pduSessTypes="IPV4V6")]),
+                    DnnRouteSelectionDescriptor(
+                    dnn="{}.mnc{}.mcc{}.gprs".format(args.dnn_name, args.mnc,
+                                                     args.mcc),
+                    sscModes=[InternalSscMode(sscModes="SSC_MODE_1"),
+                              InternalSscMode(sscModes="SSC_MODE_2"),
+                              InternalSscMode(sscModes="SSC_MODE_3")],
+                    pduSessTypes=[InternalPduSessionType(pduSessTypes="IPV46"),
+                                  InternalPduSessionType(pduSessTypes="IPV4V6"),
+                                  InternalPduSessionType(
+                                               pduSessTypes="UNSTRUCTURED")])])])
+
+    return UePolicySet(subscCats=["Categorieslist"],
+                       uePolicySections=\
+                       ({"ade":UePolicySection(uePolicySectionInfo=\
+                         bytes("C0RF", 'utf-8'),upsi="UPSI-Data")}),
+                       allowedRouteSelDescs=\
+                       ({"deserunt38": plmnRouteSelectionDescriptor}))
 
 def assemble_sms_data(sms_data):
     sms_data.smsSubscribed=True
@@ -223,14 +257,13 @@ def add_subscriber(client, args):
 
     am_policy_data = assemble_am_policy_data(args)
 
-    ue_policy_data = UePolicySet()
-    assemble_ue_policy_data(ue_policy_data)
+    ue_policy_data = assemble_ue_policy_data(args)
 
     pmn_subs_data=\
         PMNSubscriberData(am1=am1, smfSel=smfSel, smDataPolicy=smDataPolicy,
                           auth_subs_data=auth_subs_data, smData=smData,
                           am_policy_data=am_policy_data,
-                          ue_policy_data = ue_policy_data,
+                          ue_policy_data=ue_policy_data,
                           sms_data=sms_data,
                           sms_mng_data=sms_mng_data,)
 
