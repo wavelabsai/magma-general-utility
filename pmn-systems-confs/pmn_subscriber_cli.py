@@ -44,6 +44,10 @@ from lte.protos.models.plmn_route_selection_descriptor_pb2 import PlmnRouteSelec
 from lte.protos.models.snssai_route_selection_descriptor_pb2 import SnssaiRouteSelectionDescriptor
 from lte.protos.models.dnn_route_selection_descriptor_pb2 import DnnRouteSelectionDescriptor
 from lte.protos.models.ue_policy_section_pb2 import UePolicySection
+from lte.protos.models.operator_specific_data_pb2 import OperatorSpecificData
+from lte.protos.models.subscriber_info_pb2 import QosProfileName
+from lte.protos.models.service_subscription_pb2 import SSValue
+from lte.protos.models.volume_accounting_pb2 import VAValue
 
 def assemble_am1(args) -> AccessAndMobilitySubscriptionData:
 
@@ -237,6 +241,83 @@ def assemble_auth_subs_data(args) -> AuthenticationSubscription:
                                                       lastIndexes=({"ausf":22}),
                                                       sqn="000000000ac0"))
 
+def assemble_osd(osd):
+    osd.subscriberId.dataType = "string"
+    osd.subscriberId.sIdValue = "A"
+    osd.subscriberInfo.dataType = "object"
+    osd.subscriberInfo.siValue.pricingPlanType = ""
+    osd.subscriberInfo.siValue.planName = "199"
+    osd.subscriberInfo.siValue.homeLocation = ""
+    osd.subscriberInfo.siValue.userNotification = ""
+    osd.subscriberInfo.siValue.subscriberEmailId = ""
+    osd.subscriberInfo.siValue.subscriberValidity = ""
+    osd.subscriberInfo.siValue.subscriberCategory = ""
+    osd.subscriberInfo.siValue.PAYGConsent = ""
+    subscribedServices  = ["", "", "", ""]
+    osd.subscriberInfo.siValue.topupServicesSubscribed.MergeFrom(subscribedServices)
+
+    qosProfileItem = QosProfileName()
+    qosProfileItem.qosProfileName = "a"
+    qosProfileItem.pcrfARPPrioLevel = "a"
+    qosProfileItem.pcrfPreEmptionCap = "a"
+    qosProfileItem.pcrfPreEmptionVuln = "a"
+    qosProfileItem.pcrfQoSClassName = "a"
+    qosProfileItem.pcrfMaxReqBrUL = "a"
+    qosProfileItem.pcrfMaxReqBrDL = "a"
+    qosProfileItem.pcrfGuarBrUL = "a"
+    qosProfileItem.pcrfGuarBrDL = "a"
+    qosProfileItem.pcrfAPNAggMaxBrUL = "a"
+    qosProfileItem.pcrfAPNAggMaxBrDL = "a"
+    osd.subscriberInfo.siValue.qosProfileName.MergeFrom([qosProfileItem])
+
+    ssValueItem1 = SSValue()
+    ssValueItem1.serviceName = "BasePlan"
+    ssValueItem1.serviceId = "12345"
+    ssValueItem1.billingStartDate = "a"
+    ssValueItem1.billingEndDate = "a"
+    ssValueItem1.quotaStartDate = "a"
+    ssValueItem1.quotaEndDate = "a"
+    ssValueItem1.monitoringKey = "a"
+    ssValueItem1.ratingGroup = "a"
+    ssValueItem1.totalThreshold = "a"
+    ssValueItem1.recurringQuotaReset = "a"
+    ssValueItem1.currentRolloverCount = "a"
+    ssValueItem2 = SSValue()
+    ssValueItem2.serviceName = "Top-Up"
+    ssValueItem2.serviceId = "12346"
+    ssValueItem2.billingStartDate = "b"
+    ssValueItem2.billingEndDate = "b"
+    ssValueItem2.quotaStartDate = "b"
+    ssValueItem2.quotaEndDate = "b"
+    ssValueItem2.monitoringKey = "b"
+    ssValueItem2.ratingGroup = "b"
+    ssValueItem2.totalThreshold = "b"
+    ssValueItem2.recurringQuotaReset = "b"
+    ssValueItem2.currentRolloverCount = "b"
+    osd.serviceSubscription.dataType = "object"
+    osd.serviceSubscription.ssValue.MergeFrom([ssValueItem1, ssValueItem2])
+
+    vaValueItem1 = VAValue()
+    vaValueItem1.serviceName = "a"
+    vaValueItem1.serviceId = "a"
+    vaValueItem1.totalUsedQuota = "a"
+    vaValueItem1.ulUsedQuota = "a"
+    vaValueItem1.dlUsedQuota = "a"
+    vaValueItem1.monitoringKey = "a"
+    vaValueItem1.gracePeriod = "a"
+
+    vaValueItem2 = VAValue()
+    vaValueItem2.serviceName = "b"
+    vaValueItem2.serviceId = "b"
+    vaValueItem2.totalUsedQuota = "b"
+    vaValueItem2.ulUsedQuota = "b"
+    vaValueItem2.dlUsedQuota = "b"
+    vaValueItem2.monitoringKey = "b"
+    vaValueItem2.gracePeriod = "b"
+
+    osd.volumeAccounting.dataType = "object"
+    osd.volumeAccounting.vaValue.MergeFrom([vaValueItem1,vaValueItem2])
+
 def add_subscriber(client, args):
 
     am1 = assemble_am1(args)
@@ -259,13 +340,16 @@ def add_subscriber(client, args):
 
     ue_policy_data = assemble_ue_policy_data(args)
 
+    osd = OperatorSpecificData()
+    assemble_osd(osd)
+
     pmn_subs_data=\
         PMNSubscriberData(am1=am1, smfSel=smfSel, smDataPolicy=smDataPolicy,
                           auth_subs_data=auth_subs_data, smData=smData,
                           am_policy_data=am_policy_data,
                           ue_policy_data=ue_policy_data,
                           sms_data=sms_data,
-                          sms_mng_data=sms_mng_data,)
+                          sms_mng_data=sms_mng_data,osd=osd,)
 
     from google.protobuf.json_format import MessageToJson
     print(MessageToJson(pmn_subs_data))
