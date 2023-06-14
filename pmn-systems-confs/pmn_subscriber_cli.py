@@ -46,8 +46,8 @@ from lte.protos.models.dnn_route_selection_descriptor_pb2 import DnnRouteSelecti
 from lte.protos.models.ue_policy_section_pb2 import UePolicySection
 from lte.protos.models.operator_specific_data_pb2 import OperatorSpecificData
 from lte.protos.models.subscriber_info_pb2 import QosProfileName
-from lte.protos.models.service_subscription_pb2 import SSValue
-from lte.protos.models.volume_accounting_pb2 import VAValue
+from lte.protos.models.service_subscription_pb2 import ServiceSubscriptionValue
+from lte.protos.models.volume_accounting_pb2 import VolumeAccountingValue
 
 def assemble_am1(args) -> AccessAndMobilitySubscriptionData:
 
@@ -242,22 +242,22 @@ def assemble_auth_subs_data(args) -> AuthenticationSubscription:
                                                       sqn="000000000ac0"))
 
 def assemble_osd(osd):
-    osd.subscriberId.dataType = "string"
-    osd.subscriberId.sIdValue = "A"
-    osd.subscriberInfo.dataType = "object"
-    osd.subscriberInfo.siValue.pricingPlanType = ""
-    osd.subscriberInfo.siValue.planName = "199"
-    osd.subscriberInfo.siValue.homeLocation = ""
-    osd.subscriberInfo.siValue.userNotification = ""
-    osd.subscriberInfo.siValue.subscriberEmailId = ""
-    osd.subscriberInfo.siValue.subscriberValidity = ""
-    osd.subscriberInfo.siValue.subscriberCategory = ""
-    osd.subscriberInfo.siValue.PAYGConsent = ""
+    osd.SubscriberId.dataType = "string"
+    osd.SubscriberId.value = "A"
+    osd.SubscriberInfo.dataType = "object"
+    osd.SubscriberInfo.value.PricingPlanType = ""
+    osd.SubscriberInfo.value.PlanName = "199"
+    osd.SubscriberInfo.value.HomeLocation = ""
+    osd.SubscriberInfo.value.UserNotification = ""
+    osd.SubscriberInfo.value.SubscriberEmailId = ""
+    osd.SubscriberInfo.value.SubscriberValidity = ""
+    osd.SubscriberInfo.value.SubscriberCategory = ""
+    osd.SubscriberInfo.value.internal_PAYGConsent = ""
     subscribedServices  = ["", "", "", ""]
-    osd.subscriberInfo.siValue.topupServicesSubscribed.MergeFrom(subscribedServices)
+    osd.SubscriberInfo.value.TopupServicesSubscribed.MergeFrom(subscribedServices)
 
     qosProfileItem = QosProfileName()
-    qosProfileItem.qosProfileName = "a"
+    qosProfileItem.QosProfileName = "a"
     qosProfileItem.pcrfARPPrioLevel = "a"
     qosProfileItem.pcrfPreEmptionCap = "a"
     qosProfileItem.pcrfPreEmptionVuln = "a"
@@ -268,55 +268,55 @@ def assemble_osd(osd):
     qosProfileItem.pcrfGuarBrDL = "a"
     qosProfileItem.pcrfAPNAggMaxBrUL = "a"
     qosProfileItem.pcrfAPNAggMaxBrDL = "a"
-    osd.subscriberInfo.siValue.qosProfileName.MergeFrom([qosProfileItem])
+    osd.SubscriberInfo.value.QosProfileName.MergeFrom([qosProfileItem])
 
-    ssValueItem1 = SSValue()
-    ssValueItem1.serviceName = "BasePlan"
-    ssValueItem1.serviceId = "12345"
-    ssValueItem1.billingStartDate = "a"
-    ssValueItem1.billingEndDate = "a"
-    ssValueItem1.quotaStartDate = "a"
-    ssValueItem1.quotaEndDate = "a"
-    ssValueItem1.monitoringKey = "a"
-    ssValueItem1.ratingGroup = "a"
-    ssValueItem1.totalThreshold = "a"
-    ssValueItem1.recurringQuotaReset = "a"
-    ssValueItem1.currentRolloverCount = "a"
-    ssValueItem2 = SSValue()
-    ssValueItem2.serviceName = "Top-Up"
-    ssValueItem2.serviceId = "12346"
-    ssValueItem2.billingStartDate = "b"
-    ssValueItem2.billingEndDate = "b"
-    ssValueItem2.quotaStartDate = "b"
-    ssValueItem2.quotaEndDate = "b"
-    ssValueItem2.monitoringKey = "b"
-    ssValueItem2.ratingGroup = "b"
-    ssValueItem2.totalThreshold = "b"
-    ssValueItem2.recurringQuotaReset = "b"
-    ssValueItem2.currentRolloverCount = "b"
-    osd.serviceSubscription.dataType = "object"
-    osd.serviceSubscription.ssValue.MergeFrom([ssValueItem1, ssValueItem2])
+    ssValueItem1 = ServiceSubscriptionValue()
+    ssValueItem1.ServiceName = "BasePlan"
+    ssValueItem1.ServiceId = "12345"
+    ssValueItem1.BillingStartDate = "a"
+    ssValueItem1.BillingEndDate = "a"
+    ssValueItem1.QuotaStartDate = "a"
+    ssValueItem1.QuotaEndDate = "a"
+    ssValueItem1.MonitoringKey = "a"
+    ssValueItem1.RatingGroup = "a"
+    ssValueItem1.TotalThreshold = "a"
+    ssValueItem1.RecurringQuotaReset = "a"
+    ssValueItem1.CurrentRolloverCount = "a"
+    ssValueItem2 = ServiceSubscriptionValue()
+    ssValueItem2.ServiceName = "Top-Up"
+    ssValueItem2.ServiceId = "12346"
+    ssValueItem2.BillingStartDate = "b"
+    ssValueItem2.BillingEndDate = "b"
+    ssValueItem2.QuotaStartDate = "b"
+    ssValueItem2.QuotaEndDate = "b"
+    ssValueItem2.MonitoringKey = "b"
+    ssValueItem2.RatingGroup = "b"
+    ssValueItem2.TotalThreshold = "b"
+    ssValueItem2.RecurringQuotaReset = "b"
+    ssValueItem2.CurrentRolloverCount = "b"
+    osd.ServiceSubscription.dataType = "object"
+    osd.ServiceSubscription.value.MergeFrom([ssValueItem1, ssValueItem2])
 
-    vaValueItem1 = VAValue()
-    vaValueItem1.serviceName = "a"
-    vaValueItem1.serviceId = "a"
-    vaValueItem1.totalUsedQuota = "a"
-    vaValueItem1.ulUsedQuota = "a"
-    vaValueItem1.dlUsedQuota = "a"
-    vaValueItem1.monitoringKey = "a"
-    vaValueItem1.gracePeriod = "a"
+    vaValueItem1 = VolumeAccountingValue()
+    vaValueItem1.ServiceName = "a"
+    vaValueItem1.ServiceId = "a"
+    vaValueItem1.TotalUsedQuota = "a"
+    vaValueItem1.UlUsedQuota = "a"
+    vaValueItem1.DlUsedQuota = "a"
+    vaValueItem1.MonitoringKey = "a"
+    vaValueItem1.GracePeriod = "a"
 
-    vaValueItem2 = VAValue()
-    vaValueItem2.serviceName = "b"
-    vaValueItem2.serviceId = "b"
-    vaValueItem2.totalUsedQuota = "b"
-    vaValueItem2.ulUsedQuota = "b"
-    vaValueItem2.dlUsedQuota = "b"
-    vaValueItem2.monitoringKey = "b"
-    vaValueItem2.gracePeriod = "b"
+    vaValueItem2 = VolumeAccountingValue()
+    vaValueItem2.ServiceName = "b"
+    vaValueItem2.ServiceId = "b"
+    vaValueItem2.TotalUsedQuota = "b"
+    vaValueItem2.UlUsedQuota = "b"
+    vaValueItem2.DlUsedQuota = "b"
+    vaValueItem2.MonitoringKey = "b"
+    vaValueItem2.GracePeriod = "b"
 
-    osd.volumeAccounting.dataType = "object"
-    osd.volumeAccounting.vaValue.MergeFrom([vaValueItem1,vaValueItem2])
+    osd.VolumeAccounting.dataType = "object"
+    osd.VolumeAccounting.value.MergeFrom([vaValueItem1,vaValueItem2])
 
 def add_subscriber(client, args):
 
