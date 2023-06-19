@@ -376,7 +376,20 @@ def add_subscriber(client, args):
     dump_subscriber_in_json(osd_msg)
 
     smData_msg ={"sm-data.json": MessageToDict(smData)}
-    dump_subscriber_in_json(smData_msg)
+    smDataObject = json.loads(MessageToJson(smData))
+    for json_key in smDataObject["plmnSmData"]:
+        plmnSmData=smDataObject["plmnSmData"]
+        for plmn_key in plmnSmData:
+           snssai_dnn_config=plmnSmData[plmn_key]
+           dnn_config_value=snssai_dnn_config['dnnConfigurations']
+           for dnn_items in dnn_config_value:
+               dnn_item=dnn_config_value[dnn_items]
+               dnn_item_5gQosProfile=dnn_item['internal5gQosProfile']
+               dnn_item_5gQosProfile["5qi"]=dnn_item_5gQosProfile.pop("internal5qi")
+               dnn_item['5gQosProfile'] = dnn_item.pop('internal5gQosProfile')
+
+
+    dump_subscriber_in_json(smDataObject)
 
     am_policy_data_msg ={"am_policy_data.json": MessageToDict(am_policy_data)}
     dump_subscriber_in_json(am_policy_data_msg)
