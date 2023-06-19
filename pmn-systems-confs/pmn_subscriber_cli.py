@@ -11,6 +11,7 @@ from lte.protos.pmn_systems_pb2_grpc import PMNSubscriberConfigServicerStub
 from lte.protos.pmn_systems_pb2 import SmfSelection
 from lte.protos.pmn_systems_pb2 import SmDataPolicy
 from lte.protos.pmn_systems_pb2 import SmData
+from lte.protos.pmn_systems_pb2 import SmsData
 from lte.protos.models.snssai_pb2 import Snssai
 from lte.protos.models.nssai_pb2 import Nssai
 from lte.protos.models.ambr_rm_pb2 import AmbrRm
@@ -165,7 +166,7 @@ def assemble_am_policy_data(args) -> AmPolicyData:
     return AmPolicyData(praInfos=({"ad__3":presenceInfo}),
                         subscCats=["Brass", "sit", "bronze"])
 
-def assemble_ue_policy_data(args):
+def assemble_ue_policy_data(args) -> UePolicySet:
     plmnRouteSelectionDescriptor=\
           PlmnRouteSelectionDescriptor(servingPlmn=\
                                        PlmnId(mcc=args.mcc,mnc=args.mnc),
@@ -216,17 +217,20 @@ def assemble_ue_policy_data(args):
                        allowedRouteSelDescs=\
                        ({"deserunt38": plmnRouteSelectionDescriptor}))
 
-def assemble_sms_data(sms_data):
-    sms_data.smsSubscribed=True
+def assemble_sms_data(args) -> SmsData:
+    return SmsData(plmnSmsData=\
+                   ({"{}-{}".format(args.mcc, args.mnc):SmsSubscriptionData(
+                                                        smsSubscribed=True)}))
 
-def assemble_sms_mng_data(sms_mng_data):
-    # sms_mng_data.supportedFeatures =
-    sms_mng_data.mtSmsSubscribed=True
-    sms_mng_data.mtSmsBarringAll=True
-    sms_mng_data.mtSmsBarringRoaming=True
-    # sms_mng_data.moSmsSubscribed =
-    # sms_mng_data.moSmsBarringAll =
-    sms_mng_data.moSmsBarringRoaming=True
+def assemble_sms_mng_data(args):
+    plmnSmsMgmtSubsData = struct_pb2.Struct()
+    plmnSmsMgmtSubsData["{}-{}".format(args.mcc, args.mnc)]={}
+
+    return SmsManagementSubscriptionData(moSmsBarringRoaming=True,
+                                         mtSmsBarringAll=True,
+                                         mtSmsBarringRoaming=True,
+                                         mtSmsSubscribed=True,
+                                         plmnSmsMgmtSubsData=plmnSmsMgmtSubsData)
 
 def assemble_auth_subs_data(args) -> AuthenticationSubscription:
     return AuthenticationSubscription(KTAB="AUTHSUBS", algorithmId="MILENAGE.1",
@@ -334,11 +338,9 @@ def add_subscriber(client, args):
 
     smData = assemble_smData(args)
 
-    sms_data = SmsSubscriptionData()
-    assemble_sms_data(sms_data)
+    sms_data = assemble_sms_data(args)
 
-    sms_mng_data = SmsManagementSubscriptionData()
-    assemble_sms_mng_data(sms_mng_data)
+    sms_mng_data = assemble_sms_mng_data(args)
 
     am_policy_data = assemble_am_policy_data(args)
 
