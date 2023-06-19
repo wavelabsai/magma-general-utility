@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import argparse
-
+import json
 from google.protobuf import struct_pb2
 from lte.protos.pmn_systems_pb2 import PMNSubscriberData
 from lte.protos.models.any_type_pb2 import AnyType
@@ -318,6 +318,10 @@ def assemble_osd(osd):
     osd.VolumeAccounting.dataType = "object"
     osd.VolumeAccounting.value.MergeFrom([vaValueItem1,vaValueItem2])
 
+def dump_subscriber_in_json(proto_msg):
+    json_object = json.dumps(proto_msg, indent=4)
+    print(json_object)
+
 def add_subscriber(client, args):
 
     am1 = assemble_am1(args)
@@ -352,7 +356,38 @@ def add_subscriber(client, args):
                           sms_mng_data=sms_mng_data,osd=osd,)
 
     from google.protobuf.json_format import MessageToJson
-    print(MessageToJson(pmn_subs_data))
+    from google.protobuf.json_format import MessageToDict
+    #print(MessageToJson(pmn_subs_data))
+    am1_msg ={"am1.json": MessageToDict(am1)}
+    dump_subscriber_in_json(am1_msg)
+
+    smfSel_msg ={"smfSel.json.json": MessageToDict(smfSel)}
+    dump_subscriber_in_json(smfSel_msg)
+
+    smDataPolicy_msg ={"sm-data-policy.json": MessageToDict(smDataPolicy)}
+    dump_subscriber_in_json(smDataPolicy_msg)
+
+    auth_subs_data_msg ={"auth-subs-data.json.json": MessageToDict(auth_subs_data)}
+    dump_subscriber_in_json(auth_subs_data_msg)
+
+    osd_msg ={"osd.json": MessageToDict(osd)}
+    dump_subscriber_in_json(osd_msg)
+
+    smData_msg ={"sm-data.json": MessageToDict(smData)}
+    dump_subscriber_in_json(smData_msg)
+
+    am_policy_data_msg ={"am_policy_data.json": MessageToDict(am_policy_data)}
+    dump_subscriber_in_json(am_policy_data_msg)
+
+    ue_policy_data_msg ={"ue-policy-data.json": MessageToDict(ue_policy_data)}
+    dump_subscriber_in_json(ue_policy_data_msg)
+
+    sms_data_msg ={"sms-data.json": MessageToDict(sms_data)}
+    dump_subscriber_in_json(sms_data_msg)
+
+    sms_mng_data_msg ={"sms-mng-data.json": MessageToDict(sms_mng_data)}
+    dump_subscriber_in_json(sms_mng_data_msg)
+
     #client.PMNSubscriberConfig(pmn_subs_data)
 
 def create_parser():
