@@ -56,6 +56,7 @@ def assemble_am1(args) -> AccessAndMobilitySubscriptionData:
     plmnAmData["{}-{}".format(args.mcc, args.mnc)]={}
 
     return AccessAndMobilitySubscriptionData(
+              gpsis=["msisdn-{}".format(args.imsi)],
               nssai=Nssai(defaultSingleNssais=[Snssai(sst=args.st, sd=args.sd)],
                           singleNssais=[Snssai(sst=args.st, sd=args.sd)]),
               subscribedUeAmbr=AmbrRm(uplink=args.subs_ambr_ul,
@@ -224,7 +225,7 @@ def assemble_sms_data(args) -> SmsData:
 
 def assemble_sms_mng_data(args):
     plmnSmsMgmtSubsData = struct_pb2.Struct()
-    plmnSmsMgmtSubsData["{}-{}".format(args.mcc, args.mnc)]={}
+    plmnSmsMgmtSubsData["{}-{}".format(args.mcc, args.mnc)]={"dummy": "mav1"}
 
     return SmsManagementSubscriptionData(moSmsBarringRoaming=True,
                                          mtSmsBarringAll=True,
