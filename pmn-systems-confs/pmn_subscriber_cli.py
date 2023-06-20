@@ -324,8 +324,8 @@ def assemble_osd(osd):
     osd.VolumeAccounting.value.MergeFrom([vaValueItem1,vaValueItem2])
 
 def dump_subscriber_in_json(proto_msg):
-    json_object = json.dumps(proto_msg, indent=4)
-    print(json_object)
+    json_object = json.dumps(proto_msg, indent=1)
+    print(json_object + ",")
 
 def add_subscriber(client, args):
 
