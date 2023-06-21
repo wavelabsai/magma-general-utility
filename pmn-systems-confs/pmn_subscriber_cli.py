@@ -112,7 +112,7 @@ def assemble_smData(args) -> SmData:
             internal_5qi=9,
             arp=Arp(preemptCap="NOT_PREEMPT",preemptVuln="PREEMPTABLE",
                     priorityLevel=7)),
-            sessionAmbr=Ambr(downlink="2000 Mbps", uplink="1000 Mbps"),
+            sessionAmbr=Ambr(downlink="2 Mbps", uplink="1 Mbps"),
             sscModes=SscModes(
                      defaultSscMode="SSC_MODE_1",
                      allowedSscModes=["SSC_MODE_1","SSC_MODE_2","SSC_MODE_3"]))
@@ -125,7 +125,7 @@ def assemble_smData(args) -> SmData:
             internal_5qi=5,
             arp=Arp(preemptCap="NOT_PREEMPT",preemptVuln="PREEMPTABLE",
                     priorityLevel=7)),
-            sessionAmbr=Ambr(downlink="2000 Mbps", uplink="1000 Mbps"),
+            sessionAmbr=Ambr(downlink="2 Mbps", uplink="1 Mbps"),
             sscModes=SscModes(
                      defaultSscMode="SSC_MODE_1",
                      allowedSscModes=["SSC_MODE_1","SSC_MODE_2","SSC_MODE_3"]))
@@ -376,7 +376,7 @@ def add_subscriber(client, args):
     bevo_msg_dict.update({"sm-data.json": smDataObject})
     #dump_subscriber_in_json(smData_msg)
 
-    bevo_msg_dict.update({"am_policy_data.json": MessageToDict(am_policy_data)})
+    bevo_msg_dict.update({"am-policy-data.json": MessageToDict(am_policy_data)})
     #dump_subscriber_in_json(am_policy_data_msg)
 
     bevo_msg_dict.update({"ue-policy-data.json": MessageToDict(ue_policy_data)})
@@ -450,4 +450,4 @@ if __name__ == "__main__":
     main()
 
 #python3.9  pmn_subscriber_cli.py add --mcc 724 --mnc 99 --imsi 724990000000008 --st 1 --sd "fff" --opc E8ED289DEBA952E4283B54E88E6183CA --auth_key 465B5CE8B199B49FAA5F0A2EE238A6BC --subs_ambr_ul "10 Mbps" --subs_ambr_dl "20 Mbps" --dnn_name "apn1" --dnn_ambr_ul "10 Mbps"   --dnn_ambr_dl "20 Mbps" --qos_profile_5qi 5
-#python3.9  pmn_subscriber_cli.py add --mcc 001 --mnc 01 --imsi 001011234567534 --st 1 --sd "000001" --opc E8ED289DEBA952E4283B54E88E6183CA --auth_key 465B5CE8B199B49FAA5F0A2EE238A6BC --subs_ambr_ul "10 Mbps" --subs_ambr_dl "20 Mbps" --dnn_name "apn1" --dnn_ambr_ul "10 Mbps"   --dnn_ambr_dl "20 Mbps" --qos_profile_5qi 5
+#python3.9  pmn_subscriber_cli.py add --mcc 001 --mnc 01 --imsi 001011234567539 --st 1 --sd "000001" --opc E8ED289DEBA952E4283B54E88E6183CA --auth_key 465B5CE8B199B49FAA5F0A2EE238A6BC --subs_ambr_ul "10 Mbps" --subs_ambr_dl "20 Mbps" --dnn_name "apn1" --dnn_ambr_ul "10 Mbps"   --dnn_ambr_dl "20 Mbps" --qos_profile_5qi 5
