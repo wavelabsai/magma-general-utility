@@ -35,8 +35,6 @@ from lte.protos.models.tai_pb2 import Tai
 from lte.protos.models.presence_info_pb2 import PresenceInfo
 from lte.protos.models.dnn_configuration_pb2 import DnnConfiguration
 from lte.protos.models.pdu_session_types_pb2 import PduSessionTypes
-from lte.protos.models.pdu_session_type_pb2 import InternalPduSessionType
-from lte.protos.models.ssc_mode_pb2 import InternalSscMode
 from lte.protos.models.ssc_modes_pb2 import SscModes
 from lte.protos.models.subscribed_default_qos_pb2 import SubscribedDefaultQos
 from lte.protos.models.arp_pb2 import Arp
@@ -108,33 +106,29 @@ def assemble_smData(args) -> SmData:
     #snssai=Snssai(sst=args.st,sd=args.sd)
     apn1_dnn_conf=DnnConfiguration(
           pduSessionTypes=PduSessionTypes(
-            allowedSessionTypes=[InternalPduSessionType(pduSessTypes="IPV4V6")],
-            defaultSessionType=InternalPduSessionType(pduSessTypes="IPV4")),
+            allowedSessionTypes=["IPV4V6"],
+            defaultSessionType="IPV4"),
          internal_5gQosProfile=SubscribedDefaultQos(
             internal_5qi=9,
             arp=Arp(preemptCap="NOT_PREEMPT",preemptVuln="PREEMPTABLE",
                     priorityLevel=7)),
             sessionAmbr=Ambr(downlink="2000 Mbps", uplink="1000 Mbps"),
             sscModes=SscModes(
-                     defaultSscMode=InternalSscMode(sscModes="SSC_MODE_1"),
-                     allowedSscModes=[InternalSscMode(sscModes="SSC_MODE_1"),
-                                      InternalSscMode(sscModes="SSC_MODE_2"),
-                                      InternalSscMode(sscModes="SSC_MODE_3")]))
+                     defaultSscMode="SSC_MODE_1",
+                     allowedSscModes=["SSC_MODE_1","SSC_MODE_2","SSC_MODE_3"]))
 
     ims_dnn_conf=DnnConfiguration(
           pduSessionTypes=PduSessionTypes(
-            allowedSessionTypes=[InternalPduSessionType(pduSessTypes="IPV4V6")],
-            defaultSessionType=InternalPduSessionType(pduSessTypes="IPV4")),
+            allowedSessionTypes=["IPV4V6"],
+            defaultSessionType="IPV4"),
          internal_5gQosProfile=SubscribedDefaultQos(
             internal_5qi=5,
             arp=Arp(preemptCap="NOT_PREEMPT",preemptVuln="PREEMPTABLE",
                     priorityLevel=7)),
             sessionAmbr=Ambr(downlink="2000 Mbps", uplink="1000 Mbps"),
             sscModes=SscModes(
-                     defaultSscMode=InternalSscMode(sscModes="SSC_MODE_1"),
-                     allowedSscModes=[InternalSscMode(sscModes="SSC_MODE_1"),
-                                      InternalSscMode(sscModes="SSC_MODE_2"),
-                                      InternalSscMode(sscModes="SSC_MODE_3")]))
+                     defaultSscMode="SSC_MODE_1",
+                     allowedSscModes=["SSC_MODE_1","SSC_MODE_2","SSC_MODE_3"]))
 
     sessionManagementSubscriptionData=\
             SessionManagementSubscriptionData(
@@ -179,38 +173,26 @@ def assemble_ue_policy_data(args) -> UePolicySet:
                    [DnnRouteSelectionDescriptor(
                     dnn="{}.mnc{}.mcc{}.gprs".format(args.dnn_name, args.mnc,
                                                      args.mcc),
-                    sscModes=[InternalSscMode(sscModes="SSC_MODE_1")],
-                    pduSessTypes=[InternalPduSessionType(pduSessTypes="IPV4"),
-                                  InternalPduSessionType(pduSessTypes="IPV4V6")]),
+                    sscModes=["SSC_MODE_1"],
+                    pduSessTypes=["IPV4", "IPV4V6"]),
                     DnnRouteSelectionDescriptor(
                     dnn="{}.mnc{}.mcc{}.gprs".format(args.dnn_name, args.mnc,
                                                      args.mcc),
-                    sscModes=[InternalSscMode(sscModes="SSC_MODE_1"),
-                              InternalSscMode(sscModes="SSC_MODE_2"),
-                              InternalSscMode(sscModes="SSC_MODE_3")],
-                    pduSessTypes=[InternalPduSessionType(pduSessTypes="IPV46"),
-                                  InternalPduSessionType(pduSessTypes="IPV4V6"),
-                                  InternalPduSessionType(
-                                               pduSessTypes="UNSTRUCTURED")])]),
+                    sscModes=["SSC_MODE_1","SSC_MODE_2","SSC_MODE_3"],
+                    pduSessTypes=["IPV46","IPV4V6","UNSTRUCTURED"])]),
                SnssaiRouteSelectionDescriptor(
                  snssai=Snssai(sst=2,sd="00002"),
                  dnnRouteSelDescs=\
                    [DnnRouteSelectionDescriptor(
                     dnn="{}.mnc{}.mcc{}.gprs".format(args.dnn_name, args.mnc,
                                                      args.mcc),
-                    sscModes=[InternalSscMode(sscModes="SSC_MODE_1")],
-                    pduSessTypes=[InternalPduSessionType(pduSessTypes="IPV4"),
-                                  InternalPduSessionType(pduSessTypes="IPV4V6")]),
+                    sscModes=["SSC_MODE_1"],
+                    pduSessTypes=["IPV4", "IPV4V6"]),
                     DnnRouteSelectionDescriptor(
                     dnn="{}.mnc{}.mcc{}.gprs".format(args.dnn_name, args.mnc,
                                                      args.mcc),
-                    sscModes=[InternalSscMode(sscModes="SSC_MODE_1"),
-                              InternalSscMode(sscModes="SSC_MODE_2"),
-                              InternalSscMode(sscModes="SSC_MODE_3")],
-                    pduSessTypes=[InternalPduSessionType(pduSessTypes="IPV46"),
-                                  InternalPduSessionType(pduSessTypes="IPV4V6"),
-                                  InternalPduSessionType(
-                                               pduSessTypes="UNSTRUCTURED")])])])
+                    sscModes=["SSC_MODE_1","SSC_MODE_2","SSC_MODE_3"],
+                    pduSessTypes=["IPV6", "IPV46", "IPV6", "UNSTRUCTURED"])])])
 
     return UePolicySet(subscCats=["Categorieslist"],
                        uePolicySections=\
