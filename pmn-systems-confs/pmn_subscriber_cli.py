@@ -58,7 +58,8 @@ def assemble_am1(args) -> AccessAndMobilitySubscriptionData:
     return AccessAndMobilitySubscriptionData(
               gpsis=["msisdn-{}".format(args.imsi)],
               nssai=Nssai(defaultSingleNssais=[Snssai(sst=args.st, sd=args.sd)],
-                          singleNssais=[Snssai(sst=args.st, sd=args.sd)]),
+                          #singleNssais=[Snssai(sst=args.st, sd=args.sd)]
+                          ),
               subscribedUeAmbr=AmbrRm(uplink=args.subs_ambr_ul,
                                       downlink=args.subs_ambr_dl),
               subscribedDnnList=[args.dnn_name],
@@ -361,22 +362,23 @@ def add_subscriber(client, args):
     from google.protobuf.json_format import MessageToJson
     from google.protobuf.json_format import MessageToDict
     #print(MessageToJson(pmn_subs_data))
-    am1_msg ={"am1.json": MessageToDict(am1)}
-    dump_subscriber_in_json(am1_msg)
+    bevo_msg_dict={}
 
-    smfSel_msg ={"smfSel.json.json": MessageToDict(smfSel)}
-    dump_subscriber_in_json(smfSel_msg)
+    bevo_msg_dict.update({"am1.json": MessageToDict(am1)})
+    ##dump_subscriber_in_json(am1_msg)
 
-    smDataPolicy_msg ={"sm-data-policy.json": MessageToDict(smDataPolicy)}
-    dump_subscriber_in_json(smDataPolicy_msg)
+    bevo_msg_dict.update({"smfSel.json": MessageToDict(smfSel)})
+    #dump_subscriber_in_json(smfSel_msg)
 
-    auth_subs_data_msg ={"auth-subs-data.json.json": MessageToDict(auth_subs_data)}
-    dump_subscriber_in_json(auth_subs_data_msg)
+    bevo_msg_dict.update({"sm-data-policy.json": MessageToDict(smDataPolicy)})
+    #dump_subscriber_in_json(smDataPolicy_msg)
 
-    osd_msg ={"osd.json": MessageToDict(osd)}
-    dump_subscriber_in_json(osd_msg)
+    bevo_msg_dict.update({"auth-subs-data.json": MessageToDict(auth_subs_data)})
+    #dump_subscriber_in_json(auth_subs_data_msg)
 
-    smData_msg ={"sm-data.json": MessageToDict(smData)}
+    bevo_msg_dict.update({"osd.json": MessageToDict(osd)})
+    #dump_subscriber_in_json(osd_msg)
+
     smDataObject = json.loads(MessageToJson(smData))
     for json_key in smDataObject["plmnSmData"]:
         plmnSmData=smDataObject["plmnSmData"]
@@ -389,20 +391,22 @@ def add_subscriber(client, args):
                dnn_item_5gQosProfile["5qi"]=dnn_item_5gQosProfile.pop("internal5qi")
                dnn_item['5gQosProfile'] = dnn_item.pop('internal5gQosProfile')
 
+    bevo_msg_dict.update({"sm-data.json": smDataObject})
+    #dump_subscriber_in_json(smData_msg)
 
-    dump_subscriber_in_json(smDataObject)
+    bevo_msg_dict.update({"am_policy_data.json": MessageToDict(am_policy_data)})
+    #dump_subscriber_in_json(am_policy_data_msg)
 
-    am_policy_data_msg ={"am_policy_data.json": MessageToDict(am_policy_data)}
-    dump_subscriber_in_json(am_policy_data_msg)
+    bevo_msg_dict.update({"ue-policy-data.json": MessageToDict(ue_policy_data)})
+    #dump_subscriber_in_json(ue_policy_data_msg)
 
-    ue_policy_data_msg ={"ue-policy-data.json": MessageToDict(ue_policy_data)}
-    dump_subscriber_in_json(ue_policy_data_msg)
+    bevo_msg_dict.update({"sms-data.json": MessageToDict(sms_data)})
+    #dump_subscriber_in_json(sms_data_msg)
 
-    sms_data_msg ={"sms-data.json": MessageToDict(sms_data)}
-    dump_subscriber_in_json(sms_data_msg)
+    bevo_msg_dict.update({"sms-mng-data.json": MessageToDict(sms_mng_data)})
+    #dump_subscriber_in_json(sms_mng_data_msg)
 
-    sms_mng_data_msg ={"sms-mng-data.json": MessageToDict(sms_mng_data)}
-    dump_subscriber_in_json(sms_mng_data_msg)
+    dump_subscriber_in_json(bevo_msg_dict)
 
     #client.PMNSubscriberConfig(pmn_subs_data)
 
