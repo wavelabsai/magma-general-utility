@@ -226,8 +226,9 @@ def assemble_auth_subs_data(args) -> AuthenticationSubscription:
                                       encPermanentKey=args.auth_key,
                                       protectionParameterId="none",
                                       sequenceNumber=\
-                                       SequenceNumber(difSign=Sign.Sign_POSITIVE,
+                                       SequenceNumber(difSign="POSITIVE",
                                                       indLength=5,
+                                                      sqnScheme="NON_TIME_BASED",
                                                       lastIndexes=({"ausf":22}),
                                                       sqn="000000000ac0"))
 
