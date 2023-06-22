@@ -136,9 +136,11 @@ def assemble_smData(args) -> SmData:
                     dnnConfigurations=({"apn1": apn1_dnn_conf,
                                         "ims": ims_dnn_conf}))
 
-    return SmData(plmnSmData=\
-               ({"{}-{}".format(args.mcc, args.mnc):
-                sessionManagementSubscriptionData}))
+    listValue=struct_pb2.ListValue()
+    from google.protobuf.json_format import MessageToJson
+    listValue.extend([MessageToJson(sessionManagementSubscriptionData)])
+    return SmData(plmnSmData=({"{}-{}".format(args.mcc, args.mnc): listValue}))
+
 
 def assemble_am_policy_data(args) -> AmPolicyData:
     ecgiList=[Ecgi(eutraCellId="C2e48fF", plmnId=PlmnId(mcc=args.mcc, mnc=args.mnc)),
@@ -343,11 +345,12 @@ def add_subscriber(client, args):
 
     from google.protobuf.json_format import MessageToJson
     from google.protobuf.json_format import MessageToDict
+    from google.protobuf.json_format import Parse
     #print(MessageToJson(pmn_subs_data))
     bevo_msg_dict={}
 
     bevo_msg_dict.update({"am1.json": MessageToDict(am1)})
-    ##dump_subscriber_in_json(am1_msg)
+    #dump_subscriber_in_json(am1_msg)
 
     bevo_msg_dict.update({"smfSel.json": MessageToDict(smfSel)})
     #dump_subscriber_in_json(smfSel_msg)
@@ -361,19 +364,19 @@ def add_subscriber(client, args):
     bevo_msg_dict.update({"osd.json": MessageToDict(osd)})
     #dump_subscriber_in_json(osd_msg)
 
-    smDataObject = json.loads(MessageToJson(smData))
-    for json_key in smDataObject["plmnSmData"]:
-        plmnSmData=smDataObject["plmnSmData"]
-        for plmn_key in plmnSmData:
-           snssai_dnn_config=plmnSmData[plmn_key]
-           dnn_config_value=snssai_dnn_config['dnnConfigurations']
-           for dnn_items in dnn_config_value:
-               dnn_item=dnn_config_value[dnn_items]
-               dnn_item_5gQosProfile=dnn_item['internal5gQosProfile']
-               dnn_item_5gQosProfile["5qi"]=dnn_item_5gQosProfile.pop("internal5qi")
-               dnn_item['5gQosProfile'] = dnn_item.pop('internal5gQosProfile')
+    modified_smData = {"plmnSmData":{}}
+    for key in smData.plmnSmData:
+        sessionManagementSubscriptionData=[]
+        for item in smData.plmnSmData[key]:
+            print(type(item))
+            res = json.loads(item)
+            sessionManagementSubscriptionData.append(res)
+        modified_smData["plmnSmData"][key]=sessionManagementSubscriptionData
 
-    bevo_msg_dict.update({"sm-data.json": smDataObject})
+    #print(json.dumps(modified_smData, indent=1))
+    #smDataObject = json.loads(modified_smData)
+
+    bevo_msg_dict.update({"sm-data.json": modified_smData})
     #dump_subscriber_in_json(smData_msg)
 
     bevo_msg_dict.update({"am-policy-data.json": MessageToDict(am_policy_data)})
