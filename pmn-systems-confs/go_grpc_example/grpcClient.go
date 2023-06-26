@@ -46,7 +46,7 @@ func main() {
                 Am1:          GetAccessAndMobilitySubscription(),
                 AuthSubsData: GetAuthenticationSubscription(),
         }
-        client.PMNSubscriberConfig(context.Background(), request)
+        client.PMNAddSubscriberConfig(context.Background(), request)
 }
 
 // func PMNConverter() *protos.PMNSubscriberData {
@@ -105,7 +105,6 @@ func GetAuthenticationSubscription() *models.AuthenticationSubscription {
 
         return &models.AuthenticationSubscription{
                 KTAB:                  ktab,
-                AuthenticationMethod:  &models.AuthMethod{},
                 EncPermanentKey:       "",
                 ProtectionParameterId: "none",
                 SequenceNumber: &models.SequenceNumber{
