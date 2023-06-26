@@ -46,6 +46,7 @@ func main() {
                 Am1:          GetAccessAndMobilitySubscription(),
                 AuthSubsData: GetAuthenticationSubscription(),
                 SmData:       GetSmData(),
+                SmfSel:       GetSmfSelection(),
         }
         client.PMNAddSubscriberConfig(context.Background(), request)
 }
@@ -175,4 +176,28 @@ func GetSmData() *protos.SmData {
                      },
                  },
               }
+}
+
+func GetSmfSelection() *protos.SmfSelection {
+
+        var dnnInfos1 = &models.DnnInfo {
+                         Dnn: "apn1.mnc001.mcc001.gprs",
+                         IwkEpsInd: true,
+                        }
+
+        var dnnInfos2 = &models.DnnInfo {
+                          Dnn: "ims.mnc001.mcc001.gprs",
+                          IwkEpsInd: true,
+                        }
+
+
+        return &protos.SmfSelection {
+                 PlmnSmfSelData: map[string]*models.SmfSelectionSubscriptionData {
+                   "001-01": {
+                     SubscribedSnssaiInfos: map[string]*models.SnssaiInfo {
+                       "1-000001": {DnnInfos: []*models.DnnInfo{dnnInfos1, dnnInfos2}},
+                     },
+                   },
+                 },
+                }
 }
