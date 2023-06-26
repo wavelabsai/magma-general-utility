@@ -27,10 +27,11 @@ var (
     l      = log.New(outfile, "", 0)
 )
 
-func (*server) PMNSubscriberConfig(ctx context.Context, request *protos.PMNSubscriberData) (*protos.Void, error) {
+func (*server) PMNAddSubscriberConfig(ctx context.Context, request *protos.PMNSubscriberData) (*protos.Void, error) {
   //uplink := request.models.Ambr
   //downlink := request.subscriberUeAmr.downlink
-  log.Printf(example3(request))
+  //log.Printf(example3(request))
+  fmt.Printf(example3(request))
   response := &protos.Void{}
 
   return response, nil
