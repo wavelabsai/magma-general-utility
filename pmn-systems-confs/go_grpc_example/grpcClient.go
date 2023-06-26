@@ -5,9 +5,9 @@ import (
         "fmt"
         protos "magma/lte/cloud/go/protos"
         models "magma/lte/cloud/go/protos/models"
-
+        structpb "google.golang.org/protobuf/types/known/structpb"
         "google.golang.org/grpc"
-
+        "google.golang.org/protobuf/encoding/protojson"
         //"github.com/go-openapi/swag"
         "log"
 )
@@ -45,6 +45,7 @@ func main() {
         request := &protos.PMNSubscriberData{
                 Am1:          GetAccessAndMobilitySubscription(),
                 AuthSubsData: GetAuthenticationSubscription(),
+                SmData:       GetSmData(),
         }
         client.PMNAddSubscriberConfig(context.Background(), request)
 }
@@ -123,4 +124,55 @@ func GetAuthenticationSubscription() *models.AuthenticationSubscription {
                 RgAuthenticationInd:           true,
                 Supi:                          supi,
         }
+}
+
+func GetSmData() *protos.SmData {
+        var dnnConfigurations1 = &models.DnnConfiguration {
+                                  PduSessionTypes: &models.PduSessionTypes{
+                                                  DefaultSessionType: "IPV4",
+                                                  AllowedSessionTypes: []string{"IPV4V6"},},
+                                  Internal_5GQosProfile: &models.SubscribedDefaultQos{
+                                                       Internal_5Qi: 9,
+                                                       Arp: &models.Arp{
+                                                            PriorityLevel: 7,
+                                                            PreemptCap: "NOT_PREEMPT",
+                                                            PreemptVuln: "PREEMPTABLE",},},
+                                  SessionAmbr: &models.Ambr{Uplink: "200 Mbps", Downlink: "100 Mbps"},
+                                  SscModes: &models.SscModes{
+                                           DefaultSscMode: "SSC_MODE_1",
+                                           AllowedSscModes: []string{"SSC_MODE_1", "SSC_MODE_2", "SSC_MODE_3"},},
+                               }
+
+        var dnnConfigurations2 = &models.DnnConfiguration {
+                                  PduSessionTypes: &models.PduSessionTypes{
+                                                    DefaultSessionType: "IPV4",
+                                                    AllowedSessionTypes: []string{"IPV4V6"},},
+                                  Internal_5GQosProfile: &models.SubscribedDefaultQos{
+                                                        Internal_5Qi: 5,
+                                                        Arp: &models.Arp{
+                                                             PriorityLevel: 7,
+                                                             PreemptCap: "NOT_PREEMPT",
+                                                             PreemptVuln: "PREEMPTABLE",},},
+                                  SessionAmbr: &models.Ambr{Uplink: "1 Mbps", Downlink: "1 Mbps"},
+                                  SscModes: &models.SscModes{
+                                            DefaultSscMode: "SSC_MODE_1",
+                                            AllowedSscModes: []string{"SSC_MODE_1", "SSC_MODE_2", "SSC_MODE_3"},},
+                               }
+
+         var sessionManagementSubscriptionData = &models.SessionManagementSubscriptionData {
+                                                  DnnConfigurations: map[string]*models.DnnConfiguration {
+                                                    "apn1": dnnConfigurations1,
+                                                    "ims": dnnConfigurations2,
+                                                  },
+                                                  SingleNssai: &models.Snssai{Sst: 1, Sd: "000001",},}
+        return &protos.SmData{
+                 PlmnSmData: map[string]*structpb.ListValue {
+                     "001-01": {
+                         Values: []*structpb.Value {
+                                 { Kind:  &structpb.Value_StringValue{StringValue:
+                                 protojson.Format(sessionManagementSubscriptionData)}},
+                         },
+                     },
+                 },
+              }
 }
