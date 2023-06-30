@@ -48,6 +48,12 @@ from lte.protos.models.subscriber_info_pb2 import QosProfileName
 from lte.protos.models.service_subscription_pb2 import ServiceSubscriptionValue
 from lte.protos.models.volume_accounting_pb2 import VolumeAccountingValue
 from base64 import b64encode, b64decode
+from collections import namedtuple
+from google.protobuf.json_format import MessageToJson
+from google.protobuf.json_format import MessageToDict
+from google.protobuf.json_format import Parse
+
+PmnJsonTuple = namedtuple('PmnJsonTuple', ['module_type', 'received_proto', 'converted_dict'])
 
 def assemble_am1(args) -> AccessAndMobilitySubscriptionData:
 
@@ -317,6 +323,67 @@ def dump_subscriber_in_json(proto_msg):
     json_object = json.dumps(proto_msg, indent=1)
     print(json_object + ",")
 
+
+def _pmn_servicer_process_json(pmnSubscriberData) -> []:
+    pmnJsonList = []
+
+    pmnJsonList.append(PmnJsonTuple('am1.json', pmnSubscriberData.am1,
+                       MessageToDict(pmnSubscriberData.am1)))
+    pmnJsonList.append(PmnJsonTuple('smfSel.json', pmnSubscriberData.smfSel,
+                       MessageToDict(pmnSubscriberData.smfSel)))
+    pmnJsonList.append(PmnJsonTuple('sm-data-policy.json',
+                       pmnSubscriberData.smDataPolicy,
+                       MessageToDict(pmnSubscriberData.smDataPolicy)))
+
+    # Special processing for auth data
+    auth_subs_data_dict=MessageToDict(pmnSubscriberData.auth_subs_data)
+
+    #Decrypt the keys from base64 to hex
+    proto_encOpcKey=pmnSubscriberData.auth_subs_data.encOpcKey
+    proto_encPermanentKey=pmnSubscriberData.auth_subs_data.encPermanentKey
+
+    # Changed the encOpcKey & encPermanentKey
+    auth_subs_data_dict['encOpcKey']=\
+        b64decode(proto_encOpcKey.decode()).hex()
+    auth_subs_data_dict['encPermanentKey']=\
+        b64decode(proto_encPermanentKey.decode()).hex()
+
+    pmnJsonList.append(PmnJsonTuple('auth-subs-data.json',
+        pmnSubscriberData.auth_subs_data, auth_subs_data_dict))
+
+    # Update the SmF Data
+    modified_sm_data_dict = {"plmnSmData":{}}
+    for key in pmnSubscriberData.smData.plmnSmData:
+        sessionManagementSubscriptionData=[]
+        for item in pmnSubscriberData.smData.plmnSmData[key]:
+            res = json.loads(item)
+            sessionManagementSubscriptionData.append(res)
+        modified_sm_data_dict["plmnSmData"][key]=\
+            sessionManagementSubscriptionData
+
+    pmnJsonList.append(PmnJsonTuple("sm-data.json",
+        pmnSubscriberData.smData.plmnSmData, modified_sm_data_dict))
+    pmnJsonList.append(PmnJsonTuple("am-policy-data.json",
+        pmnSubscriberData.am_policy_data,
+        MessageToDict(pmnSubscriberData.smDataPolicy)))
+    pmnJsonList.append(PmnJsonTuple("ue-policy-data.json",
+        pmnSubscriberData.ue_policy_data,
+        MessageToDict(pmnSubscriberData.ue_policy_data)))
+    pmnJsonList.append(PmnJsonTuple("sms-data.json", pmnSubscriberData.sms_data,
+        MessageToDict(pmnSubscriberData.sms_data)))
+    pmnJsonList.append(PmnJsonTuple("sms-mng-data.json", pmnSubscriberData.sms_mng_data,
+        MessageToDict(pmnSubscriberData.sms_mng_data)))
+
+    return pmnJsonList
+
+def rpc_handler(pmnSubscriberData):
+     pmn_subs_processed_data =\
+             _pmn_servicer_process_json(pmnSubscriberData);
+
+     for items in pmn_subs_processed_data:
+         json_object = json.dumps(items.converted_dict, indent=1)
+         print(items.module_type, json_object)
+
 def add_subscriber(client, args):
 
     am1 = assemble_am1(args)
@@ -348,9 +415,8 @@ def add_subscriber(client, args):
                           sms_data=sms_data,
                           sms_mng_data=sms_mng_data,osd=osd,)
 
-    from google.protobuf.json_format import MessageToJson
-    from google.protobuf.json_format import MessageToDict
-    from google.protobuf.json_format import Parse
+    rpc_handler(pmn_subs_data)
+
     #print(MessageToJson(pmn_subs_data))
     bevo_msg_dict={}
 
@@ -394,7 +460,7 @@ def add_subscriber(client, args):
 
     bevo_msg_dict.update({"sms-mng-data.json": MessageToDict(sms_mng_data)})
 
-    dump_subscriber_in_json(bevo_msg_dict)
+    #dump_subscriber_in_json(bevo_msg_dict)
 
     #client.PMNSubscriberConfig(pmn_subs_data)
 
