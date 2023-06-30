@@ -47,6 +47,7 @@ from lte.protos.models.operator_specific_data_pb2 import OperatorSpecificData
 from lte.protos.models.subscriber_info_pb2 import QosProfileName
 from lte.protos.models.service_subscription_pb2 import ServiceSubscriptionValue
 from lte.protos.models.volume_accounting_pb2 import VolumeAccountingValue
+from base64 import b64encode, b64decode
 
 def assemble_am1(args) -> AccessAndMobilitySubscriptionData:
 
@@ -219,11 +220,14 @@ def assemble_sms_mng_data(args):
                                          plmnSmsMgmtSubsData=plmnSmsMgmtSubsData)
 
 def assemble_auth_subs_data(args) -> AuthenticationSubscription:
+    keyb64=b64encode(bytes.fromhex(args.auth_key))
+    opcb64=b64encode(bytes.fromhex(args.opc))
+
     return AuthenticationSubscription(KTAB="AUTHSUBS", algorithmId="MILENAGE.1",
                                       authenticationManagementField="8000",
                                       authenticationMethod="5G_AKA",
-                                      encOpcKey=args.opc,
-                                      encPermanentKey=args.auth_key,
+                                      encOpcKey=opcb64,
+                                      encPermanentKey=keyb64,
                                       protectionParameterId="none",
                                       sequenceNumber=\
                                        SequenceNumber(difSign="POSITIVE",
@@ -351,25 +355,28 @@ def add_subscriber(client, args):
     bevo_msg_dict={}
 
     bevo_msg_dict.update({"am1.json": MessageToDict(am1)})
-    #dump_subscriber_in_json(am1_msg)
 
     bevo_msg_dict.update({"smfSel.json": MessageToDict(smfSel)})
-    #dump_subscriber_in_json(smfSel_msg)
 
     bevo_msg_dict.update({"sm-data-policy.json": MessageToDict(smDataPolicy)})
-    #dump_subscriber_in_json(smDataPolicy_msg)
 
-    bevo_msg_dict.update({"auth-subs-data.json": MessageToDict(auth_subs_data)})
-    #dump_subscriber_in_json(auth_subs_data_msg)
+    #Decrypt the keys from base64 to hex
+    proto_encOpcKey=auth_subs_data.encOpcKey
+    proto_encPermanentKey=auth_subs_data.encPermanentKey
+    auth_subs_data_dict=MessageToDict(auth_subs_data)
+
+    auth_subs_data_dict['encOpcKey']=\
+            b64decode(proto_encOpcKey.decode()).hex()
+    auth_subs_data_dict['encPermanentKey']=\
+            b64decode(proto_encPermanentKey.decode()).hex()
+    bevo_msg_dict.update({"auth-subs-data.json": auth_subs_data_dict})
 
     bevo_msg_dict.update({"osd.json": MessageToDict(osd)})
-    #dump_subscriber_in_json(osd_msg)
 
     modified_smData = {"plmnSmData":{}}
     for key in smData.plmnSmData:
         sessionManagementSubscriptionData=[]
         for item in smData.plmnSmData[key]:
-            print(type(item))
             res = json.loads(item)
             sessionManagementSubscriptionData.append(res)
         modified_smData["plmnSmData"][key]=sessionManagementSubscriptionData
@@ -378,19 +385,14 @@ def add_subscriber(client, args):
     #smDataObject = json.loads(modified_smData)
 
     bevo_msg_dict.update({"sm-data.json": modified_smData})
-    #dump_subscriber_in_json(smData_msg)
 
     bevo_msg_dict.update({"am-policy-data.json": MessageToDict(am_policy_data)})
-    #dump_subscriber_in_json(am_policy_data_msg)
 
     bevo_msg_dict.update({"ue-policy-data.json": MessageToDict(ue_policy_data)})
-    #dump_subscriber_in_json(ue_policy_data_msg)
 
     bevo_msg_dict.update({"sms-data.json": MessageToDict(sms_data)})
-    #dump_subscriber_in_json(sms_data_msg)
 
     bevo_msg_dict.update({"sms-mng-data.json": MessageToDict(sms_mng_data)})
-    #dump_subscriber_in_json(sms_mng_data_msg)
 
     dump_subscriber_in_json(bevo_msg_dict)
 
