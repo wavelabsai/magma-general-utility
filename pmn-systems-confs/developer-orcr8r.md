@@ -14,3 +14,10 @@
 ## To sync protos between Orc8r and AGW
 [dir] orc8r/cloud/docker
 - sudo PWD=$PWD ./build.py --g      ```(will generate pb.go files that can be used by orc8r code)```
+
+## Run the lint test on AGW Python code
+```export MAGMA_ROOT=/home/vagrant/pmn-systems/
+cd lte/gateway/python/
+./precommit.py
+./precommit.py --lint -p lte/gateway/python/magma/subscriberdb/client.py
+```
