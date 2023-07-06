@@ -3,113 +3,120 @@ import json
 
 app = Flask(__name__)
 
-bevo_msg_dict={}
+bevo_msg_dict = {}
 
-def bevo_msg_update(module_json:str, request:str):
-    print(" ------- Received JSON Message ------- ")
-    bevo_msg_dict.update({module_json: request})
-    json_object = json.dumps(bevo_msg_dict, indent=1)
-    print(json_object + ",")
 
-@app.route("/nudr-sp/v1/subs-<supi>/5gs/imsi-<imsi>/subscription-data/provisioned-data/am-data", methods=["PUT"])
+def bevo_msg_update(module_json: str, request, supi: str):
+    if request.method == "PUT":
+        print(" ------- Received JSON Message ------- ")
+        bevo_msg_dict.update({module_json: request.json})
+        json_object = json.dumps(bevo_msg_dict[module_json], indent=1)
+        print(json_object + ",")
+        print(f"Added {module_json} for {supi}")
+    else:
+        print(f"Deleted {module_json} for {supi}")
+
+
+@app.route("/nudr-sp/v1/subs-<supi>/5gs/imsi-<imsi>/subscription-data/provis"
+           "ioned-data/am-data", methods=["PUT", "DELETE"])
 def am_data(supi, imsi):
-    bevo_msg_update("am1.json", request.json)
-    return {
-        "supi": supi,
-        "imsi": imsi,
-        "am-data": request.json
-    }
+    bevo_msg_update("am1.json", request, supi)
+    if request.method == 'PUT':
+        print(f"API Invoker ID: {request.headers.get('apiInvokerId')}")
+        return request.json
+    else:
+        return {"Deleted am1.json for": supi}
 
 
-@app.route("/nudr-sp/v1/subs-<supi>/5gs/imsi-<imsi>/subscription-data/provisioned-data/smf-selection-subscription-data",
-           methods=["PUT"])
+@app.route("/nudr-sp/v1/subs-<supi>/5gs/imsi-<imsi>/subscription-data/provis"
+           "ioned-data/smf-selection-subscription-data",
+           methods=["PUT", "DELETE"])
 def smf_selection_subscription_data(supi, imsi):
-    bevo_msg_update("smfSel.json", request.json)
-    return {
-        "supi": supi,
-        "imsi": imsi,
-        "smf-selection-subscription-data": request.json
-    }
+    bevo_msg_update("smfSel.json", request, supi)
+    if request.method == 'PUT':
+        return request.json
+    else:
+        return {"Deleted smfSel.json for": supi}
 
 
-@app.route("/nudr-sp/v1/subs-<supi>/5gs/imsi-<imsi>/policy-data/sm-data", methods=["PUT"])
+@app.route("/nudr-sp/v1/subs-<supi>/5gs/imsi-<imsi>/policy-data/sm-data",
+           methods=["PUT", "DELETE"])
 def policy_sm_data(supi, imsi):
-    bevo_msg_update("sm-data-policy.json", request.json)
-    return {
-        "supi": supi,
-        "imsi": imsi,
-        "sm-data-policy": request.json
-    }
+    bevo_msg_update("sm-data-policy.json", request, supi)
+    if request.method == 'PUT':
+        return request.json
+    else:
+        return {"Deleted sm-data-policy.json for": supi}
 
 
-@app.route("/nudr-sp/v1/subs-<supi>/5gs/imsi-<imsi>/subscription-data/authentication-subscription", methods=["PUT"])
+@app.route("/nudr-sp/v1/subs-<supi>/5gs/imsi-<imsi>/subscription-data/authen"
+           "tication-subscription", methods=["PUT", "DELETE"])
 def authentication_subscription(supi, imsi):
-    bevo_msg_update("auth-subs-data.json", request.json)
-    return {
-        "supi": supi,
-        "imsi": imsi,
-        "auth-subs-data": request.json
-    }
+    bevo_msg_update("auth-subs-data.json", request, supi)
+    if request.method == 'PUT':
+        return request.json
+    else:
+        return {"Deleted auth-subs-data.json for": supi}
 
 
-@app.route("/nudr-sp/v1/subs-<supi>/5gs/imsi-<imsi>/policy-data/operator-specific-data", methods=["PUT"])
+@app.route("/nudr-sp/v1/subs-<supi>/5gs/imsi-<imsi>/policy-data/operator-speci"
+           "fic-data", methods=["PUT", "DELETE"])
 def operator_specific_data(supi, imsi):
-    bevo_msg_update("osd.json", request.json)
-    return {
-        "supi": supi,
-        "imsi": imsi,
-        "osd": request.json
-    }
+    bevo_msg_update("osd.json", request, supi)
+    if request.method == 'PUT':
+        return request.json
+    else:
+        return {"Deleted osd.json for": supi}
 
 
-@app.route("/nudr-sp/v1/subs-<supi>/5gs/imsi-<imsi>/subscription-data/provisioned-data/sm-data", methods=["PUT"])
+@app.route("/nudr-sp/v1/subs-<supi>/5gs/imsi-<imsi>/subscription-data/provisio"
+           "ned-data/sm-data", methods=["PUT", "DELETE"])
 def sm_data(supi, imsi):
-    bevo_msg_update("sm-data.json", request.json)
-    return {
-        "supi": supi,
-        "imsi": imsi,
-        "sm-data": request.json
-    }
+    bevo_msg_update("sm-data.json", request, supi)
+    if request.method == 'PUT':
+        return request.json
+    else:
+        return {"Deleted sm-data.json for": supi}
 
 
-@app.route("/nudr-sp/v1/subs-<supi>/5gs/imsi-<imsi>/policy-data/am-data", methods=["PUT"])
+@app.route("/nudr-sp/v1/subs-<supi>/5gs/imsi-<imsi>/policy-data/am-data",
+           methods=["PUT", "DELETE"])
 def policy_am_data(supi, imsi):
-    bevo_msg_update("am-policy-data.json", request.json)
-    return {
-        "supi": supi,
-        "imsi": imsi,
-        "am-policy-data": request.json
-    }
+    bevo_msg_update("am-policy-data.json", request, supi)
+    if request.method == 'PUT':
+        return request.json
+    else:
+        return {"Deleted am-policy-data.json for": supi}
 
 
-@app.route("/nudr-sp/v1/subs-<supi>/5gs/imsi-<imsi>/policy-data/ue-policy-set", methods=["PUT"])
+@app.route("/nudr-sp/v1/subs-<supi>/5gs/imsi-<imsi>/policy-data/ue-policy-set",
+           methods=["PUT", "DELETE"])
 def ue_policy_set(supi, imsi):
-    bevo_msg_update("ue-policy-data.json", request.json)
-    return {
-        "supi": supi,
-        "imsi": imsi,
-        "ue-policy-data": request.json
-    }
+    bevo_msg_update("ue-policy-data.json", request, supi)
+    if request.method == 'PUT':
+        return request.json
+    else:
+        return {"Deleted ue-policy-data.json for": supi}
 
 
-@app.route("/nudr-sp/v1/subs-<supi>/5gs/imsi-<imsi>/subscription-data/provisioned-data/sms-data", methods=["PUT"])
+@app.route("/nudr-sp/v1/subs-<supi>/5gs/imsi-<imsi>/subscription-data/provisi"
+           "oned-data/sms-data", methods=["PUT", "DELETE"])
 def sms_data(supi, imsi):
-    bevo_msg_update("sms-data.json", request.json)
-    return {
-        "supi": supi,
-        "imsi": imsi,
-        "sms-data": request.json
-    }
+    bevo_msg_update("sms-data.json", request, supi)
+    if request.method == 'PUT':
+        return request.json
+    else:
+        return {"Deleted sms-data.json for": supi}
 
 
-@app.route("/nudr-sp/v1/subs-<supi>/5gs/imsi-<imsi>/subscription-data/provisioned-data/sms-mng-data", methods=["PUT"])
+@app.route("/nudr-sp/v1/subs-<supi>/5gs/imsi-<imsi>/subscription-data/provisi"
+           "oned-data/sms-mng-data", methods=["PUT", "DELETE"])
 def sms_mng_data(supi, imsi):
-    bevo_msg_update("sms-mng-data.json", request.json)
-    return {
-        "supi": supi,
-        "imsi": imsi,
-        "sms-mng-data": request.json
-    }
+    bevo_msg_update("sms-mng-data.json", request, supi)
+    if request.method == 'PUT':
+        return request.json
+    else:
+        return {"Deleted sms-mng-data.json for": supi}
 
 
 if __name__ == '__main__':
