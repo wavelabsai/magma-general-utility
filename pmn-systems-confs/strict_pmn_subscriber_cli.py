@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python3
 
 import argparse
@@ -48,6 +47,13 @@ from lte.protos.models.operator_specific_data_pb2 import OperatorSpecificData
 from lte.protos.models.subscriber_info_pb2 import QosProfileName
 from lte.protos.models.service_subscription_pb2 import ServiceSubscriptionValue
 from lte.protos.models.volume_accounting_pb2 import VolumeAccountingValue
+from base64 import b64encode, b64decode
+from collections import namedtuple
+from google.protobuf.json_format import MessageToJson
+from google.protobuf.json_format import MessageToDict
+from google.protobuf.json_format import Parse
+
+PmnJsonTuple = namedtuple('PmnJsonTuple', ['module_type', 'received_proto', 'converted_dict'])
 
 def assemble_am1(args) -> AccessAndMobilitySubscriptionData:
 
@@ -77,6 +83,31 @@ def assemble_smfSel(args) -> SmfSelection:
 
     return SmfSelection(plmnSmfSelData=\
             ({"{}-{}".format(args.mcc, args.mnc):smfSelectionSubscriptionData}))
+
+def assemble_smDataPolicy(args) -> SmDataPolicy:
+    apn_name1="{}.mnc{}.mcc{}.gprs".format(args.dnn_name, args.mcc, args.mnc)
+    sm_policy_dnn_data1 = SmPolicyDnnData(dnn=apn_name1,
+                                          allowedServices=["A", "B"],
+                                          gbrUl="200kbps", gbrDl="100kbps",
+                                          ipv4Index=2, ipv6Index=3,
+                                          offline=False, online=True,
+                                          subscCats=["Brass"])
+
+    apn_name2="ims.mnc{}.mcc{}.gprs".format(args.mcc, args.mnc)
+    sm_policy_dnn_data2 = SmPolicyDnnData(dnn=apn_name2,
+                                          allowedServices=["A", "B"],
+                                          gbrUl="200kbps", gbrDl="100kbps",
+                                          ipv4Index=2, ipv6Index=3,
+                                          offline=False, online=True,
+                                          subscCats=["Brass"])
+
+
+    smPolicySnssaiData=SmPolicySnssaiData(snssai=Snssai(sst=args.st,sd=args.sd),
+                              smPolicyDnnData=({apn_name1:sm_policy_dnn_data1,
+                                                apn_name2:sm_policy_dnn_data2}))
+
+    return SmDataPolicy(smPolicySnssaiData=\
+                       ({"{}-{}".format(args.st, args.sd):smPolicySnssaiData}))
 
 def assemble_smData(args) -> SmData:
     #snssai=Snssai(sst=args.st,sd=args.sd)
@@ -118,22 +149,226 @@ def assemble_smData(args) -> SmData:
     return SmData(plmnSmData=({"{}-{}".format(args.mcc, args.mnc): listValue}))
 
 
+def assemble_am_policy_data(args) -> AmPolicyData:
+    trackingAreaList=[Tai(plmnId=PlmnId(mcc=args.mcc, mnc=args.mnc), tac="1")]
+
+    presenceInfo=PresenceInfo(ecgiList=[], ncgiList=[], trackingAreaList=trackingAreaList)
+
+    return AmPolicyData(praInfos=({"ad__3":presenceInfo}),
+                        subscCats=[])
+
+def assemble_ue_policy_data(args) -> UePolicySet:
+    plmnRouteSelectionDescriptor=\
+          PlmnRouteSelectionDescriptor(servingPlmn=\
+                                       PlmnId(mcc=args.mcc,mnc=args.mnc),
+          snssaiRouteSelDescs=[
+               SnssaiRouteSelectionDescriptor(
+                 snssai=Snssai(sst=args.st,sd=args.sd),
+                 dnnRouteSelDescs=\
+                   [DnnRouteSelectionDescriptor(
+                    dnn="{}.mnc{}.mcc{}.gprs".format(args.dnn_name, args.mnc,
+                                                     args.mcc),
+                    sscModes=["SSC_MODE_1"],
+                    pduSessTypes=["IPV4", "IPV4V6"]),
+                    DnnRouteSelectionDescriptor(
+                    dnn="{}.mnc{}.mcc{}.gprs".format(args.dnn_name, args.mnc,
+                                                     args.mcc),
+                    sscModes=["SSC_MODE_1","SSC_MODE_2","SSC_MODE_3"],
+                    pduSessTypes=["IPV46","IPV4V6","UNSTRUCTURED"])]),
+               SnssaiRouteSelectionDescriptor(
+                 snssai=Snssai(sst=2,sd="00002"),
+                 dnnRouteSelDescs=\
+                   [DnnRouteSelectionDescriptor(
+                    dnn="{}.mnc{}.mcc{}.gprs".format(args.dnn_name, args.mnc,
+                                                     args.mcc),
+                    sscModes=["SSC_MODE_1"],
+                    pduSessTypes=["IPV4", "IPV4V6"]),
+                    DnnRouteSelectionDescriptor(
+                    dnn="{}.mnc{}.mcc{}.gprs".format(args.dnn_name, args.mnc,
+                                                     args.mcc),
+                    sscModes=["SSC_MODE_1","SSC_MODE_2","SSC_MODE_3"],
+                    pduSessTypes=["IPV6", "IPV46", "IPV6", "UNSTRUCTURED"])])])
+
+    return UePolicySet(subscCats=["Categorieslist"],
+                       uePolicySections=\
+                       ({"ade":UePolicySection(uePolicySectionInfo=\
+                         bytes("C0RF", 'utf-8'),upsi="UPSI-Data")}),
+                       allowedRouteSelDescs=\
+                       ({"deserunt38": plmnRouteSelectionDescriptor}))
+
+def assemble_sms_data(args) -> SmsData:
+    return SmsData(plmnSmsData=\
+                   ({"{}-{}".format(args.mcc, args.mnc):SmsSubscriptionData(
+                                                        smsSubscribed=True)}))
+
+def assemble_sms_mng_data(args):
+    plmnSmsMgmtSubsData = struct_pb2.Struct()
+    plmnSmsMgmtSubsData["{}-{}".format(args.mcc, args.mnc)]={"dummy": "mav1"}
+
+    return SmsManagementSubscriptionData(moSmsBarringRoaming=True,
+                                         mtSmsBarringAll=True,
+                                         mtSmsBarringRoaming=True,
+                                         mtSmsSubscribed=True,
+                                         plmnSmsMgmtSubsData=plmnSmsMgmtSubsData)
+
 def assemble_auth_subs_data(args) -> AuthenticationSubscription:
+    keyb64=b64encode(bytes.fromhex(args.auth_key))
+    opcb64=b64encode(bytes.fromhex(args.opc))
+
     return AuthenticationSubscription(KTAB="AUTHSUBS", algorithmId="MILENAGE.1",
                                       authenticationManagementField="8000",
                                       authenticationMethod="5G_AKA",
-                                      encOpcKey=args.opc,
-                                      encPermanentKey=args.auth_key,
+                                      encOpcKey=opcb64,
+                                      encPermanentKey=keyb64,
                                       protectionParameterId="none",
                                       sequenceNumber=\
                                        SequenceNumber(difSign="POSITIVE",
-                                                      indLength=0,
+                                                      indLength=5,
                                                       sqnScheme="NON_TIME_BASED",
-                                                      sqn="000000000000"))
+                                                      lastIndexes=({"ausf":22}),
+                                                      sqn="000000000ac0"))
+
+def assemble_osd(osd):
+    osd.SubscriberId.dataType = "string"
+    osd.SubscriberId.value = "A"
+    osd.SubscriberInfo.dataType = "object"
+    osd.SubscriberInfo.value.PricingPlanType = ""
+    osd.SubscriberInfo.value.PlanName = "199"
+    osd.SubscriberInfo.value.HomeLocation = ""
+    osd.SubscriberInfo.value.UserNotification = ""
+    osd.SubscriberInfo.value.SubscriberEmailId = ""
+    osd.SubscriberInfo.value.SubscriberValidity = ""
+    osd.SubscriberInfo.value.SubscriberCategory = ""
+    osd.SubscriberInfo.value.internal_PAYGConsent = ""
+    subscribedServices  = ["", "", "", ""]
+    osd.SubscriberInfo.value.TopupServicesSubscribed.MergeFrom(subscribedServices)
+
+    qosProfileItem = QosProfileName()
+    qosProfileItem.QosProfileName = "a"
+    qosProfileItem.pcrfARPPrioLevel = "a"
+    qosProfileItem.pcrfPreEmptionCap = "a"
+    qosProfileItem.pcrfPreEmptionVuln = "a"
+    qosProfileItem.pcrfQoSClassName = "a"
+    qosProfileItem.pcrfMaxReqBrUL = "a"
+    qosProfileItem.pcrfMaxReqBrDL = "a"
+    qosProfileItem.pcrfGuarBrUL = "a"
+    qosProfileItem.pcrfGuarBrDL = "a"
+    qosProfileItem.pcrfAPNAggMaxBrUL = "a"
+    qosProfileItem.pcrfAPNAggMaxBrDL = "a"
+    osd.SubscriberInfo.value.QosProfileName.MergeFrom([qosProfileItem])
+
+    ssValueItem1 = ServiceSubscriptionValue()
+    ssValueItem1.ServiceName = "BasePlan"
+    ssValueItem1.ServiceId = "12345"
+    ssValueItem1.BillingStartDate = "a"
+    ssValueItem1.BillingEndDate = "a"
+    ssValueItem1.QuotaStartDate = "a"
+    ssValueItem1.QuotaEndDate = "a"
+    ssValueItem1.MonitoringKey = "a"
+    ssValueItem1.RatingGroup = "a"
+    ssValueItem1.TotalThreshold = "a"
+    ssValueItem1.RecurringQuotaReset = "a"
+    ssValueItem1.CurrentRolloverCount = "a"
+    ssValueItem2 = ServiceSubscriptionValue()
+    ssValueItem2.ServiceName = "Top-Up"
+    ssValueItem2.ServiceId = "12346"
+    ssValueItem2.BillingStartDate = "b"
+    ssValueItem2.BillingEndDate = "b"
+    ssValueItem2.QuotaStartDate = "b"
+    ssValueItem2.QuotaEndDate = "b"
+    ssValueItem2.MonitoringKey = "b"
+    ssValueItem2.RatingGroup = "b"
+    ssValueItem2.TotalThreshold = "b"
+    ssValueItem2.RecurringQuotaReset = "b"
+    ssValueItem2.CurrentRolloverCount = "b"
+    osd.ServiceSubscription.dataType = "object"
+    osd.ServiceSubscription.value.MergeFrom([ssValueItem1, ssValueItem2])
+
+    vaValueItem1 = VolumeAccountingValue()
+    vaValueItem1.ServiceName = "a"
+    vaValueItem1.ServiceId = "a"
+    vaValueItem1.TotalUsedQuota = "a"
+    vaValueItem1.UlUsedQuota = "a"
+    vaValueItem1.DlUsedQuota = "a"
+    vaValueItem1.MonitoringKey = "a"
+    vaValueItem1.GracePeriod = "a"
+
+    vaValueItem2 = VolumeAccountingValue()
+    vaValueItem2.ServiceName = "b"
+    vaValueItem2.ServiceId = "b"
+    vaValueItem2.TotalUsedQuota = "b"
+    vaValueItem2.UlUsedQuota = "b"
+    vaValueItem2.DlUsedQuota = "b"
+    vaValueItem2.MonitoringKey = "b"
+    vaValueItem2.GracePeriod = "b"
+
+    osd.VolumeAccounting.dataType = "object"
+    osd.VolumeAccounting.value.MergeFrom([vaValueItem1,vaValueItem2])
 
 def dump_subscriber_in_json(proto_msg):
     json_object = json.dumps(proto_msg, indent=1)
     print(json_object + ",")
+
+
+def _pmn_servicer_process_json(pmnSubscriberData) -> []:
+    pmnJsonList = []
+
+    pmnJsonList.append(PmnJsonTuple('am1.json', pmnSubscriberData.am1,
+                       MessageToDict(pmnSubscriberData.am1, True)))
+    pmnJsonList.append(PmnJsonTuple('smfSel.json', pmnSubscriberData.smfSel,
+                       MessageToDict(pmnSubscriberData.smfSel, True)))
+    pmnJsonList.append(PmnJsonTuple('sm-data-policy.json',
+                       pmnSubscriberData.smDataPolicy,
+                       MessageToDict(pmnSubscriberData.smDataPolicy, True)))
+
+    # Special processing for auth data
+    auth_subs_data_dict=MessageToDict(pmnSubscriberData.auth_subs_data)
+
+    #Decrypt the keys from base64 to hex
+    proto_encOpcKey=pmnSubscriberData.auth_subs_data.encOpcKey
+    proto_encPermanentKey=pmnSubscriberData.auth_subs_data.encPermanentKey
+
+    # Changed the encOpcKey & encPermanentKey
+    auth_subs_data_dict['encOpcKey']=\
+        b64decode(proto_encOpcKey.decode()).hex()
+    auth_subs_data_dict['encPermanentKey']=\
+        b64decode(proto_encPermanentKey.decode()).hex()
+
+    pmnJsonList.append(PmnJsonTuple('auth-subs-data.json',
+        pmnSubscriberData.auth_subs_data, auth_subs_data_dict))
+
+    # Update the SmF Data
+    modified_sm_data_dict = {"plmnSmData":{}}
+    for key in pmnSubscriberData.smData.plmnSmData:
+        sessionManagementSubscriptionData=[]
+        for item in pmnSubscriberData.smData.plmnSmData[key]:
+            res = json.loads(item)
+            sessionManagementSubscriptionData.append(res)
+        modified_sm_data_dict["plmnSmData"][key]=\
+            sessionManagementSubscriptionData
+
+    pmnJsonList.append(PmnJsonTuple("sm-data.json",
+        pmnSubscriberData.smData.plmnSmData, modified_sm_data_dict))
+    pmnJsonList.append(PmnJsonTuple("am-policy-data.json",
+        pmnSubscriberData.am_policy_data,
+        MessageToDict(pmnSubscriberData.am_policy_data, including_default_value_fields=True)))
+    pmnJsonList.append(PmnJsonTuple("ue-policy-data.json",
+        pmnSubscriberData.ue_policy_data,
+        MessageToDict(pmnSubscriberData.ue_policy_data, True)))
+    pmnJsonList.append(PmnJsonTuple("sms-data.json", pmnSubscriberData.sms_data,
+        MessageToDict(pmnSubscriberData.sms_data, True)))
+    pmnJsonList.append(PmnJsonTuple("sms-mng-data.json", pmnSubscriberData.sms_mng_data,
+        MessageToDict(pmnSubscriberData.sms_mng_data, True)))
+
+    return pmnJsonList
+
+def rpc_handler(pmnSubscriberData):
+     pmn_subs_processed_data =\
+             _pmn_servicer_process_json(pmnSubscriberData);
+
+     for items in pmn_subs_processed_data:
+         json_object = json.dumps(items.converted_dict, indent=1)
+         print(items.module_type, json_object)
 
 def add_subscriber(client, args):
 
@@ -141,28 +376,54 @@ def add_subscriber(client, args):
 
     smfSel = assemble_smfSel(args)
 
+    smDataPolicy = assemble_smDataPolicy(args)
+
     auth_subs_data = assemble_auth_subs_data(args)
 
     smData = assemble_smData(args)
 
-    pmn_subs_data=\
-        PMNSubscriberData(am1=am1, smfSel=smfSel,
-                          auth_subs_data=auth_subs_data, smData=smData,)
+    sms_data = assemble_sms_data(args)
 
-    from google.protobuf.json_format import MessageToJson
-    from google.protobuf.json_format import MessageToDict
-    from google.protobuf.json_format import Parse
+    sms_mng_data = assemble_sms_mng_data(args)
+
+    am_policy_data = assemble_am_policy_data(args)
+
+    ue_policy_data = assemble_ue_policy_data(args)
+
+    osd = OperatorSpecificData()
+    assemble_osd(osd)
+
+    pmn_subs_data=\
+        PMNSubscriberData(am1=am1, smfSel=smfSel, smDataPolicy=smDataPolicy,
+                          auth_subs_data=auth_subs_data, smData=smData,
+                          am_policy_data=am_policy_data,
+                          ue_policy_data=ue_policy_data,
+                          sms_data=sms_data,
+                          sms_mng_data=sms_mng_data,osd=osd,)
+
+    #rpc_handler(pmn_subs_data)
+
     #print(MessageToJson(pmn_subs_data))
     bevo_msg_dict={}
 
-    bevo_msg_dict.update({"am1.json": MessageToDict(am1)})
-    #dump_subscriber_in_json(am1_msg)
+    bevo_msg_dict.update({"am1.json": MessageToDict(am1, True)})
 
-    bevo_msg_dict.update({"smfSel.json": MessageToDict(smfSel)})
-    #dump_subscriber_in_json(smfSel_msg)
+    bevo_msg_dict.update({"smfSel.json": MessageToDict(smfSel, True)})
 
-    bevo_msg_dict.update({"auth-subs-data.json": MessageToDict(auth_subs_data)})
-    #dump_subscriber_in_json(auth_subs_data_msg)
+    bevo_msg_dict.update({"sm-data-policy.json": MessageToDict(smDataPolicy, True)})
+
+    #Decrypt the keys from base64 to hex
+    proto_encOpcKey=auth_subs_data.encOpcKey
+    proto_encPermanentKey=auth_subs_data.encPermanentKey
+    auth_subs_data_dict=MessageToDict(auth_subs_data, True)
+
+    auth_subs_data_dict['encOpcKey']=\
+            b64decode(proto_encOpcKey.decode()).hex()
+    auth_subs_data_dict['encPermanentKey']=\
+            b64decode(proto_encPermanentKey.decode()).hex()
+    bevo_msg_dict.update({"auth-subs-data.json": auth_subs_data_dict})
+
+    bevo_msg_dict.update({"osd.json": MessageToDict(osd, True)})
 
     modified_smData = {"plmnSmData":{}}
     for key in smData.plmnSmData:
@@ -172,7 +433,18 @@ def add_subscriber(client, args):
             sessionManagementSubscriptionData.append(res)
         modified_smData["plmnSmData"][key]=sessionManagementSubscriptionData
 
+    #print(json.dumps(modified_smData, indent=1))
+    #smDataObject = json.loads(modified_smData)
+
     bevo_msg_dict.update({"sm-data.json": modified_smData})
+
+    bevo_msg_dict.update({"am-policy-data.json": MessageToDict(am_policy_data, True)})
+
+    bevo_msg_dict.update({"ue-policy-data.json": MessageToDict(ue_policy_data, True)})
+
+    bevo_msg_dict.update({"sms-data.json": MessageToDict(sms_data, True)})
+
+    bevo_msg_dict.update({"sms-mng-data.json": MessageToDict(sms_mng_data, True)})
 
     dump_subscriber_in_json(bevo_msg_dict)
 
@@ -235,5 +507,5 @@ def main():
 if __name__ == "__main__":
     main()
 
-#python3.9  strict_pmn_subscriber_cli.py add --mcc 724 --mnc 99 --imsi 724990000000008 --st 1 --sd "fff" --opc E8ED289DEBA952E4283B54E88E6183CA --auth_key 465B5CE8B199B49FAA5F0A2EE238A6BC --subs_ambr_ul "10 Mbps" --subs_ambr_dl "20 Mbps" --dnn_name "apn1" --dnn_ambr_ul "10 Mbps"   --dnn_ambr_dl "20 Mbps" --qos_profile_5qi 5
-#python3.9  strict_pmn_subscriber_cli.py add --mcc 001 --mnc 01 --imsi 001011234567548 --st 1 --sd "000001" --opc E8ED289DEBA952E4283B54E88E6183CA --auth_key 465B5CE8B199B49FAA5F0A2EE238A6BC --subs_ambr_ul "10 Mbps" --subs_ambr_dl "20 Mbps" --dnn_name "apn1" --dnn_ambr_ul "10 Mbps"   --dnn_ambr_dl "20 Mbps" --qos_profile_5qi 5
+#python3.9  pmn_subscriber_cli.py add --mcc 724 --mnc 99 --imsi 724990000000008 --st 1 --sd "fff" --opc E8ED289DEBA952E4283B54E88E6183CA --auth_key 465B5CE8B199B49FAA5F0A2EE238A6BC --subs_ambr_ul "10 Mbps" --subs_ambr_dl "20 Mbps" --dnn_name "apn1" --dnn_ambr_ul "10 Mbps"   --dnn_ambr_dl "20 Mbps" --qos_profile_5qi 5
+#python3.9  pmn_subscriber_cli.py add --mcc 001 --mnc 01 --imsi 001011234567539 --st 1 --sd "000001" --opc E8ED289DEBA952E4283B54E88E6183CA --auth_key 465B5CE8B199B49FAA5F0A2EE238A6BC --subs_ambr_ul "10 Mbps" --subs_ambr_dl "20 Mbps" --dnn_name "apn1" --dnn_ambr_ul "10 Mbps"   --dnn_ambr_dl "20 Mbps" --qos_profile_5qi 5
