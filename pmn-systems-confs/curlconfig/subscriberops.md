@@ -2,7 +2,8 @@
 
 ### Get the UDR provision services
 * kubectl get services --sort-by=.metadata.name --namespace intel-cil1-appln-udr-udr1
-    ```udr-provision   ClusterIP   192.102.200.165   <none>        3000/TCP   9d```
+
+  ```udr-provision   ClusterIP   192.102.200.165   <none>        3000/TCP   9d```
 
 ### POST the request
 * curl -v -X PUT -T am1.json http://192.102.200.165:3000/v1/subs-724990000000009/5gs/imsi-724990000000009/subscription-data/provisioned-data/am-data -H "content-type:application/json"
