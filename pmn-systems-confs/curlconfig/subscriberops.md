@@ -1,3 +1,17 @@
+## Steps to get the Curl Connected with OMS
+
+* P9 -> OMS execute following commands.
+```
+import json
+import requests
+import urllib3
+request_json={"am1.json":{"gpsis":["msisdn-001011234567534"],"internalGroupIds":["abcd1234-567-89-abcd"],"nssai":{"defaultSingleNssais":[{"sd":"000001","sst":1}],"singleNssais":[{"sd":"000002","sst":2},{"sd":"000003","sst":3}]},"subscribedUeAmbr":{"downlink":"2000 Mbps","uplink":"1000 Mbps"},"subscribedDnnList":["apn3"],"forbiddenAreas":[{"tacs":["000069"]}],"serviceAreaRestriction":{"restrictionType":"ALLOWED_AREAS","areas":[{"tacs":["000065","000066","000067"]}],"maxNumOfTAs":3},"plmnAmData":{"001-01":{}},"rfspIndex":7,"subsRegTimer":55,"ueUsageType":7,"micoAllowed":False}}
+
+session = requests.Session()
+session.verify = False
+resp=requests.post('http://192.168.90.20:18080/oms-service/webapi/apiservice/ue_provision/ue_config/ue_config?rowData=%7B%20%20%22supi%22%3A%20%22001011234567534%22%7D', data=request_json, headers={"Content-Type": "multipart/form-data", "accept": "application/json", "apiInvokerId": "8meZD"})
+```
+
 ## Steps to get the Curl Connected with UDR
 
 ### Get the UDR provision services
