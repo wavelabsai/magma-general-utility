@@ -1,5 +1,13 @@
 # Usage of CLIs
 
+## To create the file (incase not present)
+
+cat > strict_pmn_cli.py
+```
+Copy conent
+```
+ctrl + d
+
 ## strict_pmn_cli.py
 - add
   ```
