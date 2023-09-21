@@ -1,12 +1,19 @@
 # Usage of CLIs
 
-## To create the file (incase not present)
+## To create the file (incase vim is not present)
 
 cat > strict_pmn_cli.py
 ```
 Copy conent
 ```
 ctrl + d
+
+## Creating file if vim is present
+one-time:
+```
+   apt-get  update
+   apt-get -y install vim
+```
 
 ## strict_pmn_cli.py
 - add
