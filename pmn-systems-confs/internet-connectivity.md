@@ -1,4 +1,4 @@
-# For internet connectvitiy issue
+# For internet connectivity issue
 
 ## Forwarding Tables
 * iptables -t nat -A POSTROUTING -o eno1 -j MASQUERADE
