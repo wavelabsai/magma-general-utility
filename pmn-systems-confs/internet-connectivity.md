@@ -2,7 +2,7 @@
 
 ## Forwarding Tables
 * iptables -t nat -A POSTROUTING -o eno1 -j MASQUERADE
-* iptables -A FORWARD -i eth0 -o eno1 -j ACCEPT
+* iptables -A  FORWARD -i eth0 -o eno1 ! -d 192.168.0.0/16 -j ACCEPT
 * iptables -A FORWARD -i  eno1 -j ACCEPT
 
 ## Connecting to orchestrator
