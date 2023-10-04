@@ -28,5 +28,5 @@
   patch -p1 < [link](https://github.com/wavelabsai/magma-general-utility/blob/master/openvswitch/kernel-5.15/Fix-OVS-kernel-5.15.diff)
  ```
 
-**Note**: For any broken dependencies use : sudo apt --fix-broken install
+ NOTE: For any broken dependencies use : sudo apt --fix-broken install
   
