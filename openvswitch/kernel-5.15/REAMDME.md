@@ -26,7 +26,7 @@
   git checkout 31288dc725be6bc8eaa4e8641ee28895c9d0fd7a
   git apply "$MAGMA_ROOT/third_party/gtp_ovs/ovs-gtp-patches/$OVS_VER"/00*
   patch -p1 < [link](https://github.com/wavelabsai/magma-general-utility/blob/master/openvswitch/kernel-5.15/Fix-OVS-kernel-5.15.diff)
- ```
+  ```
 
- NOTE: For any broken dependencies use : sudo apt --fix-broken install
+ **NOTE**: For any broken dependencies use : sudo apt --fix-broken install
   
