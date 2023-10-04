@@ -1,0 +1,245 @@
+commit 55af83bd7e6b68f0ed9f2495d6d01dcd7d529a1a
+Author: Yogesh Pandey <yogesh@wavelabs.ai>
+Date:   Wed Oct 4 05:08:44 2023 +0000
+
+    fix(ovs): Support for kernel version 5.15
+    
+    Changes:
+     - Modified acinclude.m4 for enabling 5.15 compilation
+     - Other datapath changes for fixing compilation
+    
+    Test:
+     - OVS installation
+    
+    Signed-off-by: Yogesh Pandey <yogesh@wavelabs.ai>
+
+diff --git a/Documentation/faq/releases.rst b/Documentation/faq/releases.rst
+index 0fd1c2c39..eed1f2ca2 100644
+--- a/Documentation/faq/releases.rst
++++ b/Documentation/faq/releases.rst
+@@ -72,7 +72,7 @@ Q: What Linux kernel versions does each Open vSwitch release work with?
+     2.12.x       3.16 to 5.0
+     2.13.x       3.16 to 5.0
+     2.14.x       3.16 to 5.5
+-    2.15.x       3.16 to 5.8
++    2.15.x       3.16 to 5.15
+     ============ ==============
+ 
+     Open vSwitch userspace should also work with the Linux kernel module built
+diff --git a/NEWS b/NEWS
+index a3d7694b8..a0d393d5b 100644
+--- a/NEWS
++++ b/NEWS
+@@ -66,7 +66,7 @@ v2.15.0 - 15 Feb 2021
+    - The environment variable OVS_UNBOUND_CONF, if set, is now used
+      as the DNS resolver's (unbound) configuration file.
+    - Linux datapath:
+-     * Support for kernel versions up to 5.8.x.
++     * Support for kernel versions up to 5.15.x.
+    - Terminology:
+      * The terms "master" and "slave" have been replaced by "primary" and
+        "secondary", respectively, for OpenFlow connection roles.
+diff --git a/acinclude.m4 b/acinclude.m4
+index 6befc71bb..e1dec13bc 100644
+--- a/acinclude.m4
++++ b/acinclude.m4
+@@ -168,10 +168,10 @@ AC_DEFUN([OVS_CHECK_LINUX], [
+     AC_MSG_RESULT([$kversion])
+ 
+     if test "$version" -ge 5; then
+-       if test "$version" = 5 && test "$patchlevel" -le 8; then
++       if test "$version" = 5 && test "$patchlevel" -le 15; then
+           : # Linux 5.x
+        else
+-          AC_ERROR([Linux kernel in $KBUILD is version $kversion, but version newer than 5.8.x is not supported (please refer to the FAQ for advice)])
++          AC_ERROR([Linux kernel in $KBUILD is version $kversion, but version newer than 5.15.x is not supported (please refer to the FAQ for advice)])
+        fi
+     elif test "$version" = 4; then
+        : # Linux 4.x
+diff --git a/datapath/linux/compat/geneve.c b/datapath/linux/compat/geneve.c
+index 02c6403e6..3a19683b6 100644
+--- a/datapath/linux/compat/geneve.c
++++ b/datapath/linux/compat/geneve.c
+@@ -1308,7 +1308,11 @@ static const struct net_device_ops geneve_netdev_ops = {
+ 	.ndo_open		= geneve_open,
+ 	.ndo_stop		= geneve_stop,
+ 	.ndo_start_xmit		= geneve_dev_xmit,
+-	.ndo_get_stats64	= ip_tunnel_get_stats64,
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 11, 0)
++        .ndo_get_stats64        = dev_get_tstats64,
++#else
++        .ndo_get_stats64        = ip_tunnel_get_stats64,
++#endif
+ #ifdef	HAVE_RHEL7_MAX_MTU
+ 	.ndo_size		= sizeof(struct net_device_ops),
+ 	.extended.ndo_change_mtu = geneve_change_mtu,
+diff --git a/datapath/linux/compat/gtp.c b/datapath/linux/compat/gtp.c
+index da7c79914..ba5c26437 100644
+--- a/datapath/linux/compat/gtp.c
++++ b/datapath/linux/compat/gtp.c
+@@ -813,7 +813,11 @@ static const struct net_device_ops gtp_netdev_ops = {
+ 	.ndo_open               = gtp_dev_open,
+ 	.ndo_stop               = gtp_dev_stop,
+ 	.ndo_start_xmit		= gtp_dev_xmit,
+-	.ndo_get_stats64	= ip_tunnel_get_stats64,
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 11, 0)
++        .ndo_get_stats64        = dev_get_tstats64,
++#else
++        .ndo_get_stats64        = ip_tunnel_get_stats64,
++#endif
+ };
+ 
+ static struct gtp_dev *gtp_find_flow_based_dev(
+diff --git a/datapath/linux/compat/ip6_gre.c b/datapath/linux/compat/ip6_gre.c
+index 3aa9844b3..a05e6637d 100644
+--- a/datapath/linux/compat/ip6_gre.c
++++ b/datapath/linux/compat/ip6_gre.c
+@@ -1425,7 +1425,11 @@ static const struct net_device_ops ip6gre_netdev_ops = {
+ #else
+ 	.ndo_change_mtu		= ip6_tnl_change_mtu,
+ #endif
+-	.ndo_get_stats64	= ip_tunnel_get_stats64,
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 11, 0)
++        .ndo_get_stats64        = dev_get_tstats64,
++#else
++        .ndo_get_stats64        = ip_tunnel_get_stats64,
++#endif
+ #ifdef HAVE_NDO_GET_IFLINK
+ 	.ndo_get_iflink		= ip6_tnl_get_iflink,
+ #endif
+@@ -1917,7 +1921,11 @@ static const struct net_device_ops ip6gre_tap_netdev_ops = {
+ #else
+ 	.ndo_change_mtu = ip6_tnl_change_mtu,
+ #endif
+-	.ndo_get_stats64 = ip_tunnel_get_stats64,
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 11, 0)
++        .ndo_get_stats64        = dev_get_tstats64,
++#else
++        .ndo_get_stats64        = ip_tunnel_get_stats64,
++#endif
+ #ifdef HAVE_NDO_GET_IFLINK
+ 	.ndo_get_iflink = ip6_tnl_get_iflink,
+ #endif
+@@ -1985,7 +1993,11 @@ static const struct net_device_ops ip6erspan_netdev_ops = {
+ #else
+ 	.ndo_change_mtu =	ip6_tnl_change_mtu,
+ #endif
+-	.ndo_get_stats64 =	ip_tunnel_get_stats64,
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 11, 0)
++        .ndo_get_stats64        = dev_get_tstats64,
++#else
++        .ndo_get_stats64        = ip_tunnel_get_stats64,
++#endif
+ #ifdef HAVE_NDO_GET_IFLINK
+ 	.ndo_get_iflink =	ip6_tnl_get_iflink,
+ #endif
+diff --git a/datapath/linux/compat/ip_gre.c b/datapath/linux/compat/ip_gre.c
+index c194ffe00..587d6376b 100644
+--- a/datapath/linux/compat/ip_gre.c
++++ b/datapath/linux/compat/ip_gre.c
+@@ -934,7 +934,11 @@ static const struct net_device_ops gre_tap_netdev_ops = {
+ #else
+ 	.ndo_change_mtu		= ip_tunnel_change_mtu,
+ #endif
+-	.ndo_get_stats64	= ip_tunnel_get_stats64,
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 11, 0)
++        .ndo_get_stats64        = dev_get_tstats64,
++#else
++        .ndo_get_stats64        = ip_tunnel_get_stats64,
++#endif
+ #ifdef HAVE_NDO_GET_IFLINK
+ 	.ndo_get_iflink		= rpl_ip_tunnel_get_iflink,
+ #endif
+@@ -955,7 +959,11 @@ static const struct net_device_ops erspan_netdev_ops = {
+ #else
+ 	.ndo_change_mtu		= ip_tunnel_change_mtu,
+ #endif
+-	.ndo_get_stats64	= ip_tunnel_get_stats64,
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 11, 0)
++        .ndo_get_stats64        = dev_get_tstats64,
++#else
++        .ndo_get_stats64        = ip_tunnel_get_stats64,
++#endif
+ #ifdef HAVE_NDO_GET_IFLINK
+ 	.ndo_get_iflink		= rpl_ip_tunnel_get_iflink,
+ #endif
+diff --git a/datapath/linux/compat/lisp.c b/datapath/linux/compat/lisp.c
+index 49c60f4ed..09fdc7e98 100644
+--- a/datapath/linux/compat/lisp.c
++++ b/datapath/linux/compat/lisp.c
+@@ -24,6 +24,7 @@
+ #include <linux/module.h>
+ #include <linux/rculist.h>
+ #include <linux/udp.h>
++#include <linux/ethtool.h>
+ 
+ #include <net/icmp.h>
+ #include <net/ip.h>
+@@ -542,7 +543,11 @@ EXPORT_SYMBOL_GPL(ovs_lisp_fill_metadata_dst);
+ static const struct net_device_ops lisp_netdev_ops = {
+ 	.ndo_init               = lisp_init,
+ 	.ndo_uninit             = lisp_uninit,
+-	.ndo_get_stats64        = ip_tunnel_get_stats64,
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 11, 0)
++        .ndo_get_stats64        = dev_get_tstats64,
++#else
++        .ndo_get_stats64        = ip_tunnel_get_stats64,
++#endif
+ 	.ndo_open               = lisp_open,
+ 	.ndo_stop               = lisp_stop,
+ 	.ndo_start_xmit         = lisp_dev_xmit,
+diff --git a/datapath/linux/compat/stt.c b/datapath/linux/compat/stt.c
+index 39a294764..264eb2a8a 100644
+--- a/datapath/linux/compat/stt.c
++++ b/datapath/linux/compat/stt.c
+@@ -27,6 +27,7 @@
+ #include <linux/skbuff.h>
+ #include <linux/tcp.h>
+ #include <linux/workqueue.h>
++#include <linux/ethtool.h>
+ 
+ #include <net/dst_metadata.h>
+ #include <net/icmp.h>
+@@ -1837,7 +1838,11 @@ static const struct net_device_ops stt_netdev_ops = {
+ 	.ndo_open               = stt_open,
+ 	.ndo_stop               = stt_stop,
+ 	.ndo_start_xmit         = stt_dev_xmit,
+-	.ndo_get_stats64        = ip_tunnel_get_stats64,
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 11, 0)
++        .ndo_get_stats64        = dev_get_tstats64,
++#else
++        .ndo_get_stats64        = ip_tunnel_get_stats64,
++#endif
+ #ifdef  HAVE_RHEL7_MAX_MTU
+ 	.ndo_size		= sizeof(struct net_device_ops),
+ 	.extended.ndo_change_mtu = stt_change_mtu,
+diff --git a/datapath/linux/compat/vxlan.c b/datapath/linux/compat/vxlan.c
+index e65d955e9..4a38dc6ec 100644
+--- a/datapath/linux/compat/vxlan.c
++++ b/datapath/linux/compat/vxlan.c
+@@ -1537,7 +1537,11 @@ static const struct net_device_ops vxlan_netdev_ether_ops = {
+ 	.ndo_open		= vxlan_open,
+ 	.ndo_stop		= vxlan_stop,
+ 	.ndo_start_xmit		= vxlan_dev_xmit,
+-	.ndo_get_stats64	= ip_tunnel_get_stats64,
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 11, 0)
++        .ndo_get_stats64        = dev_get_tstats64,
++#else
++        .ndo_get_stats64        = ip_tunnel_get_stats64,
++#endif
+ 	.ndo_set_rx_mode	= vxlan_set_multicast_list,
+ #ifdef	HAVE_RHEL7_MAX_MTU
+ 	.ndo_size		= sizeof(struct net_device_ops),
+@@ -1558,7 +1562,11 @@ static const struct net_device_ops vxlan_netdev_raw_ops = {
+ 	.ndo_open		= vxlan_open,
+ 	.ndo_stop		= vxlan_stop,
+ 	.ndo_start_xmit		= vxlan_dev_xmit,
+-	.ndo_get_stats64	= ip_tunnel_get_stats64,
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 11, 0)
++        .ndo_get_stats64        = dev_get_tstats64,
++#else
++        .ndo_get_stats64        = ip_tunnel_get_stats64,
++#endif
+ #ifdef	HAVE_RHEL7_MAX_MTU
+ 	.ndo_size		= sizeof(struct net_device_ops),
+ 	.extended.ndo_change_mtu = vxlan_change_mtu,
