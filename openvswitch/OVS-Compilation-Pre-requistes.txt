@@ -1,0 +1,171 @@
+On magma-dev VM
+
+
+Pre-requisties
+====================================
+BUILD_DEPS="graphviz autoconf automake bzip2 debhelper dh-autoreconf libssl-dev libtool openssl procps python3-all python3-sphinx python3-twisted python3-zope.interface libunbound-dev libunwind-dev dh-python"
+INSTALLATION_DEPS="dctrl-tools dkms libcharon-extauth-plugins libelf-dev libstrongswan libstrongswan-standard-plugins strongswan strongswan-charon strongswan-libcharon strongswan-starter zlib1g-dev"
+
+<IF REQUIRED> sudo apt-get update  <<<< It upgrades kernel as well...so try to avoid if possible
+
+sudo apt-get install  ${BUILD_DEPS} -y
+sudo apt-get -y install "linux-headers-$(uname -r)"
+sudo gem install fpm
+sudo apt-get install ${INSTALLATION_DEPS} -y
+
+git config --global user.name "Yogesh Pandey"
+git config --global user.email yogesh@wavelabs.ai
+
+
+Build Procedure
+=====================================
+  /home/vagrant/magma/third_party/gtp_ovs/ovs-gtp-patches/2.15
+  chmod 777 build.sh
+  ./build.sh
+
+Package Path
+======================================
+./ovs-build/third_party/gtp_ovs/ovs-gtp-patches/2.15
+
+
+Installation Script
+=====================================
+check_exit_status()
+{
+    status=$?
+
+    if test $status -eq 0
+    then
+        echo " Step Passed"
+    else
+        echo " Step Failed"
+        sudo apt-get --assume-yes  install  -f
+    fi
+}
+
+cleanup_existing_config()
+{
+    echo " ==== PRE-INSTALLATION STEPS - Existing OVS cleanup ===="
+    sudo /etc/init.d/openvswitch-switch stop
+    sudo rm -rf /usr/local/var/run/openvswitch
+    sudo rm -rf /usr/local/etc/openvswitch
+    sudo rm -rf /var/run/openvswitch
+    sudo rm -rf /etc/openvswitch
+    sudo rm -rf /var/log/openvswitch
+    sudo rmmod openvswitch
+    sudo rmmod gre
+    sudo rmmod vxlan
+    sudo rmmod libcrc32c
+    sudo rmmod openvswitch
+    sudo dpkg --force-all --purge openvswitch-switch
+    sudo dpkg --force-all --purge openvswitch-common
+    sudo dpkg --force-all --purge openvswitch-datapath-dkms
+    sudo rm /tmp/ovsdb.txt
+    sudo rm /tmp/vswitch.txt
+
+    sudo dpkg --force-all --purge openvswitch-switch
+    sudo dpkg --force-all --purge openvswitch-common
+    sudo dpkg --force-all --purge openvswitch-datapath-dkms
+    sudo dpkg --force-all --purge openvswitch-ipsec
+    sudo dpkg --force-all --purge openvswitch-pki
+    sudo dpkg --force-all --purge openvswitch-testcontroller
+    sudo dpkg --force-all --purge openvswitch-vtep
+    sudo dpkg --force-all --purge python3-openvswitch
+    sudo dpkg --force-all --purge libopenvswitch:amd64
+    sudo dpkg --force-all --purge libopenvswitch-dev:amd64
+
+    sudo dpkg --force-all --purge openvswitch-datapath-source
+    sudo dpkg --force-all --purge openvswitch-dbg
+    sudo dpkg --force-all --purge openvswitch-test
+    sudo apt-get -y remove openvswitch-testcontroller
+    sudo apt-get -y purge openvswitch-testcontroller
+    sudo kill -9 $(pidof ovs-testcontroller)
+    dpkg -l | grep openv
+}
+
+pre_installation()
+{
+    echo " ==== PRE-INSTALLATION STEPS ===="
+    cleanup_existing_config
+    sudo apt install net-tools
+    sudo apt-get update
+    sudo apt-get install debhelper
+    check_exit_status
+}
+
+post_installation()
+{
+    echo " ==== POST-INSTALLATION STEPS ===="
+    echo " ---- Check onfigured dpkg ---- "
+    sudo dpkg --configure -a
+    sudo apt list --installed | grep openvs
+
+    sudo ovs-vsctl show
+}
+
+export OVS_VERSION=2.15.2
+export OVS_SUB_VERSION=1
+export OVS_SW_INSTALL_PATH=/home/vagrant/TMP/OVS-$OVS_VERSION
+
+echo "*************************************"
+echo $OVS_SW_INSTALL_PATH
+
+pre_installation
+
+echo " 1. Intall $OVS_SW_INSTALL_PATH/libopenvswitch_$OVS_VERSION-"$OVS_SUB_VERSION"_amd64.deb"
+sudo dpkg -i $OVS_SW_INSTALL_PATH/libopenvswitch_$OVS_VERSION-"$OVS_SUB_VERSION"_amd64.deb
+check_exit_status
+
+echo " 2. Intall $OVS_SW_INSTALL_PATH/libopenvswitch-dev_$OVS_VERSION-"$OVS_SUB_VERSION"_amd64.deb"
+sudo dpkg -i $OVS_SW_INSTALL_PATH/libopenvswitch-dev_$OVS_VERSION-"$OVS_SUB_VERSION"_amd64.deb
+check_exit_status
+
+echo " 3. Install $OVS_SW_INSTALL_PATH/openvswitch-common_$OVS_VERSION-"$OVS_SUB_VERSION"_amd64.deb"
+sudo dpkg -i $OVS_SW_INSTALL_PATH/openvswitch-common_$OVS_VERSION-"$OVS_SUB_VERSION"_amd64.deb
+check_exit_status
+
+echo " 4. $OVS_SW_INSTALL_PATH/openvswitch-datapath-dkms_$OVS_VERSION-"$OVS_SUB_VERSION"_all.deb"
+sudo dpkg -i $OVS_SW_INSTALL_PATH/openvswitch-datapath-dkms_$OVS_VERSION-"$OVS_SUB_VERSION"_all.deb
+check_exit_status
+
+echo " 5. $OVS_SW_INSTALL_PATH/openvswitch-switch_$OVS_VERSION-"$OVS_SUB_VERSION"_amd64.deb"
+sudo dpkg -i $OVS_SW_INSTALL_PATH/openvswitch-switch_$OVS_VERSION-"$OVS_SUB_VERSION"_amd64.deb
+check_exit_status
+
+echo " 6. $OVS_SW_INSTALL_PATH/openvswitch-dbg_$OVS_VERSION-"$OVS_SUB_VERSION"_amd64.deb"
+sudo dpkg -i $OVS_SW_INSTALL_PATH/openvswitch-dbg_$OVS_VERSION-"$OVS_SUB_VERSION"_amd64.deb
+check_exit_status
+
+echo " 7. $OVS_SW_INSTALL_PATH/openvswitch-test_$OVS_VERSION-"$OVS_SUB_VERSION"_all.deb"
+sudo dpkg -i $OVS_SW_INSTALL_PATH/openvswitch-test_$OVS_VERSION-"$OVS_SUB_VERSION"_all.deb
+check_exit_status
+
+echo " 8. $OVS_SW_INSTALL_PATH/openvswitch-pki_$OVS_VERSION-"$OVS_SUB_VERSION"_all.deb"
+sudo dpkg -i $OVS_SW_INSTALL_PATH/openvswitch-pki_$OVS_VERSION-"$OVS_SUB_VERSION"_all.deb
+check_exit_status
+
+echo " 9. $OVS_SW_INSTALL_PATH/openvswitch-testcontroller_$OVS_VERSION-"$OVS_SUB_VERSION"_amd64.deb"
+sudo dpkg -i $OVS_SW_INSTALL_PATH/openvswitch-testcontroller_$OVS_VERSION-"$OVS_SUB_VERSION"_amd64.deb
+check_exit_status
+
+echo " 10. $OVS_SW_INSTALL_PATH/python3-openvswitch_$OVS_VERSION-"$OVS_SUB_VERSION"_all.deb"
+sudo dpkg -i $OVS_SW_INSTALL_PATH/python3-openvswitch_$OVS_VERSION-"$OVS_SUB_VERSION"_all.deb
+check_exit_status
+
+echo " 11. $OVS_SW_INSTALL_PATH/openvswitch-vtep_$OVS_VERSION-"$OVS_SUB_VERSION"_amd64.deb"
+sudo dpkg -i $OVS_SW_INSTALL_PATH/openvswitch-vtep_$OVS_VERSION-"$OVS_SUB_VERSION"_amd64.deb
+check_exit_status
+
+
+sudo chown _apt /var/cache/apt/archives/partial/
+sudo apt-get install -y libelf-dev
+sudo chown _apt /var/cache/apt/archives/partial/
+sudo apt-get install -y module-assistant
+
+echo " 12. $OVS_SW_INSTALL_PATH/openvswitch-datapath-source_$OVS_VERSION-"$OVS_SUB_VERSION"_all.deb"
+check_exit_status
+
+sudo dpkg -i $OVS_SW_INSTALL_PATH/openvswitch-datapath-source_$OVS_VERSION-"$OVS_SUB_VERSION"_all.deb
+sudo apt list --installed | grep open
+
+post_installation
