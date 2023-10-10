@@ -1,0 +1,10 @@
+ git clone https://github.com/OPENAIRINTERFACE/openair-hss.git
+ cd openair-hss/
+ git checkout v1.2.0
+ git log
+ docker
+ cd ..
+ vim HSS-Patch.diff
+ cd openair-hss/
+ patch --dry-run -p1 < ../HSS-Patch.diff
+ patch  -p1 < ../HSS-Patch.diff
