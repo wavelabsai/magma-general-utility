@@ -1,3 +1,4 @@
+# OAI HSS, or OpenAirInterface Home Subscriber Server
  git clone https://github.com/OPENAIRINTERFACE/openair-hss.git
  cd openair-hss/
  git checkout v1.2.0
