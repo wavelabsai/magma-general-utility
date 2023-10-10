@@ -1,0 +1,20 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/jammy64"
+
+  config.vm.define :distromagma, autostart: false do |distromagma|
+    distromagma.vm.hostname = "distro-magma"
+    distromagma.vm.network "private_network", ip: "192.168.60.168", nic_type: "82540EM"
+    distromagma.vm.network "private_network", ip: "192.168.129.68", nic_type: "82540EM"
+
+    distromagma.vm.provider "virtualbox" do |vb|
+      vb.name = "distro-magma-09oct"
+      vb.linked_clone = true
+      vb.customize ["modifyvm", :id, "--memory", "6144"]
+      vb.customize ["modifyvm", :id, "--cpus", "4"]
+      vb.customize ["modifyvm", :id, "--nicpromisc2", "allow-all"]
+    end
+  end
+end
