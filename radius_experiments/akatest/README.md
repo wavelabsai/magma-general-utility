@@ -51,9 +51,3 @@ sudo docker build -t aka_exp:oct21 .
   [docker-terminal]ip netns exec wiredns1  bash
   [docker-terminal]/wpa_supplicant/wpa_supplicant/eapol_test -i veth1 -a30.0.0.1 -c /var/configs/eap_aka_wpa_supplicant.conf
 ```
-
-### TERMINAL-3
-```
-sudo docker exec -it radiusexperiments bash
-/wpa_supplicant/wpa_supplicant/eapol_test -i veth1 -a30.0.0.1 -c /var/configs/eap_aka_wpa_supplicant.conf
-```
