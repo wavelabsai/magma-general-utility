@@ -76,7 +76,8 @@
 
 
 ### Working pcap and logs
-[suci_extension.zip](https://github.com/shashidhar-p/integration-magma/files/13221623/suci_extension.zip)
+
+[suci_extension.zip](https://github.com/wavelabsai/magma-general-utility/files/13246896/suci_extension.zip)
 
 *** 
 ### References:
