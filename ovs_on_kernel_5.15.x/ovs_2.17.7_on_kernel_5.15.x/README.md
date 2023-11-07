@@ -1,4 +1,4 @@
-# Ovs 2.15.4 with kernel version 5.15.x
+# Ovs 2.17.7 with kernel version 5.15.x
 
 ## 1. Bring up ubuntu vm with 22.04 with attached vagrant file
 
@@ -41,7 +41,7 @@
      sync
      depmod -a
 
-## 6. To verify ovs is installed with gtp modules and in running state before agw installation.
+## 5. To verify ovs is installed with gtp modules and in running state before agw installation.
      sudo apt list --installed | grep openvs
      sudo ovs-vsctl show
      lsmod | grep gtp
@@ -60,7 +60,7 @@
          sudo systemctl stop openvswitch-switch
          sudo systemctl start openvswitch-switch
      
-## 7. steps to install dockerized agw
+## 6. steps to install dockerized agw
         mkdir -p /var/opt/magma/certs
         sudo vim /var/opt/magma/certs/rootCA.pem                ----> Add your rootCA.pem obtained from orc8r
         openssl x509 -text -noout -in /var/opt/magma/certs/rootCA.pem
