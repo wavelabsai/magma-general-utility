@@ -56,9 +56,7 @@ sudo openssl req -new -key fluentd.key -out fluentd.csr -subj "/C=NI/CN=fluentd.
 sudo openssl x509 -req -in fluentd.csr -CA certifier.pem -CAkey certifier.key -CAcreateserial -out fluentd.pem -days 3650 -sha256
 ```
 ##### Deploying the containers 
-
 Now start all the containers. Use the next docker-compose files as if you are just deploying for testing, for production you have to change the database username and password on the files at least. But this is meant to be used for tests. 
-In this files the database username is db_user, database password is db_password and the database name are db_name. Change that config with your owns. 
   There are 3 files are to be changed docker-compose-controller.yml,docker-compose-nms.yml,docker-compose-metrics.yml
   Do docker compose -f docker-compose-controller.yml up -d, docker compose -f docker-compose-metrics.yml up -d. 
 ##### Create the certs for the NMS.  
