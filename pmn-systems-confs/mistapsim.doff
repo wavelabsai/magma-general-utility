@@ -1,0 +1,70 @@
+diff --git a/cwf/gateway/services/uesim/servicers/uesim.go b/cwf/gateway/services/uesim/servicers/uesim.go
+index b904e535d..f14315c71 100644
+--- a/cwf/gateway/services/uesim/servicers/uesim.go
++++ b/cwf/gateway/services/uesim/servicers/uesim.go
+@@ -17,6 +17,8 @@ import (
+        "bytes"
+        "context"
+        "encoding/json"
++       "encoding/hex"
++
+        "fmt"
+        "os/exec"
+        "strconv"
+@@ -151,6 +153,26 @@ func (srv *UESimServer) AddUE(ctx context.Context, ue *cwfprotos.UEConfig) (ret
+        return
+ }
+
++
++func parseRadiusPacket (secret string) (*radius.Packet, error){
++    hexStream := "0102012cfec74797196d20a6cefd9b541aaee91f01353030303130313132333435363735333740776c616e2e6d6e633030312e6d63633030312e336770706e6574776f726b2e6f72670406ac1007f41e1f41432d32332d31362d44422d38322d31313a4d697374415031574c414e3d06000000130606000000021f1344452d38392d36332d44462d43312d33464d17434f4e4e45435420304d627073203830322e3131622c1241363843433737324239353641393341321246443635314244413030313142313946ba06000fac04bb06000fac04bc06000fac010c06000004b04f3a02580038013030303130313132333435363735333740776c616e2e6d6e633030312e6d63633030312e336770706e6574776f726b2e6f7267501226216925afe023cc94472d3382c86d19"
++
++    glog.Infof(" ===== parseRadiusPacket ==== ")
++    data, err := hex.DecodeString(hexStream)
++    if err != nil {
++        glog.Infof(" ===== parseRadiusPacket : Decode String failure==== ")
++        return nil, err
++    }
++
++    decodedPacket, errDecode := radius.Parse(data, []byte(secret))
++    if errDecode != nil {
++        glog.Infof(" ===== parseRadiusPacket : Parse ==== ")
++        return nil, errDecode
++    }
++
++    return decodedPacket, nil
++}
++
+ // Authenticate triggers an authentication for the UE with the specified IMSI.
+ // Input: The IMSI of the UE to try to authenticate.
+ // Output: The resulting Radius packet returned by the Radius server.
+@@ -160,10 +182,26 @@ func (srv *UESimServer) Authenticate(ctx context.Context, id *cwfprotos.Authenti
+                return &cwfprotos.AuthenticateResponse{}, err
+        }
+
+-       akaIDReq, err := radius.Exchange(context.Background(), eapIDResp, srv.cfg.radiusAuthAddress)
+-       if err != nil {
++       var akaIDReq *radius.Packet
++
++       decodedPacket, err := parseRadiusPacket("123456")
++        glog.Infof(" ===== parseRadiusPacket ==== ")
++        if err == nil {
++            glog.Infof(" ===== parseRadiusPacket nil ==== ")
++           X, _ := decodedPacket.Encode()
++            glog.Info(" %x ", X)
++           var err error
++            akaIDReq, err = radius.Exchange(context.Background(), decodedPacket, srv.cfg.radiusAuthAddress)
++            if err != nil {
++                return &cwfprotos.AuthenticateResponse{}, err
++            }
++       } else {
++            glog.Infof(" ===== parseRadiusPacket REGULAR ==== ")
++           akaIDReq, err = radius.Exchange(context.Background(), eapIDResp, srv.cfg.radiusAuthAddress)
++           if err != nil {
+                return &cwfprotos.AuthenticateResponse{}, err
+-       }
++           }
++        }
+
+        akaIDResp, err := srv.HandleRadius(id.GetImsi(), id.GetCalledStationID(), akaIDReq)
+        if err != nil {
