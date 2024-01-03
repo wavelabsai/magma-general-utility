@@ -1,0 +1,102 @@
+diff --git a/example/acct.py b/example/acct.py
+index 0e9519b..ac1d235 100755
+--- a/example/acct.py
++++ b/example/acct.py
+@@ -18,7 +18,7 @@ def SendPacket(srv, req):
+         print("Network error: " + error[1])
+         sys.exit(1)
+
+-srv = Client(server="localhost", secret=b"123456", dict=Dictionary("dictionary"))
++srv = Client(server="127.0.0.1", secret=b"123456", dict=Dictionary("dictionary"))
+
+ req = srv.CreateAcctPacket(User_Name="001011234567890@wlan.mnc001.mcc001.3gppnetwork.org")
+
+@@ -28,15 +28,36 @@ req["NAS-Identifier"] = "trillian"
+ req["Called-Station-Id"] = "76-02-DE-AD-BE-FF"
+ req["Calling-Station-Id"] = "76-02-5B-80-EC-44"
+ req["Framed-IP-Address"] = "10.0.0.100"
++req["Service-Type"] = "Framed-User"
++req["Acct-Session-Id"] = "001011234567890-1337/1/1/12"
++
+
+ print("Sending accounting start packet")
+ req["Acct-Status-Type"] = "Start"
+ SendPacket(srv, req)
+
++
++print("Sending accounting Interim Update packet")
++req["Acct-Status-Type"] = "Interim-Update"
++interim_input_octets = random.randrange(2**10, 2**30)
++interim_output_octets = random.randrange(2**10, 2**30)
++interim_input_packets = random.randrange(2**5, 2**9)
++interim_output_packets = random.randrange(2**5, 2**9)
++interim_session_time = random.randrange(120, 3600)
++
++req["Acct-Input-Octets"] = interim_input_octets
++req["Acct-Output-Octets"] = interim_output_octets
++req["Acct-Input-Packets"] = interim_input_packets
++req["Acct-Output-Packets"] = interim_output_packets
++req["Acct-Session-Time"] = interim_session_time
++SendPacket(srv, req)
++
+ print("Sending accounting stop packet")
+ req["Acct-Status-Type"] = "Stop"
+-req["Acct-Input-Octets"] = random.randrange(2**10, 2**30)
+-req["Acct-Output-Octets"] = random.randrange(2**10, 2**30)
+-req["Acct-Session-Time"] = random.randrange(120, 3600)
++req["Acct-Input-Octets"] = interim_input_octets + random.randrange(2**10, 2**30)
++req["Acct-Output-Octets"] = interim_output_octets + random.randrange(2**10, 2**30)
++req["Acct-Session-Time"] = interim_session_time + random.randrange(120, 3600)
++req["Acct-Input-Packets"] = interim_input_packets + random.randrange(2**10, 2**30)
++req["Acct-Session-Time"] = interim_session_time + random.randrange(120, 3600)
+ req["Acct-Terminate-Cause"] = random.choice(["User-Request", "Idle-Timeout"])
+ SendPacket(srv, req)
+diff --git a/pyrad/client.py b/pyrad/client.py
+index 6964963..82890f3 100644
+--- a/pyrad/client.py
++++ b/pyrad/client.py
+@@ -33,7 +33,7 @@ class Client(host.Host):
+     :ivar timeout: number of seconds to wait for an answer
+     :type timeout: float
+     """
+-    def __init__(self, server, authport=1812, acctport=1813,
++    def __init__(self, server, authport=1812, acctport=2083,
+             coaport=3799, secret=six.b(''), dict=None, retries=3, timeout=5):
+
+         """Constructor.
+@@ -52,7 +52,7 @@ class Client(host.Host):
+         :type      dict: pyrad.dictionary.Dictionary
+         """
+         host.Host.__init__(self, authport, acctport, coaport, dict)
+-
++        print("---------------Client -----------------")
+         self.server = server
+         self.secret = secret
+         self._socket = None
+@@ -78,8 +78,9 @@ class Client(host.Host):
+         except:
+             family = socket.AF_INET
+         if not self._socket:
++            print("---------------Clienti: Open TCP socket -----------------")
+             self._socket = socket.socket(family,
+-                                       socket.SOCK_DGRAM)
++                                       socket.SOCK_STREAM)
+             self._socket.setsockopt(socket.SOL_SOCKET,
+                                     socket.SO_REUSEADDR, 1)
+             self._poll.register(self._socket, select.POLLIN)
+@@ -150,7 +151,14 @@ class Client(host.Host):
+             now = time.time()
+             waitto = now + self.timeout
+
+-            self._socket.sendto(pkt.RequestPacket(), (self.server, port))
++            #self._socket.sendto(pkt.RequestPacket(), (self.server, port))
++            client = ssl.wrap_socket(self._socket, keyfile="/var/opt/magma/certs/client.tls.key",
++                                     certfile="/var/opt/magma/certs/client.tls.crt")
++            #client.bind(("127.0.0.1", "60002"))
++            client.connect(("0.0.0.0", 2083))
++
++            print("BEfore Sending packet")
++            client.send(pkt.RequestPacket())
+
+             while now < waitto:
+                 ready = self._poll.poll((waitto - now) * 1000)
