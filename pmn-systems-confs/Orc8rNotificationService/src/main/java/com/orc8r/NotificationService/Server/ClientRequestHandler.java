@@ -59,10 +59,12 @@ public class ClientRequestHandler implements Runnable{
                     writer.println("subscriber_change");
                     writer.flush();
                     notificationClients.addNewClient(this);
+                } else if ("register_digest".equalsIgnoreCase(line)) {
+                    System.out.println("Received a register request from Susbcriber cache");
+                    writer.println("subscriber_change");
+                    writer.flush();
+                    notificationClients.addSubscriberDigest(this);
                 }
-                //System.out.println("Received " +line);
-                //writer.println(line);
-                //writer.flush();
 
             } catch (IOException e) {
                 System.err.println("Error occurred in connection..  Closing connection");
@@ -105,4 +107,16 @@ public class ClientRequestHandler implements Runnable{
     public boolean isClosed() {
         return closed;
     }
+
+    public void closeConnection() {
+        if (this.clientSocket != null) {
+            try {
+                this.clientSocket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            closed = true;
+        }
+    }
+
 }
