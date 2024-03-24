@@ -1,0 +1,17 @@
+version: "3.5"
+services:
+    test_medical_db:
+        image: validate_medical_db:latest
+        container_name: validate_medical_db
+        build:
+            dockerfile: Dockerfile
+        networks:
+          - exercise_net
+        tty: true
+        volumes:
+          - pytest_output:/app/logs 
+volumes:
+    pytest_output:
+networks:
+    exercise_net:
+        driver: bridge
