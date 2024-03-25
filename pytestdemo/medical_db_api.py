@@ -309,7 +309,7 @@ class Appointments(Resource):
         if doctor:
             doctor = doctor[0]
             appointment = list(
-                filter(lambda x: x["unique_id"] == uid and x["doctor_uid"] == doctor["unique_id"]), appointments
+                filter(lambda x: x["unique_id"] == uid and x["doctor_uid"] == doctor["unique_id"], appointments)
             )
 
             if not appointment:
