@@ -8,7 +8,7 @@ class TestMedicalDB:
     admin_auth =  ("admin", "password")
     doctor_auth = ("paediatricianjohndoe", "DrJohnDoe")
     patient_auth = ("clientjanedoe", "JaneDoe")
-    base_url = "http://localhost:5000"
+    base_url = "http://medical_db:5000"
 
     # Find the highest uuid among the dataset
     def _find_highest_uuid(self, dataset):
