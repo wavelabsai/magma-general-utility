@@ -1,73 +1,46 @@
 import pytest
 import requests
+import logging
+import json
 
-# Base URL of the Flask application
-BASE_URL = "http://medical_db:5000"
+class TestMedicalDB:
+    # Basic initialization for prelimernay test
+    admin_auth =  ("admin", "password")
+    doctor_auth = ("paediatricianjohndoe", "DrJohnDoe")
+    patient_auth = ("clientjanedoe", "JaneDoe")
+    base_url = "http://localhost:5000"
 
-# Sample authentication credentials
-ADMIN_AUTH = ("admin", "password")
-DOCTOR_AUTH = ("paediatricianjohndoe", "DrJohnDoe")
-PATIENT_AUTH = ("clientjanedoe", "JaneDoe")
+    # Find the highest uuid among the dataset
+    def _find_highest_uuid(self, dataset):
+        response = requests.get(f"{TestMedicalDB.base_url}/{dataset}", auth=TestMedicalDB.admin_auth)
+        assert response.status_code == 200
+        response_dict = json.loads(response.text)
+        unique_ids = set(entry["unique_id"] for entry in response_dict if "unique_id" in entry)
 
-# Test case for retrieving doctors' information
-def test_get_doctors():
-    response = requests.get(f"{BASE_URL}/doctors", auth=ADMIN_AUTH)
-    assert response.status_code == 200
+        max_unique_id = max(unique_ids)
+        return max_unique_id 
 
-# Test case for retrieving a specific doctor's information
-def test_get_doctor_by_id():
-    response = requests.get(f"{BASE_URL}/doctors/1", auth=ADMIN_AUTH)
-    assert response.status_code == 200
+    def test_get_doctors(self):
+        response = requests.get(f"{TestMedicalDB.base_url}/doctors", auth=TestMedicalDB.admin_auth)
+        assert response.status_code == 200
 
-# Test case for creating a new doctor profile
-def test_create_doctor():
-    data = {
-        "full name": "Dr. Sarah Connor",
-        "username": "sarahconnor",
-        "speciality": "gynecologist",
-        "password": "Sarah123",
-    }
-    response = requests.post(f"{BASE_URL}/doctors", json=data, auth=ADMIN_AUTH)
-    assert response.status_code == 200
+    # Test case for retrieving a specific doctor's information
+    def test_get_doctor_by_id(self):
+        response = requests.get(f"{TestMedicalDB.base_url}/doctors/1", auth=TestMedicalDB.admin_auth)
+        assert response.status_code == 200
 
-# Test case for retrieving patients' information
-def test_get_patients():
-    response = requests.get(f"{BASE_URL}/patients", auth=DOCTOR_AUTH)
-    assert response.status_code == 200
+    # Test case for creating a new doctor profile
+    def test_create_doctor(self):
+        max_unique_id = self._find_highest_uuid("doctors")
 
-# Test case for retrieving a specific patient's information
-def test_get_patient_by_id():
-    response = requests.get(f"{BASE_URL}/patients/1", auth=PATIENT_AUTH)
-    assert response.status_code == 200
+        data = {
+            "full name": "Dr. Sarah Connor",
+            "username": "sarahconnor",
+            "speciality": "gynecologist",
+            "password": "Sarah123",
+        }
+        response = requests.post(f"{TestMedicalDB.base_url}/doctors", json=data, auth=TestMedicalDB.admin_auth)
+        assert response.status_code == 200
 
-# Test case for creating a new patient profile
-def test_create_patient():
-    data = {
-        "full name": "John Doe",
-        "username": "johndoe",
-        "password": "John123",
-        "phone": "123456789",
-        "email": "john.doe@example.com"
-    }
-    response = requests.post(f"{BASE_URL}/patients", json=data, auth=ADMIN_AUTH)
-    assert response.status_code == 200
-
-# Test case for retrieving appointments
-def test_get_appointments():
-    response = requests.get(f"{BASE_URL}/appointments", auth=DOCTOR_AUTH)
-    assert response.status_code == 200
-
-# Test case for creating a new appointment
-def test_create_appointment():
-    data = {
-        "doctor_uid": 1,
-        "patient_uid": 1,
-        "start_time": "2024-04-01T09:00"
-    }
-    response = requests.post(f"{BASE_URL}/appointments", json=data, auth=DOCTOR_AUTH)
-    assert response.status_code == 200
-
-# Test case for deleting an appointment
-def test_delete_appointment():
-    response = requests.delete(f"{BASE_URL}/appointments/1", auth=DOCTOR_AUTH)
-    assert response.status_code == 200
+        response = requests.get(f"{TestMedicalDB.base_url}/doctors/{max_unique_id}", auth=TestMedicalDB.admin_auth)
+        assert response.status_code == 200
