@@ -1,1 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite errors="0" failures="0" hostname="a12b24f326b3" name="pytest" skipped="0" tests="1" time="0.188" timestamp="2024-03-26T13:08:49.162352"><testcase classname="test_medical_db.TestMedicalDB" name="test_doctor_prefconfigured_data" time="0.029" /></testsuite></testsuites>

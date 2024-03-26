@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite errors="0" failures="1" hostname="f39f159f4117" name="pytest" skipped="0" tests="7" time="0.602" timestamp="2024-03-26T13:30:24.025843"><testcase classname="test_medical_db.TestMedicalDB" name="test_doctor_prefconfigured_data" time="0.024" /><testcase classname="test_medical_db.TestMedicalDB" name="test_doctor_create_api" time="0.038" /><testcase classname="test_medical_db.TestMedicalDB" name="test_patient_prefconfigured_data" time="0.022" /><testcase classname="test_medical_db.TestMedicalDB" name="test_patient_create_api" time="0.039" /><testcase classname="test_medical_db.TestMedicalDB" name="test_appointments_prefconfigured_data" time="0.020" /><testcase classname="test_medical_db.TestMedicalDB" name="test_appointments_create_api" time="0.046" /><testcase classname="test_medical_db.TestMedicalDB" name="test_appointments_single_doctor_dual_patient_same_time" time="0.202"><failure message="AssertionError: assert 0 &gt; 0&#10; +  where 0 = len('')">self = &lt;test_medical_db.TestMedicalDB object at 0x7f2113163b50&gt;
+
+    def test_appointments_single_doctor_dual_patient_same_time(self):
+    
+       # Create the doctor
+       self._util_doctor_create("Dr. Arnold Sh", "arnoladsh", "cardio", "Arnolad123")
+       doctor_uuid, doctor_value = list(TestMedicalDB.list_of_doctors.items())[-1]
+    
+       # Create the patient 1
+       self._util_patients_create("Patient 1", "patient1", "patient123", "1234567", "patient1@xyz.com")
+       patient1_uuid, patient1_value = list(TestMedicalDB.list_of_patients.items())[-1]
+    
+       # Create appointment for doctor and patient 1
+       self._util_appointments_create_by_doctor(doctor_uuid, patient1_uuid,
+                                                "arnoladsh", "Arnolad123",
+                                                self._generate_appointment_time())
+    
+       # Fetch the appointment details using patient 1
+       response = requests.get(f"{TestMedicalDB.base_url}/appointments", auth=patient1_value)
+       recvd_doctor_uid, recvd_patient_uid = self._util_get_appointment_details(response.text)
+    
+       assert recvd_doctor_uid == doctor_uuid
+       assert recvd_patient_uid == patient1_uuid
+    
+       # Create the patient 2
+       self._util_patients_create("Patient 2", "patient2", "patient321", "4563711", "patient2@xyz.com")
+       patient2_uuid, patient2_value = list(TestMedicalDB.list_of_patients.items())[-1]
+    
+       # Create appointment for doctor and patient 2
+       self._util_appointments_create_by_doctor(doctor_uuid, patient2_uuid,
+                                                "arnoladsh", "Arnolad123",
+                                                self._generate_appointment_time())
+    
+       response = requests.get(f"{TestMedicalDB.base_url}/appointments", auth=patient2_value)
+&gt;      recvd_doctor_uid, recvd_patient_uid = self._util_get_appointment_details(response.text)
+
+test_medical_db.py:299: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;test_medical_db.TestMedicalDB object at 0x7f2113163b50&gt;
+response_string = '"Patient 2\'s appointments: []"\n'
+
+    def _util_get_appointment_details(self, response_string):
+        pos1 = response_string.find('[') + 1
+    
+&gt;       assert len(response_string[pos1:-3]) &gt; 0
+E       AssertionError: assert 0 &gt; 0
+E        +  where 0 = len('')
+
+test_medical_db.py:258: AssertionError</failure></testcase></testsuite></testsuites>
