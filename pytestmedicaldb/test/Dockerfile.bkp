@@ -1,0 +1,15 @@
+# Use an official Python runtime as the base image
+FROM python:3.7 AS python_base
+
+# Set the working directory in the container
+WORKDIR /app
+
+RUN mkdir /app/logs
+
+# Copy the current directory contents into the container at /app
+COPY . /app
+
+# Install any needed dependencies specified in requirements.txt
+RUN pip install -r requirements.txt
+
+CMD ["/bin/sh"]

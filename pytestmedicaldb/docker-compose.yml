@@ -11,6 +11,17 @@ services:
         ports:
             - "5000:5000"
         tty: true
+    validate_medical_db:
+        image: validate_medical_db:latest
+        container_name: validate_medical_db
+        build:
+            context: "./test"
+            dockerfile: Dockerfile
+        volumes:
+          - ./test/report:/app/logs 
+        networks:
+          - exercise_net
+        tty: true
 networks:
     exercise_net:
         driver: bridge
