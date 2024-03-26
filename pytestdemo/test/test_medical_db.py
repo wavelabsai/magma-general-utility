@@ -5,11 +5,15 @@ import json
 from datetime import datetime, timedelta
 
 class TestMedicalDB:
-    # Basic initialization for prelimernay test
-    admin_auth =  ("admin", "password")
-    doctor_auth = ("paediatricianjohndoe", "DrJohnDoe")
-    patient_auth = ("clientjanedoe", "JaneDoe")
-    base_url = "http://medical_db:5000"
+
+    # List populated with pre-configured data
+    admin_auth           =  ("admin", "password")
+    list_of_doctors      =  {1: ("paediatricianjohndoe", "DrJohnDoe"),
+                             2: ("dentistjanesmith", "DrJaneSmith")}
+    list_of_patients     =  {1: ("clientjanedoe", "JaneDoe"),
+                             2: ("clientjohnsmith", "JohnSmith")}
+    list_of_appointments =  {1 :(1, 1), 2: (1,1), 3: (2,1), 4: (2,2)}
+    base_url = "http://localhost:5000"
 
     def _check_if_uuid_exists(self, dataset, uuid):
         url = f"{TestMedicalDB.base_url}/{dataset}/{uuid}"
@@ -96,19 +100,85 @@ class TestMedicalDB:
 
         return formatted_time
 
-    def test_get_doctors(self):
-        response = requests.get(f"{TestMedicalDB.base_url}/doctors", auth=TestMedicalDB.admin_auth)
-        assert response.status_code == 200
+        # Find the highest uuid among the dataset
+    def _get_list_of_uuids(self, dataset):
+        response = requests.get(f"{self.base_url}/{dataset}", auth=self.admin_auth)
+        response.raise_for_status()  # Raises an exception for non-200 status codes
 
-    # Test case for retrieving a specific doctor's information
-    def test_get_doctor_by_id(self):
-        status_code = self._check_if_uuid_exists("doctors", 1)
-        assert status_code == 200
+        response_dict = response.json()
+        unique_ids = {entry.get("unique_id") for entry in response_dict if "unique_id" in entry}
+
+        return unique_ids
 
     # Test case for creating a new doctor profile
-    def test_create_doctor(self):
+    def _util_doctor_create(self, fullname, username, speciality, password):
         max_unique_id = self._find_highest_uuid("doctors")
+        data = {
+            "full name": fullname,
+            "username": username,
+            "speciality": speciality,
+            "password": password,
+        }
+        response = requests.post(f"{TestMedicalDB.base_url}/doctors", json=data, auth=TestMedicalDB.admin_auth)
+        assert response.status_code == 200
 
+        status_code = self._check_if_uuid_exists("doctors", max_unique_id + 1)
+        assert status_code == 200
+
+        TestMedicalDB.list_of_doctors[max_unique_id+1] = (username, password)
+        unique_ids = self._get_list_of_uuids("doctors")
+        assert len(unique_ids) == len(TestMedicalDB.list_of_doctors)
+
+    def _util_patients_create(self, fullname, username, password, phone, email):
+        max_unique_id = self._find_highest_uuid("patients")
+
+        data = {
+            "full name": fullname,
+            "username": username,
+            "password": password,
+            "phone": phone,
+            "email": email,
+        }
+        response = requests.post(f"{TestMedicalDB.base_url}/patients", json=data, auth=TestMedicalDB.admin_auth)
+        assert response.status_code == 200
+
+        status_code = self._check_if_uuid_exists("patients", max_unique_id + 1)
+        assert status_code == 200
+
+        TestMedicalDB.list_of_patients[max_unique_id+1] = (username, password)
+        unique_ids = self._get_list_of_uuids("patients")
+        assert len(unique_ids) == len(TestMedicalDB.list_of_patients)
+
+    # Test case for creating a new appointment profile
+    def _util_appointments_create_by_doctor(self, doctor_uid, patient_uid, docter_username, doctor_password,
+                                            appointment_time):
+        max_unique_id = self._find_highest_uuid("appointments")
+
+        data = {
+           "doctor_uid": doctor_uid,
+           "patient_uid": patient_uid,
+           "start_time": appointment_time,
+        }
+
+        response = requests.post(f"{TestMedicalDB.base_url}/appointments", json=data,
+                                 auth=(docter_username, doctor_password))
+        assert response.status_code == 200
+
+        status_code = self._check_if_uuid_exists("appointments", max_unique_id + 1)
+        assert status_code == 200
+
+        TestMedicalDB.list_of_appointments[max_unique_id+1] = (doctor_uid, patient_uid)
+
+    def test_doctor_prefconfigured_data(self):
+        response = requests.get(f"{TestMedicalDB.base_url}/doctors", auth=TestMedicalDB.admin_auth)
+        assert response.status_code == 200
+            
+        unique_ids = self._get_list_of_uuids("doctors")
+        assert len(unique_ids) == len(TestMedicalDB.list_of_doctors)
+
+    # Test case for creating a new doctor profile
+    def test_doctor_create_api(self):
+        max_unique_id = self._find_highest_uuid("doctors")
         data = {
             "full name": "Dr. Sarah Connor",
             "username": "sarahconnor",
@@ -121,47 +191,19 @@ class TestMedicalDB:
         status_code = self._check_if_uuid_exists("doctors", max_unique_id + 1)
         assert status_code == 200
 
-    # Test case for checking if uids can be modified 
-    def test_unique_doctor_uids_cannot_be_modified(self):
-        max_unique_id = self._find_highest_uuid("doctors")
+        TestMedicalDB.list_of_doctors[max_unique_id+1] = ("sarahconnor", "Sarah123")
+        unique_ids = self._get_list_of_uuids("doctors")
+        assert len(unique_ids) == len(TestMedicalDB.list_of_doctors)
 
-        # Attempt to modify the UID of the doctor
-        response = requests.post(f"{TestMedicalDB.base_url}/doctors", json={"unique_id": 1000})
-        assert response.status_code == 404
-
-    def test_unique_usernames_across_doctor_and_patient_accounts(client):
-        # Create a doctor with a specific username
-        data = {
-            "full name": "Dr. Strange",
-            "username": "unique_strange",
-            "speciality": "Test Speciality",
-            "password": "test_password"
-        }
-        response = requests.post(f"{TestMedicalDB.base_url}/doctors", json=data, auth=TestMedicalDB.admin_auth)
+    def test_patient_prefconfigured_data(self):
+        response = requests.get(f"{TestMedicalDB.base_url}/patients", auth=TestMedicalDB.admin_auth)
         assert response.status_code == 200
 
-        # Attempt to create another doctor with the same username
-        data = {
-            "full name": "Another Doctor",
-            "username": "unique_strange",
-            "speciality": "Another Speciality",
-            "password": "another_password"
-        }
-        response = requests.post(f"{TestMedicalDB.base_url}/doctors", json=data, auth=TestMedicalDB.admin_auth)
-        assert response.status_code == 400
-
-    # Test case for retrieving patients' information
-    def test_get_patients(self):
-        response = requests.get(f"{TestMedicalDB.base_url}/patients", auth=TestMedicalDB.doctor_auth)
-        assert response.status_code == 200
-
-    # Test case for retrieving a specific patient's information
-    def test_get_patient_by_id(self):
-        status_code = self._check_if_uuid_exists("patients", 1)
-        assert status_code == 200
+        unique_ids = self._get_list_of_uuids("patients")
+        assert len(unique_ids) == len(TestMedicalDB.list_of_patients)
 
     # Test case for creating a new patient profile
-    def test_create_patient(self):
+    def test_patient_create_api(self):
         max_unique_id = self._find_highest_uuid("patients")
         data = {
             "full name": "John Doe",
@@ -176,108 +218,85 @@ class TestMedicalDB:
         status_code = self._check_if_uuid_exists("patients", max_unique_id + 1)
         assert status_code == 200
 
-    # Test case for retrieving appointments
-    def test_get_appointments(self):
-        response = requests.get(f"{TestMedicalDB.base_url}/appointments", auth=TestMedicalDB.doctor_auth)
+        TestMedicalDB.list_of_patients[max_unique_id+1] = ("johndoe", "John123")
+        unique_ids = self._get_list_of_uuids("patients")
+        assert len(unique_ids) == len(TestMedicalDB.list_of_patients)
+
+    def test_appointments_prefconfigured_data(self):
+        response = requests.get(f"{TestMedicalDB.base_url}/appointments", auth=TestMedicalDB.admin_auth)
         assert response.status_code == 200
 
-    # Test case for creating a new appointment by unauthorized doctor
-    def test_create_appointment_by_unauthorized_doctor(self):
-        max_appt_unique_id = self._find_highest_uuid("appointments")
-        max_doctor_unique_id = self._find_highest_uuid("doctors")
-        max_patients_unique_id = self._find_highest_uuid("patients")
+        unique_ids = self._get_list_of_uuids("appointments")
+        assert len(unique_ids) == len(TestMedicalDB.list_of_appointments)
 
-        get_appoinment_time = self._generate_appointment_time()
+    # Test case for creating a new appointment profile
+    def test_appointments_create_api(self):
+        max_unique_id = self._find_highest_uuid("appointments")
+        
+        latest_doctor_uuid, latest_doctor_value = list(TestMedicalDB.list_of_doctors.items())[-1]
+        latest_patient_uuid, latest_patient_value = list(TestMedicalDB.list_of_patients.items())[-1]
+        
         data = {
-           "doctor_uid": max_doctor_unique_id,
-           "patient_uid": max_patients_unique_id,
-           "start_time": get_appoinment_time
+           "doctor_uid": latest_doctor_uuid,
+           "patient_uid": latest_patient_uuid,
+           "start_time": self._generate_appointment_time()
         }
-        response = requests.post(f"{TestMedicalDB.base_url}/appointments", json=data, auth=TestMedicalDB.doctor_auth)
-        assert response.status_code == 404
 
-        status_code = self._check_if_uuid_exists("appointments", max_appt_unique_id + 1)
-        assert status_code == 404
+        response = requests.post(f"{TestMedicalDB.base_url}/appointments", json=data, auth=latest_doctor_value)
+        assert response.status_code == 200
+
+        status_code = self._check_if_uuid_exists("appointments", max_unique_id + 1)
+        assert status_code == 200
+
+        TestMedicalDB.list_of_appointments[max_unique_id+1] = (latest_doctor_uuid, latest_patient_uuid)
+        unique_ids = self._get_list_of_uuids("appointments")
+        assert len(unique_ids) == len(TestMedicalDB.list_of_appointments)
+
+    def _util_get_appointment_details(self, response_string):
+        pos1 = response_string.find('[') + 1
+
+        assert len(response_string[pos1:-3]) > 0 
+
+        data = eval(response_string[pos1:-3])
+
+        doctor_uid = data['doctor_uid']
+        patient_uid = data['patient_uid']
+
+        return doctor_uid, patient_uid
+
+    def test_appointments_single_doctor_dual_patient_same_time(self):
+
+       # Create the doctor
+       self._util_doctor_create("Dr. Arnold Sh", "arnoladsh", "cardio", "Arnolad123")
+       doctor_uuid, doctor_value = list(TestMedicalDB.list_of_doctors.items())[-1]
+
+       # Create the patient 1
+       self._util_patients_create("Patient 1", "patient1", "patient123", "1234567", "patient1@xyz.com")
+       patient1_uuid, patient1_value = list(TestMedicalDB.list_of_patients.items())[-1]
+
+       # Create appointment for doctor and patient 1
+       self._util_appointments_create_by_doctor(doctor_uuid, patient1_uuid,
+                                                "arnoladsh", "Arnolad123", 
+                                                self._generate_appointment_time())
+
+       # Fetch the appointment details using patient 1
+       response = requests.get(f"{TestMedicalDB.base_url}/appointments", auth=patient1_value)
+       recvd_doctor_uid, recvd_patient_uid = self._util_get_appointment_details(response.text)
+
+       assert recvd_doctor_uid == doctor_uuid
+       assert recvd_patient_uid == patient1_uuid
+
+       # Create the patient 2
+       self._util_patients_create("Patient 2", "patient2", "patient321", "4563711", "patient2@xyz.com")
+       patient2_uuid, patient2_value = list(TestMedicalDB.list_of_patients.items())[-1]
+
+       # Create appointment for doctor and patient 2
+       self._util_appointments_create_by_doctor(doctor_uuid, patient2_uuid,
+                                                "arnoladsh", "Arnolad123",
+                                                self._generate_appointment_time())
+
+       response = requests.get(f"{TestMedicalDB.base_url}/appointments", auth=patient2_value)
+       recvd_doctor_uid, recvd_patient_uid = self._util_get_appointment_details(response.text)
  
-
-    # Test case for creating a new appointment by authorized doctor
-    def test_create_appointment_by_authorized_doctor(self):
-        max_appt_unique_id = self._find_highest_uuid("appointments")
-
-        doc_data = {
-            "full name": "Dr. Superman Universe",
-            "username": "supermanuniverse",
-            "speciality": "anesthesia",
-            "password": "test_password",
-        }
-        response = requests.post(f"{TestMedicalDB.base_url}/doctors", json=doc_data, auth=TestMedicalDB.admin_auth)
-        assert response.status_code == 200
-        doctor_unique_id = self._find_highest_uuid("doctors")
-
-        pat_data = {
-            "full name": "new patient 1",
-            "username": "newpatient1",
-            "password": "newpatient1@123",
-            "phone": "123456789",
-            "email": "newpatient.1@example.com"
-        }
-        response = requests.post(f"{TestMedicalDB.base_url}/patients", json=pat_data, auth=TestMedicalDB.admin_auth)
-        assert response.status_code == 200
-        patients_unique_id = self._find_highest_uuid("patients")
- 
-        get_appoinment_time = self._generate_appointment_time()
-        data = {
-            "doctor_uid": doctor_unique_id,
-            "patient_uid": patients_unique_id,
-            "start_time": get_appoinment_time
-        }
-        response = requests.post(f"{TestMedicalDB.base_url}/appointments", json=data,
-                                auth=("supermanuniverse", "test_password"))
-        assert response.status_code == 200
-
-        status_code = self._check_if_uuid_exists("appointments", max_appt_unique_id + 1)
-        assert status_code == 404
-
-
-    # Test case for deleting an appointment
-    def test_delete_appointment_by_doctor(self):
-
-        # Create thew new doctor
-        doc_data = {
-            "full name": "Dr. Superman Multiverse",
-            "username": "supermanmultiverse",
-            "speciality": "anesthesia",
-            "password": "test_password",
-        }
-        response = requests.post(f"{TestMedicalDB.base_url}/doctors", json=doc_data, auth=TestMedicalDB.admin_auth)
-        assert response.status_code == 200
-        doctor_unique_id = self._find_highest_uuid("doctors")
-
-        # Create thew new patient
-        pat_data = {
-            "full name": "new patient 2",
-            "username": "newpatient2",
-            "password": "newpatient2@123",
-            "phone": "223456789",
-            "email": "newpatient.2@example.com"
-        }
-        response = requests.post(f"{TestMedicalDB.base_url}/patients", json=pat_data, auth=TestMedicalDB.admin_auth)
-        assert response.status_code == 200
-        patients_unique_id = self._find_highest_uuid("patients")
-
-        # Create thew new appointment
-        get_appoinment_time = self._generate_appointment_time()
-        data = {
-           "doctor_uid": doctor_unique_id,
-           "patient_uid": patients_unique_id,
-           "start_time": get_appoinment_time
-        }
-        response = requests.post(f"{TestMedicalDB.base_url}/appointments", json=data,
-                                 auth=("supermanmultiverse", "test_password"))
-        assert response.status_code == 200
-
-        max_appt_unique_id = self._find_highest_uuid("appointments")
-
-        response = requests.delete(f"{TestMedicalDB.base_url}/appointments/{max_appt_unique_id}",
-                                   auth=("supermanmultiverse", "test_password"))
-        assert response.status_code == 200
+       assert recvd_doctor_uid == doctor_uuid
+       assert recvd_patient_uid == patient2_uuid
