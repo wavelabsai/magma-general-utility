@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite errors="0" failures="6" hostname="c66ef940c8c3" name="pytest" skipped="0" tests="12" time="0.721" timestamp="2024-03-26T15:58:41.510369"><testcase classname="test_medical_db.TestMedicalDB" name="test_doctor_prefconfigured_data" time="0.027" /><testcase classname="test_medical_db.TestMedicalDB" name="test_doctor_create_api" time="0.044" /><testcase classname="test_medical_db.TestMedicalDB" name="test_unique_uids_cannot_be_modified" time="0.051"><failure message="assert 400 == 200&#10; +  where 400 = &lt;Response [400]&gt;.status_code">self = &lt;test_medical_db.TestMedicalDB object at 0x7f7db6ce5c50&gt;
+
+    def test_unique_uids_cannot_be_modified(self):
+        # Create a doctor
+        self._util_doctor_create("Dr. Hulk", "unique_hulk", "gaestro", "hulk123")
+        doctor_uid, doctor_value = list(TestMedicalDB.list_of_doctors.items())[-1]
+    
+        response = requests.get(
+            f"{TestMedicalDB.base_url}/doctors/{doctor_uid}",
+            auth=TestMedicalDB.admin_auth,
+        )
+        assert response.status_code == 200
+    
+        doctor_data = json.loads(response.text)[0]
+        doctor_uid = doctor_data["unique_id"]
+    
+        # Attempt to modify the UID of the doctor
+        response = requests.post(
+            f"{TestMedicalDB.base_url}/doctors/{doctor_uid}",
+            json={"unique_id": 1000},
+            auth=TestMedicalDB.admin_auth,
+        )
+    
+        res = requests.get(f"{TestMedicalDB.base_url}/doctors/{doctor_uid}")
+&gt;       assert res.status_code == 200
+E       assert 400 == 200
+E        +  where 400 = &lt;Response [400]&gt;.status_code
+
+test_medical_db.py:305: AssertionError</failure></testcase><testcase classname="test_medical_db.TestMedicalDB" name="test_patient_prefconfigured_data" time="0.021" /><testcase classname="test_medical_db.TestMedicalDB" name="test_patient_create_api" time="0.041" /><testcase classname="test_medical_db.TestMedicalDB" name="test_appointments_prefconfigured_data" time="0.023" /><testcase classname="test_medical_db.TestMedicalDB" name="test_appointments_create_api" time="0.034"><failure message="assert 404 == 200&#10; +  where 404 = &lt;Response [404]&gt;.status_code">self = &lt;test_medical_db.TestMedicalDB object at 0x7f7db6888190&gt;
+
+    def test_appointments_create_api(self):
+        max_unique_id = self._find_highest_uid("appointments")
+    
+        latest_doctor_uid, latest_doctor_value = list(
+            TestMedicalDB.list_of_doctors.items()
+        )[-1]
+        latest_patient_uid, latest_patient_value = list(
+            TestMedicalDB.list_of_patients.items()
+        )[-1]
+    
+        data = {
+            "doctor_uid": latest_doctor_uid,
+            "patient_uid": latest_patient_uid,
+            "start_time": generate_appointment_time(),
+        }
+    
+        response = requests.post(
+            f"{TestMedicalDB.base_url}/appointments",
+            json=data,
+            auth=latest_doctor_value,
+        )
+&gt;       assert response.status_code == 200
+E       assert 404 == 200
+E        +  where 404 = &lt;Response [404]&gt;.status_code
+
+test_medical_db.py:371: AssertionError</failure></testcase><testcase classname="test_medical_db.TestMedicalDB" name="test_appointments_single_doctor_dual_patient_same_time_by_doctor_cred" time="0.031"><failure message="assert 400 == 200">self = &lt;test_medical_db.TestMedicalDB object at 0x7f7db6888310&gt;
+
+    def test_appointments_single_doctor_dual_patient_same_time_by_doctor_cred(self):
+    
+        # Create the doctor
+&gt;       self._util_doctor_create("Dr. Arnold Sh", "arnoladsh", "cardio", "Arnolad123")
+
+test_medical_db.py:398: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;test_medical_db.TestMedicalDB object at 0x7f7db6888310&gt;
+fullname = 'Dr. Arnold Sh', username = 'arnoladsh', speciality = 'cardio'
+password = 'Arnolad123'
+
+    def _util_doctor_create(self, fullname, username, speciality, password):
+        max_unique_id = self._find_highest_uid("doctors")
+        data = {
+            "full name": fullname,
+            "username": username,
+            "speciality": speciality,
+            "password": password,
+        }
+        response = requests.post(
+            f"{TestMedicalDB.base_url}/doctors",
+            json=data,
+            auth=TestMedicalDB.admin_auth,
+        )
+        assert response.status_code == 200
+    
+        status_code = check_if_uid_exists("doctors", max_unique_id + 1)
+&gt;       assert status_code == 200
+E       assert 400 == 200
+
+test_medical_db.py:194: AssertionError</failure></testcase><testcase classname="test_medical_db.TestMedicalDB" name="test_appointments_single_patient_dual_doctor_same_time_by_doctor_cred" time="0.031"><failure message="assert 400 == 200">self = &lt;test_medical_db.TestMedicalDB object at 0x7f7db6888650&gt;
+
+    def test_appointments_single_patient_dual_doctor_same_time_by_doctor_cred(self):
+    
+        # Create the doctor Strange
+        self._util_doctor_create(
+&gt;           "Dr. Strange 1", "drstrangeavenger", "mystical", "StrangeAvenger1"
+        )
+
+test_medical_db.py:456: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;test_medical_db.TestMedicalDB object at 0x7f7db6888650&gt;
+fullname = 'Dr. Strange 1', username = 'drstrangeavenger'
+speciality = 'mystical', password = 'StrangeAvenger1'
+
+    def _util_doctor_create(self, fullname, username, speciality, password):
+        max_unique_id = self._find_highest_uid("doctors")
+        data = {
+            "full name": fullname,
+            "username": username,
+            "speciality": speciality,
+            "password": password,
+        }
+        response = requests.post(
+            f"{TestMedicalDB.base_url}/doctors",
+            json=data,
+            auth=TestMedicalDB.admin_auth,
+        )
+        assert response.status_code == 200
+    
+        status_code = check_if_uid_exists("doctors", max_unique_id + 1)
+&gt;       assert status_code == 200
+E       assert 400 == 200
+
+test_medical_db.py:194: AssertionError</failure></testcase><testcase classname="test_medical_db.TestMedicalDB" name="test_appointments_single_doctor_single_patient_by_patient_cred" time="0.031"><failure message="assert 400 == 200">self = &lt;test_medical_db.TestMedicalDB object at 0x7f7db6888790&gt;
+
+    def test_appointments_single_doctor_single_patient_by_patient_cred(self):
+    
+        # Create the doctor
+        self._util_doctor_create(
+&gt;           "Dr. DoLittle ", "dolittle", "veteneray", "DoLittle123"
+        )
+
+test_medical_db.py:509: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;test_medical_db.TestMedicalDB object at 0x7f7db6888790&gt;
+fullname = 'Dr. DoLittle ', username = 'dolittle', speciality = 'veteneray'
+password = 'DoLittle123'
+
+    def _util_doctor_create(self, fullname, username, speciality, password):
+        max_unique_id = self._find_highest_uid("doctors")
+        data = {
+            "full name": fullname,
+            "username": username,
+            "speciality": speciality,
+            "password": password,
+        }
+        response = requests.post(
+            f"{TestMedicalDB.base_url}/doctors",
+            json=data,
+            auth=TestMedicalDB.admin_auth,
+        )
+        assert response.status_code == 200
+    
+        status_code = check_if_uid_exists("doctors", max_unique_id + 1)
+&gt;       assert status_code == 200
+E       assert 400 == 200
+
+test_medical_db.py:194: AssertionError</failure></testcase><testcase classname="test_medical_db.TestMedicalDB" name="test_appointments_create_api_with_wrong_appointment_time_format" time="0.032" /><testcase classname="test_medical_db.TestMedicalDB" name="test_appointments_create_api_with_30_minute_gap_in_appointment_time" time="0.025"><failure message="assert 404 == 200&#10; +  where 404 = &lt;Response [404]&gt;.status_code">self = &lt;test_medical_db.TestMedicalDB object at 0x7f7db6888a90&gt;
+
+    def test_appointments_create_api_with_30_minute_gap_in_appointment_time(self):
+        max_unique_id = self._find_highest_uid("appointments")
+    
+        latest_doctor_uid, latest_doctor_value = list(
+            TestMedicalDB.list_of_doctors.items()
+        )[-1]
+        latest_patient_uid, latest_patient_value = list(
+            TestMedicalDB.list_of_patients.items()
+        )[-1]
+    
+        current_date_time = datetime.now()
+    
+        data = {
+            "doctor_uid": latest_doctor_uid,
+            "patient_uid": latest_patient_uid,
+            "start_time": current_date_time.strftime("%Y-%m-%dT%H:%M"),
+        }
+    
+        response = requests.post(
+            f"{TestMedicalDB.base_url}/appointments",
+            json=data,
+            auth=latest_doctor_value,
+        )
+&gt;       assert response.status_code == 200
+E       assert 404 == 200
+E        +  where 404 = &lt;Response [404]&gt;.status_code
+
+test_medical_db.py:596: AssertionError</failure></testcase></testsuite></testsuites>

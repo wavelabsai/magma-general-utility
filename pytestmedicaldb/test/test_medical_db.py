@@ -144,7 +144,7 @@ class TestMedicalDB:
         2: ("clientjohnsmith", "JohnSmith"),
     }
     list_of_appointments = {1: (1, 1), 2: (1, 1), 3: (2, 1), 4: (2, 2)}
-    base_url = "http://medcial_db:5000"
+    base_url = "http://medical_db:5000"
 
     # Find the highest uid among the dataset
     def _find_highest_uid(self, dataset):
