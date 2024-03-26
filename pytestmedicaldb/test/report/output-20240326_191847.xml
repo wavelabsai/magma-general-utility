@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite errors="0" failures="4" hostname="4580d2d41ffe" name="pytest" skipped="0" tests="16" time="1.429" timestamp="2024-03-26T19:18:47.866118"><testcase classname="test_medical_db.TestMedicalDB" name="test_doctor_prefconfigured_data" time="0.024" /><testcase classname="test_medical_db.TestMedicalDB" name="test_doctor_create_api" time="0.038" /><testcase classname="test_medical_db.TestMedicalDB" name="test_patient_prefconfigured_data" time="0.022" /><testcase classname="test_medical_db.TestMedicalDB" name="test_patient_create_api" time="0.041" /><testcase classname="test_medical_db.TestMedicalDB" name="test_appointments_prefconfigured_data" time="0.021" /><testcase classname="test_medical_db.TestMedicalDB" name="test_appointments_create_api" time="0.050" /><testcase classname="test_medical_db.TestMedicalDB" name="test_appointments_single_doctor_dual_patient_same_time_by_doctor_cred" time="0.190"><failure message="AssertionError: assert 0 &gt; 0&#10; +  where 0 = len('')">self = &lt;test_medical_db.TestMedicalDB object at 0x7fb9e8b5f050&gt;
+
+    def test_appointments_single_doctor_dual_patient_same_time_by_doctor_cred(self):
+        """Test creating appointments for a single doctor with two different patients at the
+           same time using doctor credentials.
+    
+        This method tests the functionality of creating appointments for a single doctor with
+        two different patients at the same time using doctor credentials. It performs the following steps:
+    
+        1. Creates a doctor with the name "Dr. Arnold Sh" and credentials "arnoladsh", "cardio", and "Arnolad123".
+        2. Retrieves the UID of the created doctor.
+        3. Creates the first patient with the name "Patient 1" and credentials "patient1", "patient123", "1234567", and "patient1@xyz.com".
+        4. Retrieves the UID and authentication value of the first patient.
+        5. Creates an appointment for the doctor and the first patient.
+        6. Fetches appointment details using the credentials of the first patient.
+        7. Parses the response to get the doctor UID, patient UID, and appointment ID.
+        8. Asserts that the received doctor UID matches the originally created doctor UID.
+        9. Asserts that the received patient UID matches the UID of the first patient.
+        10. Asserts that a non-zero appointment ID is received.
+        11. Creates the second patient with the name "Patient 2" and credentials "patient2", "patient321", "4563711", and "patient2@xyz.com".
+        12. Retrieves the UID and authentication value of the second patient.
+        13. Creates an appointment for the doctor and the second patient.
+        14. Fetches appointment details using the credentials of the second patient.
+        15. Parses the response to get the doctor UID, patient UID, and appointment ID.
+        16. Asserts that the received doctor UID matches the originally created doctor UID.
+        17. Asserts that the received patient UID matches the UID of the second patient.
+        18. Asserts that a non-zero appointment ID is received.
+    
+        Raises:
+           AssertionError: If any of the assertions fail.
+        """
+        # Create the doctor
+        self._util_doctor_create("Dr. Arnold Sh", "arnoladsh", "cardio", "Arnolad123")
+        doctor_uid, _ = list(TestMedicalDB.list_of_doctors.items())[-1]
+    
+        # Create the patient 1
+        self._util_patients_create(
+            "Patient 1", "patient1", "patient123", "1234567", "patient1@xyz.com"
+        )
+        patient1_uid, patient1_value = list(TestMedicalDB.list_of_patients.items())[-1]
+    
+        # Create appointment for doctor and patient 1
+        self._util_appointments_create(
+            doctor_uid,
+            patient1_uid,
+            "arnoladsh",
+            "Arnolad123",
+            generate_appointment_time(),
+        )
+    
+        # Fetch the appointment details using patient 1
+        response = requests.get(
+            f"{TestMedicalDB.base_url}/appointments", auth=patient1_value
+        )
+        (
+            recvd_doctor_uid,
+            recvd_patient_uid,
+            recvd_appointment_id,
+        ) = get_appointment_details(response.text)
+    
+        assert recvd_doctor_uid == doctor_uid
+        assert recvd_patient_uid == patient1_uid
+        assert recvd_appointment_id != 0
+    
+        # Create the patient 2
+        self._util_patients_create(
+            "Patient 2", "patient2", "patient321", "4563711", "patient2@xyz.com"
+        )
+        patient2_uid, patient2_value = list(TestMedicalDB.list_of_patients.items())[-1]
+    
+        # Create appointment for doctor and patient 2
+        self._util_appointments_create(
+            doctor_uid,
+            patient2_uid,
+            "arnoladsh",
+            "Arnolad123",
+            generate_appointment_time(),
+        )
+    
+        response = requests.get(
+            f"{TestMedicalDB.base_url}/appointments", auth=patient2_value
+        )
+        (
+            recvd_doctor_uid,
+            recvd_patient_uid,
+            recvd_appointment_id,
+&gt;       ) = get_appointment_details(response.text)
+
+test_medical_db.py:558: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+response_string = '"Patient 2\'s appointments: []"\n'
+
+    def get_appointment_details(response_string):
+        pos1 = response_string.find("[") + 1
+    
+&gt;       assert len(response_string[pos1:-3]) &gt; 0
+E       AssertionError: assert 0 &gt; 0
+E        +  where 0 = len('')
+
+test_medical_db.py:123: AssertionError</failure></testcase><testcase classname="test_medical_db.TestMedicalDB" name="test_appointments_single_patient_dual_doctor_same_time_by_doctor_cred" time="0.176"><failure message="assert 200 != 200&#10; +  where 200 = &lt;Response [200]&gt;.status_code">self = &lt;test_medical_db.TestMedicalDB object at 0x7fb9e8b5f190&gt;
+
+    def test_appointments_single_patient_dual_doctor_same_time_by_doctor_cred(self):
+        """
+        Test case to verify the scenario where a single doctor has appointments
+        scheduled with two different patients at the same time using the doctor's credentials.
+    
+        This test performs the following steps:
+          1. Creates a new doctor.
+          2. Creates a new patient 1.
+          3. Creates an appointment for the doctor and patient 1.
+          4. Retrieves the appointment details using patient 1's credentials and verifies the doctor
+             UID and patient UID.
+          5. Creates a new patient 2.
+          6. Creates an appointment for the doctor and patient 2.
+          7. Retrieves the appointment details using patient 2's credentials and verifies the doctor
+              UID and patient UID.
+    
+        Returns:
+            None: This test does not return anything. It asserts conditions
+                  to ensure the correctness of the functionality being tested.
+        """
+        # Create the doctor Strange
+        self._util_doctor_create(
+            "Dr. Strange 1", "drstrangeavenger", "mystical", "StrangeAvenger1"
+        )
+        doctor_strange_uid, _ = list(TestMedicalDB.list_of_doctors.items())[-1]
+    
+        # Create the Single Patient 1
+        self._util_patients_create(
+            "Single Patient 1",
+            "singlepatient",
+            "SinglePatient123",
+            "3456789",
+            "strangeavenger1@xyz.com",
+        )
+        single_patient_uid, single_patient_value = list(
+            TestMedicalDB.list_of_patients.items()
+        )[-1]
+    
+        # Create appointment for doctor strange and single patient 1
+        self._util_appointments_create(
+            doctor_strange_uid,
+            single_patient_uid,
+            "drstrangeavenger",
+            "StrangeAvenger1",
+            generate_appointment_time(),
+        )
+    
+        # Create the doctor Strange New
+        self._util_doctor_create(
+            "Dr. Strange 2", "drstrangeavengernew", "mysticalnew", "StrangeAvengerNew"
+        )
+        doctor_strange_new_uid, _ = list(TestMedicalDB.list_of_doctors.items())[-1]
+    
+        # Create appointment for doctor and patient 2
+        self._util_appointments_create(
+            doctor_strange_new_uid,
+            single_patient_uid,
+            "drstrangeavengernew",
+            "StrangeAvengerNew",
+            generate_appointment_time(),
+        )
+    
+        response = requests.get(
+            f"{TestMedicalDB.base_url}/appointments", auth=single_patient_value
+        )
+&gt;       assert response.status_code != 200
+E       assert 200 != 200
+E        +  where 200 = &lt;Response [200]&gt;.status_code
+
+test_medical_db.py:629: AssertionError</failure></testcase><testcase classname="test_medical_db.TestMedicalDB" name="test_appointments_single_doctor_single_patient_by_patient_cred" time="0.109" /><testcase classname="test_medical_db.TestMedicalDB" name="test_appointments_create_api_with_wrong_appointment_time_format" time="0.027" /><testcase classname="test_medical_db.TestMedicalDB" name="test_appointments_create_api_with_wrong_appointment_year_format" time="0.027" /><testcase classname="test_medical_db.TestMedicalDB" name="test_appointments_create_api_with_wrong_appointment_month_format" time="0.027" /><testcase classname="test_medical_db.TestMedicalDB" name="test_appointments_create_api_with_30_minute_gap_in_appointment_time" time="0.048" /><testcase classname="test_medical_db.TestMedicalDB" name="test_appointments_deletion_by_doctor" time="0.120" /><testcase classname="test_medical_db.TestMedicalDB" name="test_appointments_delete_by_patient_cred" time="0.123"><failure message="assert 404 == 200">self = &lt;test_medical_db.TestMedicalDB object at 0x7fb9e8b5fd90&gt;
+
+    def test_appointments_delete_by_patient_cred(self):
+        """Test deleting appointments by patient credentials.
+    
+        This method tests the functionality of deleting appointments using patient credentials.
+        It performs the following steps:
+    
+          1. Creates a doctor with the name "Dr. DoLittle2" and credentials "dolittle2", "veteneray", and "DoLittle123".
+          2. Retrieves the UID of the created doctor.
+          3. Creates a patient named "Bumble Bee1" with credentials "bumble1", "bumble123", "1234567", and
+             "bumble@xyz.com".
+          4. Retrieves the UID and authentication value of the created patient.
+          5. Creates an appointment for the created doctor and patient.
+          6. Fetches appointment details using the patient's credentials.
+          7. Asserts that the received doctor UID matches the originally created doctor UID.
+          8. Asserts that the received patient UID matches the originally created patient UID.
+          9. Asserts that a non-zero appointment UID is received.
+          10. Sends a DELETE request to delete the fetched appointment, authenticated with the patient's credentials.
+          11. Asserts that the response status code is 200.
+          12. Checks if the appointment UID still exists in the database.
+    
+        Raises:
+            AssertionError: If any of the assertions fail.
+        """
+    
+        # Create the doctor
+        self._util_doctor_create(
+            "Dr. DoLittle2 ", "dolittle2", "veteneray", "DoLittle123"
+        )
+    
+        doctor_uid, _ = list(TestMedicalDB.list_of_doctors.items())[-1]
+    
+        # Create the patient 1
+        self._util_patients_create(
+            "Bumble Bee1", "bumble1", "bumble123", "1234567", "bumble@xyz.com"
+        )
+        patient1_uid, patient1_value = list(TestMedicalDB.list_of_patients.items())[-1]
+    
+        # Create appointment for doctor and patient 1
+        self._util_appointments_create(
+            doctor_uid,
+            patient1_uid,
+            "bumble1",
+            "bumble123",
+&gt;           generate_appointment_time(),
+        )
+
+test_medical_db.py:1004: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;test_medical_db.TestMedicalDB object at 0x7fb9e8b5fd90&gt;, doctor_uid = 9
+patient_uid = 9, auth_username = 'bumble1', auth_password = 'bumble123'
+appointment_time = '2024-03-28T19:18'
+
+    def _util_appointments_create(
+        self, doctor_uid, patient_uid, auth_username, auth_password, appointment_time
+    ):
+        max_unique_id = self._find_highest_uid("appointments")
+    
+        data = {
+            "doctor_uid": doctor_uid,
+            "patient_uid": patient_uid,
+            "start_time": appointment_time,
+        }
+    
+        response = requests.post(
+            f"{TestMedicalDB.base_url}/appointments",
+            json=data,
+            auth=(auth_username, auth_password),
+        )
+        assert response.status_code == 200
+    
+        status_code = check_if_uid_exists("appointments", max_unique_id + 1)
+&gt;       assert status_code == 200
+E       assert 404 == 200
+
+test_medical_db.py:257: AssertionError</failure></testcase><testcase classname="test_medical_db.TestMedicalDB" name="test_unique_uids_cannot_be_modified" time="0.067"><failure message="assert 400 == 200&#10; +  where 400 = &lt;Response [400]&gt;.status_code">self = &lt;test_medical_db.TestMedicalDB object at 0x7fb9e8b5ff10&gt;
+
+    def test_unique_uids_cannot_be_modified(self):
+        """
+        Test case to verify the functionality of creating a new doctor through the API.
+    
+        This test performs the following steps:
+            1. Finds the highest unique ID currently assigned to doctors in the database.
+            2. Constructs data for creating a new doctor including full name, username,
+               speciality, and password.
+            3. Sends a POST request to the '/doctors' endpoint with the constructed data
+               and admin authentication.
+            4. Verifies that the response status code is 200 (OK).
+            5. Checks if the newly created doctor's unique ID exists in the database.
+            6. Adds the newly created doctor to the preconfigured list of doctors.
+            7. Retrieves the list of unique IDs for doctors from the database and compares
+               it with the updated list of preconfigured doctors.
+    
+        Returns:
+            None: This test does not return anything. It asserts conditions
+                  to ensure the correctness of the functionality being tested.
+        """
+        # Create a doctor
+        self._util_doctor_create("Dr. Hulk", "unique_hulk", "gaestro", "hulk123")
+        doctor_uid, _ = list(TestMedicalDB.list_of_doctors.items())[-1]
+    
+        response = requests.get(
+            f"{TestMedicalDB.base_url}/doctors/{doctor_uid}",
+            auth=TestMedicalDB.admin_auth,
+        )
+        assert response.status_code == 200
+    
+        doctor_data = json.loads(response.text)[0]
+        doctor_uid = doctor_data["unique_id"]
+    
+        # Attempt to modify the UID of the doctor
+        response = requests.post(
+            f"{TestMedicalDB.base_url}/doctors/{doctor_uid}",
+            json={"unique_id": 1000},
+            auth=TestMedicalDB.admin_auth,
+        )
+    
+        res = requests.get(f"{TestMedicalDB.base_url}/doctors/{doctor_uid}")
+&gt;       assert res.status_code == 200
+E       assert 400 == 200
+E        +  where 400 = &lt;Response [400]&gt;.status_code
+
+test_medical_db.py:1073: AssertionError</failure></testcase></testsuite></testsuites>
