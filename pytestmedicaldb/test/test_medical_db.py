@@ -805,7 +805,302 @@ class TestMedicalDB:
         data = {
             "doctor_uid": latest_doctor_uid,
             "patient_uid": latest_patient_uid,
-            "start_time": current_date_time.strftime("%Y-%b-%dT%H:%M:%S"),
+            "start_time": current_date_time.strftime("%Y-%b-%dT%H:%M"),
+        }
+
+        response = requests.post(
+            f"{TestMedicalDB.base_url}/appointments",
+            json=data,
+            auth=latest_doctor_value,
+        )
+        assert response.status_code == 400
+
+        status_code = check_if_uid_exists("appointments", max_unique_id + 1)
+        assert status_code != 200
+# Test case for creating a new appointment with wrong single digit month format
+    def test_appointments_create_api_with_wrong_appointment_single_digit_month_format(self):
+        """
+        Test case to verify the behavior of the appointments creation API
+        when providing a single-digit month format in the appointment start time.
+
+        This test case checks if the API returns a 400 status code when an
+        appointment is attempted to be created with a single-digit month format
+        in the appointment start time.
+
+        Args:
+            self: Instance of the test class.
+
+        Returns:
+            None
+        """
+        max_unique_id = self._find_highest_uid("appointments")
+
+        latest_doctor_uid, latest_doctor_value = list(
+            TestMedicalDB.list_of_doctors.items()
+        )[-1]
+        latest_patient_uid, latest_patient_value = list(
+            TestMedicalDB.list_of_patients.items()
+        )[-1]
+
+        current_dateTime = datetime.now()
+        # Modify the date to a single digit Month
+        current_dateTime  = current_dateTime.replace(month=3)
+
+        data = {
+            "doctor_uid": latest_doctor_uid,
+            "patient_uid": latest_patient_uid,
+            "start_time": current_dateTime.strftime("%Y-%-m-%dT%H:%M"),
+        }
+
+        response = requests.post(
+            f"{TestMedicalDB.base_url}/appointments",
+            json=data,
+            auth=latest_doctor_value,
+        )
+        assert response.status_code == 400
+
+        status_code = check_if_uid_exists("appointments", max_unique_id + 1)
+        assert status_code != 200
+
+
+    # Test case for creating a new appointment with wrong date with single digit daay format
+    def test_appointments_create_api_with_wrong_appointment_single_digit_day_format(self):
+        """
+        Test case for creating an appointment API with a single-digit day format.
+
+        This test case verifies the behavior of the appointments creation API endpoint
+        when provided with a wrong single-digit day format in the appointment start time.
+
+        It attempts to create a new appointment using the provided data and checks whether
+        the API returns the expected HTTP status code 400.
+
+        It also verifies that the appointment with the expected UID does not exist in the
+        database after the API call.
+
+        Raises:
+            AssertionError: If the API response status code is not 400 or if the
+                            appointment with the expected UID exists in the database.
+        """  
+        max_unique_id = self._find_highest_uid("appointments")
+
+        latest_doctor_uid, latest_doctor_value = list(
+            TestMedicalDB.list_of_doctors.items()
+        )[-1]
+        latest_patient_uid, latest_patient_value = list(
+            TestMedicalDB.list_of_patients.items()
+        )[-1]
+
+        current_dateTime = datetime.now()
+        # Modify the date to a single digit day
+        current_dateTime  = current_dateTime.replace(day=5)
+
+        data = {
+            "doctor_uid": latest_doctor_uid,
+            "patient_uid": latest_patient_uid,
+            "start_time": current_dateTime.strftime("%Y-%m-%-dT%H:%M"),
+        }
+
+        response = requests.post(
+            f"{TestMedicalDB.base_url}/appointments",
+            json=data,
+            auth=latest_doctor_value,
+        )
+        assert response.status_code == 400
+
+        status_code = check_if_uid_exists("appointments", max_unique_id + 1)
+        assert status_code != 200
+
+    # Test case for creating a new appointment with wrong single digit hour format
+    def test_appointments_create_api_with_wrong_appointment_single_digit_hour_format(self):
+        """
+        Test case to verify the behavior of creating appointments with an incorrect appointment time format,
+        specifically when the hour part of the appointment time is a single digit.
+
+        This test performs the following steps:
+        1. Finds the highest unique ID for appointments in the database.
+        2. Retrieves the details of the latest doctor and patient.
+        3. Modifies the current date-time to set the hour value to 5 for validation purposes.
+        4. Constructs appointment data with the latest doctor and patient details and the modified appointment time.
+        5. Sends a POST request to the appointments API endpoint with the constructed data.
+        6. Asserts that the response status code is 400, indicating a bad request due to incorrect time format.
+        7. Checks if the UID exists for the appointment created with the next unique ID.
+        8. Asserts that the status code for UID existence check is not 200, indicating failure.
+
+        This test ensures that the API rejects appointments with an incorrect time format,
+        particularly when the hour part is a single digit.
+
+        :param self: Instance of the test case class.
+        :return: None
+        """
+        max_unique_id = self._find_highest_uid("appointments")
+
+        latest_doctor_uid, latest_doctor_value = list(
+            TestMedicalDB.list_of_doctors.items()
+        )[-1]
+        latest_patient_uid, latest_patient_value = list(
+            TestMedicalDB.list_of_patients.items()
+        )[-1]
+
+        current_dateTime = datetime.now()
+        # Modify the hour value in current date to validate
+        current_dateTime  = current_dateTime.replace(hour=5)
+
+        data = {
+            "doctor_uid": latest_doctor_uid,
+            "patient_uid": latest_patient_uid,
+            "start_time": current_dateTime.strftime("%Y-%m-%-dT%-H:%M"),
+        }
+
+        response = requests.post(
+            f"{TestMedicalDB.base_url}/appointments",
+            json=data,
+            auth=latest_doctor_value,
+        )
+        assert response.status_code == 400
+
+        status_code = check_if_uid_exists("appointments", max_unique_id + 1)
+        assert status_code != 200
+
+    # Test case for creating a new appointment with wrong single digit minute format
+    def test_appointments_create_api_with_wrong_appointment_single_digit_minute_format(self):
+        """
+        Test case to verify the behavior of creating appointments with an incorrect appointment time format,
+        specifically when the minute part of the appointment time is a single digit.
+
+        This test performs the following steps:
+        1. Finds the highest unique ID for appointments in the database.
+        2. Retrieves the details of the latest doctor and patient.
+        3. Modifies the current date-time to set the minute value to 5 for validation purposes.
+        4. Constructs appointment data with the latest doctor and patient details and the modified appointment time.
+        5. Sends a POST request to the appointments API endpoint with the constructed data.
+        6. Asserts that the response status code is 400, indicating a bad request due to incorrect time format.
+        7. Checks if the UID exists for the appointment created with the next unique ID.
+        8. Asserts that the status code for UID existence check is not 200, indicating failure.
+
+        This test ensures that the API rejects appointments with an incorrect time format,
+        particularly when the minute part is a single digit.
+
+        :param self: Instance of the test case class.
+        :return: None
+        """
+        max_unique_id = self._find_highest_uid("appointments")
+
+        latest_doctor_uid, latest_doctor_value = list(
+            TestMedicalDB.list_of_doctors.items()
+        )[-1]
+        latest_patient_uid, latest_patient_value = list(
+            TestMedicalDB.list_of_patients.items()
+        )[-1]
+
+        current_dateTime = datetime.now()
+        # Modify the minutes value in current date to validate
+        current_dateTime  = current_dateTime.replace(minute=5)
+
+        data = {
+            "doctor_uid": latest_doctor_uid,
+            "patient_uid": latest_patient_uid,
+            "start_time": current_dateTime.strftime("%Y-%m-%-dT%H:%-M"),
+        }
+
+        response = requests.post(
+            f"{TestMedicalDB.base_url}/appointments",
+            json=data,
+            auth=latest_doctor_value,
+        )
+        assert response.status_code == 400
+
+        status_code = check_if_uid_exists("appointments", max_unique_id + 1)
+        assert status_code != 200
+    
+    # Test case for creating a new appointment with wrong 24 hour time format
+    def test_appointments_create_api_with_wrong_appointment_invalid_24_hour_format(self):
+        """
+        Test case to verify the behavior of creating appointments with an invalid appointment time format,
+        specifically when using a 24-hour format with AM/PM indicators.
+
+        This test performs the following steps:
+        1. Finds the highest unique ID for appointments in the database.
+        2. Retrieves the details of the latest doctor and patient.
+        3. Modifies the current date-time to set the hour value to 16 for validation purposes.
+        4. Constructs appointment data with the latest doctor and patient details and the modified appointment time.
+        5. Sends a POST request to the appointments API endpoint with the constructed data.
+        6. Asserts that the response status code is 400, indicating a bad request due to incorrect time format.
+        7. Checks if the UID exists for the appointment created with the next unique ID.
+        8. Asserts that the status code for UID existence check is not 200, indicating failure.
+
+        This test ensures that the API rejects appointments with an invalid time format,
+        particularly when using a 24-hour format with AM/PM indicators.
+
+        :param self: Instance of the test case class.
+        :return: None
+        """
+        
+        max_unique_id = self._find_highest_uid("appointments")
+
+        latest_doctor_uid, latest_doctor_value = list(
+            TestMedicalDB.list_of_doctors.items()
+        )[-1]
+        latest_patient_uid, latest_patient_value = list(
+            TestMedicalDB.list_of_patients.items()
+        )[-1]
+
+        current_dateTime = datetime.now()
+        # Modify the time to 24 hour in order to validate
+        current_dateTime  = current_dateTime.replace(hour=16)
+
+        data = {
+            "doctor_uid": latest_doctor_uid,
+            "patient_uid": latest_patient_uid,
+            "start_time": current_dateTime.strftime("%Y-%m-%-dT%I:%M %p"),
+        }
+
+        response = requests.post(
+            f"{TestMedicalDB.base_url}/appointments",
+            json=data,
+            auth=latest_doctor_value,
+        )
+        assert response.status_code == 400
+
+        status_code = check_if_uid_exists("appointments", max_unique_id + 1)
+        assert status_code != 200
+
+    # Test case for creating a new appointment with wrong date time without T separator format
+    def test_appointments_create_api_with_wrong_appointment_without_T_separator_format(self):
+        """
+        Test case to verify the behavior of creating appointments with an invalid appointment time format,
+        specifically when the time format does not include the 'T' separator between date and time.
+
+        This test performs the following steps:
+        1. Finds the highest unique ID for appointments in the database.
+        2. Retrieves the details of the latest doctor and patient.
+        3. Retrieves the current date-time.
+        4. Constructs appointment data with the latest doctor and patient details and the current date-time without the 'T' separator.
+        5. Sends a POST request to the appointments API endpoint with the constructed data.
+        6. Asserts that the response status code is 400, indicating a bad request due to incorrect time format.
+        7. Checks if the UID exists for the appointment created with the next unique ID.
+        8. Asserts that the status code for UID existence check is not 200, indicating failure.
+
+        This test ensures that the API rejects appointments with an invalid time format,
+        particularly when the 'T' separator between date and time is missing.
+
+        :param self: Instance of the test case class.
+        :return: None
+        """
+        max_unique_id = self._find_highest_uid("appointments")
+
+        latest_doctor_uid, latest_doctor_value = list(
+            TestMedicalDB.list_of_doctors.items()
+        )[-1]
+        latest_patient_uid, latest_patient_value = list(
+            TestMedicalDB.list_of_patients.items()
+        )[-1]
+
+        current_dateTime = datetime.now()
+        
+        data = {
+            "doctor_uid": latest_doctor_uid,
+            "patient_uid": latest_patient_uid,
+            "start_time": current_dateTime.strftime("%Y-%m-%d %H:%M"),
         }
 
         response = requests.post(
