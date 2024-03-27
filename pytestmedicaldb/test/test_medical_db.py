@@ -12,11 +12,12 @@ It also includes utility methods for common operations like finding the highest 
 checking if a UUID exists, generating appointment time, etc.
 """
 
+from ast import literal_eval
 from datetime import datetime, timedelta
 import json
-import requests
 import logging
 
+import requests
 # Collect the username from the dataset (doctor or patients)
 def collect_username(dataset):
     """
@@ -118,11 +119,27 @@ def check_if_uid_exists(dataset, uid):
 
 
 def get_appointment_details(response_string):
+    """
+    Extracts appointment details from a response string.
+
+    Args:
+        response_string (str): A string containing appointment details in a specific format.
+
+    Returns:
+        tuple: A tuple containing doctor UID, patient UID, and appointment UID.
+
+    Raises:
+        AssertionError: If the extracted appointment details are empty.
+
+    Example:
+        If response_string is '[{"doctor_uid": 123, "patient_uid": 456, "unique_id": "abc123"}]',
+        then get_appointment_details(response_string) returns (123, 456, 'abc123').
+    """
     pos1 = response_string.find("[") + 1
 
     assert len(response_string[pos1:-3]) > 0
 
-    data = eval(response_string[pos1:-3])
+    data = literal_eval(response_string[pos1:-3])
 
     doctor_uid = data["doctor_uid"]
     patient_uid = data["patient_uid"]
@@ -475,7 +492,7 @@ class TestMedicalDB:
         """Test creating appointments for a single doctor with two different patients at the
            same time using doctor credentials.
 
-        This method tests the functionality of creating appointments for a single doctor with 
+        This method tests the functionality of creating appointments for a single doctor with
         two different patients at the same time using doctor credentials. It performs the following steps:
 
         1. Creates a doctor with the name "Dr. Arnold Sh" and credentials "arnoladsh", "cardio", and "Arnolad123".
@@ -838,18 +855,18 @@ class TestMedicalDB:
         latest_doctor_uid, latest_doctor_value = list(
             TestMedicalDB.list_of_doctors.items()
         )[-1]
-        latest_patient_uid, latest_patient_value = list(
+        latest_patient_uid, _ = list(
             TestMedicalDB.list_of_patients.items()
         )[-1]
 
-        current_dateTime = datetime.now()
+        current_date_time = datetime.now()
         # Modify the date to a single digit Month
-        current_dateTime  = current_dateTime.replace(month=3)
+        current_date_time  = current_date_time.replace(month=3)
 
         data = {
             "doctor_uid": latest_doctor_uid,
             "patient_uid": latest_patient_uid,
-            "start_time": current_dateTime.strftime("%Y-%-m-%dT%H:%M"),
+            "start_time": current_date_time.strftime("%Y-%-m-%dT%H:%M"),
         }
 
         response = requests.post(
@@ -880,24 +897,24 @@ class TestMedicalDB:
         Raises:
             AssertionError: If the API response status code is not 400 or if the
                             appointment with the expected UID exists in the database.
-        """  
+        """
         max_unique_id = self._find_highest_uid("appointments")
 
         latest_doctor_uid, latest_doctor_value = list(
             TestMedicalDB.list_of_doctors.items()
         )[-1]
-        latest_patient_uid, latest_patient_value = list(
+        latest_patient_uid, _ = list(
             TestMedicalDB.list_of_patients.items()
         )[-1]
 
-        current_dateTime = datetime.now()
+        current_date_time = datetime.now()
         # Modify the date to a single digit day
-        current_dateTime  = current_dateTime.replace(day=5)
+        current_date_time  = current_date_time.replace(day=5)
 
         data = {
             "doctor_uid": latest_doctor_uid,
             "patient_uid": latest_patient_uid,
-            "start_time": current_dateTime.strftime("%Y-%m-%-dT%H:%M"),
+            "start_time": current_date_time.strftime("%Y-%m-%-dT%H:%M"),
         }
 
         response = requests.post(
@@ -937,18 +954,18 @@ class TestMedicalDB:
         latest_doctor_uid, latest_doctor_value = list(
             TestMedicalDB.list_of_doctors.items()
         )[-1]
-        latest_patient_uid, latest_patient_value = list(
+        latest_patient_uid, _ = list(
             TestMedicalDB.list_of_patients.items()
         )[-1]
 
-        current_dateTime = datetime.now()
+        current_date_time = datetime.now()
         # Modify the hour value in current date to validate
-        current_dateTime  = current_dateTime.replace(hour=5)
+        current_date_time  = current_date_time.replace(hour=5)
 
         data = {
             "doctor_uid": latest_doctor_uid,
             "patient_uid": latest_patient_uid,
-            "start_time": current_dateTime.strftime("%Y-%m-%-dT%-H:%M"),
+            "start_time": current_date_time.strftime("%Y-%m-%-dT%-H:%M"),
         }
 
         response = requests.post(
@@ -988,18 +1005,18 @@ class TestMedicalDB:
         latest_doctor_uid, latest_doctor_value = list(
             TestMedicalDB.list_of_doctors.items()
         )[-1]
-        latest_patient_uid, latest_patient_value = list(
+        latest_patient_uid, _ = list(
             TestMedicalDB.list_of_patients.items()
         )[-1]
 
-        current_dateTime = datetime.now()
+        current_date_time = datetime.now()
         # Modify the minutes value in current date to validate
-        current_dateTime  = current_dateTime.replace(minute=5)
+        current_date_time  = current_date_time.replace(minute=5)
 
         data = {
             "doctor_uid": latest_doctor_uid,
             "patient_uid": latest_patient_uid,
-            "start_time": current_dateTime.strftime("%Y-%m-%-dT%H:%-M"),
+            "start_time": current_date_time.strftime("%Y-%m-%-dT%H:%-M"),
         }
 
         response = requests.post(
@@ -1011,7 +1028,7 @@ class TestMedicalDB:
 
         status_code = check_if_uid_exists("appointments", max_unique_id + 1)
         assert status_code != 200
-    
+
     # Test case for creating a new appointment with wrong 24 hour time format
     def test_appointments_create_api_with_wrong_appointment_invalid_24_hour_format(self):
         """
@@ -1034,24 +1051,24 @@ class TestMedicalDB:
         :param self: Instance of the test case class.
         :return: None
         """
-        
+
         max_unique_id = self._find_highest_uid("appointments")
 
         latest_doctor_uid, latest_doctor_value = list(
             TestMedicalDB.list_of_doctors.items()
         )[-1]
-        latest_patient_uid, latest_patient_value = list(
+        latest_patient_uid, _ = list(
             TestMedicalDB.list_of_patients.items()
         )[-1]
 
-        current_dateTime = datetime.now()
+        current_date_time = datetime.now()
         # Modify the time to 24 hour in order to validate
-        current_dateTime  = current_dateTime.replace(hour=16)
+        current_date_time  = current_date_time.replace(hour=16)
 
         data = {
             "doctor_uid": latest_doctor_uid,
             "patient_uid": latest_patient_uid,
-            "start_time": current_dateTime.strftime("%Y-%m-%-dT%I:%M %p"),
+            "start_time": current_date_time.strftime("%Y-%m-%-dT%I:%M %p"),
         }
 
         response = requests.post(
@@ -1091,16 +1108,16 @@ class TestMedicalDB:
         latest_doctor_uid, latest_doctor_value = list(
             TestMedicalDB.list_of_doctors.items()
         )[-1]
-        latest_patient_uid, latest_patient_value = list(
+        latest_patient_uid, _ = list(
             TestMedicalDB.list_of_patients.items()
         )[-1]
 
-        current_dateTime = datetime.now()
-        
+        current_date_time = datetime.now()
+
         data = {
             "doctor_uid": latest_doctor_uid,
             "patient_uid": latest_patient_uid,
-            "start_time": current_dateTime.strftime("%Y-%m-%d %H:%M"),
+            "start_time": current_date_time.strftime("%Y-%m-%d %H:%M"),
         }
 
         response = requests.post(
@@ -1327,7 +1344,7 @@ class TestMedicalDB:
         """
         Test case to ensure that creating a patient with a username that is already
         taken by a doctor results in the expected behavior.
-    
+
         Steps:
           1. Create a new doctor named Dr. Hippocrates with unique details.
           2. Retrieve the details of the newly created doctor.
@@ -1359,7 +1376,7 @@ class TestMedicalDB:
         """
         Test case to ensure that creating a doctor with a username that is already
         taken by a patient results in the expected behavior.
-    
+
         Steps:
            1. Create a new patient named Amalia 2 with unique details.
            2. Retrieve the details of the newly created patient.
@@ -1516,7 +1533,7 @@ class TestMedicalDB:
         assert doctor_data_subset == expected_data
         logging.info(doctor_data_subset)
         assert len(doctor_data) == 3
-  
+
     # Test case for verifying all the keys are present in patients returned response:
     def test_verify_patient_details_returned_fields(self):
         '''
@@ -1561,7 +1578,7 @@ class TestMedicalDB:
         keys_presence = {key: key in patients_res_data for key in expected_keys}
 
         # Assert that all keys are present
-        assert all(keys_presence.values()) == True
+        assert all(keys_presence.values()) is True
 
         patients_res_data_subset = {key: value for key, value in patients_res_data.items()
                               if key in ["full name", "phone", "email"]}

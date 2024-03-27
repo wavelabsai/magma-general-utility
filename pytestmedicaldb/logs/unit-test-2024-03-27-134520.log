@@ -1,0 +1,18 @@
+test_create_appointment (utmedicaldb.TestAppointments) ... ok
+test_delete_appointment (utmedicaldb.TestAppointments) ... ok
+test_get_appointment_by_id (utmedicaldb.TestAppointments) ... ok
+test_get_appointments (utmedicaldb.TestAppointments) ... ok
+test_create_doctor (utmedicaldb.TestDoctors) ... ok
+test_get_doctor_by_id (utmedicaldb.TestDoctors) ... UID: 1
+ok
+test_get_doctors (utmedicaldb.TestDoctors) ... UID: 0
+data: [{'full name': 'Dr John Doe'}, {'full name': 'Dr Jane Smith'}, {'speciality': 'paediatrician'}, {'speciality': 'dentist'}, {'unique_id': 1}, {'unique_id': 2}]
+ok
+test_create_patient (utmedicaldb.TestPatients) ... ok
+test_get_patient_by_id (utmedicaldb.TestPatients) ... ok
+test_get_patients (utmedicaldb.TestPatients) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.016s
+
+OK
