@@ -15,6 +15,7 @@ checking if a UUID exists, generating appointment time, etc.
 from datetime import datetime, timedelta
 import json
 import requests
+import logging
 
 # Collect the username from the dataset (doctor or patients)
 def collect_username(dataset):
@@ -1387,6 +1388,189 @@ class TestMedicalDB:
         status_code = check_if_uid_exists("doctors", max_unique_id + 1)
 
         assert status_code == 400
+
+    def test_doctor_patient_password_have_no_limitation(self):
+        """
+        Test case to verify that doctors and patients can set passwords without limitations.
+
+        This test performs the following steps:
+            1. Creates a doctor with different password formats.
+            2. Verifies that each password update is successful for the doctor.
+            3. Creates a patient with different password formats.
+            4. Verifies that each password update is successful for the patient.
+
+        Returns:
+            None: This test does not return anything. It asserts conditions to ensure the correctness
+                of the functionality being tested.
+        """
+
+        # Create a doctor
+        self._util_doctor_create("Dr. Roggers", "steve_Roggers", "neurologist", "roggers")
+        doctor_uid, _ = list(TestMedicalDB.list_of_doctors.items())[-1]
+
+        # Update the doctor's password
+        new_password1 = "steve123"
+        response = requests.post(
+            f"{TestMedicalDB.base_url}/doctors/{doctor_uid}",
+            json={"password": new_password1},
+            auth=TestMedicalDB.admin_auth,
+        )
+        assert response.status_code == 200
+
+        # Verify that the password was updated successfully
+        response = requests.get(
+            f"{TestMedicalDB.base_url}/doctors/{doctor_uid}",
+            auth=TestMedicalDB.admin_auth,
+        )
+        updated_doctor_data = json.loads(response.text)[0]
+        assert updated_doctor_data["password"] == new_password1
+
+        # Update the doctor's password
+        new_password2 = "SteveRoggers123"
+        response = requests.post(
+            f"{TestMedicalDB.base_url}/doctors/{doctor_uid}",
+            json={"password": new_password2},
+            auth=TestMedicalDB.admin_auth,
+        )
+        assert response.status_code == 200
+
+        # Verify that the password was updated successfully
+        response = requests.get(
+            f"{TestMedicalDB.base_url}/doctors/{doctor_uid}",
+            auth=TestMedicalDB.admin_auth,
+        )
+
+        updated_doctor_data = json.loads(response.text)[0]
+        assert updated_doctor_data["password"] == new_password2
+
+        # Update the doctor's password
+        new_password3 = "$teveRoggers!@123"
+        response = requests.post(
+            f"{TestMedicalDB.base_url}/doctors/{doctor_uid}",
+            json={"password": new_password3},
+            auth=TestMedicalDB.admin_auth,
+        )
+        assert response.status_code == 200
+
+        # Verify that the password was updated successfully
+        response = requests.get(
+            f"{TestMedicalDB.base_url}/doctors/{doctor_uid}",
+            auth=TestMedicalDB.admin_auth,
+        )
+        updated_doctor_data = json.loads(response.text)[0]
+        assert updated_doctor_data["password"] == new_password3
+
+        max_unique_id = self._find_highest_uid("patients")
+
+        # Create a patient
+        self._util_patients_create("John Carter", "john_doe", "johncarter", "678998767", "johncarter@example.com")
+        check_if_uid_exists("patients", max_unique_id + 1)
+
+        # Create a patient2
+        self._util_patients_create("Ethan Hunt", "ethan_hunt", "Eth@nHunt!@", "312233445", "ethanhunt@example.com")
+        check_if_uid_exists("patients", max_unique_id + 2)
+
+        # Create a patient3
+        self._util_patients_create("Ron Weasley", "ron_weasley", "R0nWe@$ley#123", "546346456",
+                                    "ronweasley@example.com")
+        check_if_uid_exists("patients", max_unique_id + 3)
+
+    def test_retrieve_doctor_information(self):
+        """
+        Test case to verify the functionality of retrieving doctor information via the API.
+
+        This test verifies that the API correctly retrieves doctor information, including full name, username, and speciality, without considering the unique ID.
+
+        Test Steps:
+        1. Create a new doctor with the name, username, speciality using the '_util_doctor_create' method.
+        2. Send a GET request to the '/doctors/{doctor_uid}' endpoint to retrieve the doctor information, where 'doctor_uid' is the unique ID of the newly created doctor.
+        3. Extract only the necessary fields ('full name', 'username', 'speciality') from the response data for comparison.
+        4. Define the expected data containing the same fields with the corresponding values.
+        5. Assert that the extracted doctor information matches the expected data.
+
+        Returns:
+            None: This test does not return anything. It asserts conditions to ensure the correctness of the functionality being tested.
+        """
+
+        # Create a doctor
+        self._util_doctor_create("Dr. Banner", "unique_banner", "cardio", "banner123")
+        doctor_uid, _ = list(TestMedicalDB.list_of_doctors.items())[-1]
+
+        response = requests.get(
+            f"{TestMedicalDB.base_url}/doctors/{doctor_uid}",
+        auth=TestMedicalDB.admin_auth,
+        )
+
+        doctor_data = json.loads(response.text)[0]
+
+        # Extract the necessary fields for comparison
+        doctor_data_subset = {key: value for key, value in doctor_data.items()
+                              if key in ["full name", "speciality", "unique_id"]}
+
+        expected_data = {
+            "full name": "Dr. Banner",
+            "speciality": "cardio",
+            "unique_id": doctor_uid,
+        }
+
+        assert doctor_data_subset == expected_data
+        logging.info(doctor_data_subset)
+        assert len(doctor_data) == 3
+  
+    # Test case for verifying all the keys are present in patients returned response:
+    def test_verify_patient_details_returned_fields(self):
+        '''
+        Test case to verify that the patient information returned upon creation
+        matches the expected details for full name, unique_id, phone, and email.
+
+        Steps:
+        1. Create a new patient.
+        2. Retrieve the patient details.
+        3. Verify the presence of expected keys in the response.
+        4. Verify the values of the retrieved keys.
+        5. Validate that the response matches the input data.
+
+        Args:
+            self: Instance of the test class.
+
+        Returns:
+            None
+        '''
+        patients_data = {
+            "full name": "John Doe",
+            "username": "johndoe",
+            "password": "John123",
+            "phone": "123456789",
+            "email": "john.doe@example.com",
+        }
+
+        self._util_patients_create(
+           patients_data["full name"], patients_data["username"], patients_data["password"],
+           patients_data["phone"], patients_data["email"]
+        )
+
+        response = requests.get(
+            f"{TestMedicalDB.base_url}/patients", auth=TestMedicalDB.admin_auth
+        )
+
+        assert response.status_code == 200
+
+        patients_res_data = json.loads(response.text)[-1]
+
+        expected_keys = ["full name", "unique_id", "phone", "email"]
+        keys_presence = {key: key in patients_res_data for key in expected_keys}
+
+        # Assert that all keys are present
+        assert all(keys_presence.values()) == True
+
+        patients_res_data_subset = {key: value for key, value in patients_res_data.items()
+                              if key in ["full name", "phone", "email"]}
+
+        patients_data_subset = {key: value for key, value in patients_data.items()
+                              if key in ["full name", "phone", "email"]}
+
+        assert patients_res_data_subset == patients_data_subset
+
 
     # Test case for Modifying unique id of the doctor
     def test_unique_uids_cannot_be_modified(self):
