@@ -22,3 +22,6 @@ pytest -o log_cli=true --log-cli-level=INFO --log-format="%(asctime)s %(levelnam
 ```
 
 * Contents of response can be checked by response.text
+
+## Unit test specific docker compose
+* sudo docker compose up unittest_medical_db -d

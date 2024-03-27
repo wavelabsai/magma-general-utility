@@ -1,0 +1,15 @@
+FROM python:3.7
+
+WORKDIR /app
+
+RUN mkdir /app/logs
+
+COPY . /app
+
+COPY test/requirements.txt /app
+
+RUN pip install --no-cache \
+            Flask==2.2.2 \
+            Flask-RESTful==0.3.9
+
+CMD ["/bin/sh"]
