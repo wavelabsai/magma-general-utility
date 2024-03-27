@@ -28,7 +28,9 @@ services:
         build:
             context: "./"
             dockerfile: Dockerfile.unittest
-        tty: true
+        volumes:
+          - ./logs:/app/logs
+        command: /bin/sh -c "/app/run_tests.sh"
 networks:
     exercise_net:
         driver: bridge
