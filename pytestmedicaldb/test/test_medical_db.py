@@ -16,7 +16,6 @@ from datetime import datetime, timedelta
 import json
 import requests
 
-
 # Collect the username from the dataset (doctor or patients)
 def collect_username(dataset):
     """
@@ -1322,6 +1321,72 @@ class TestMedicalDB:
         status_code = check_if_uid_exists("appointments", recvd_appointment_uid)
 
         assert status_code != 200
+
+    def test_create_patient_by_unique_doctor_username(self):
+        """
+        Test case to ensure that creating a patient with a username that is already
+        taken by a doctor results in the expected behavior.
+    
+        Steps:
+          1. Create a new doctor named Dr. Hippocrates with unique details.
+          2. Retrieve the details of the newly created doctor.
+          3. Attempt to create a new patient with the username of the doctor retrieved in step 2.
+          4. Check if the attempt to create the patient fails with the expected status code.
+        """
+        # Create the doctor
+        self._util_doctor_create("Dr. Hippocrates", "Hippocrates", "medicine", "Hippocrates123")
+        doctor_uid, _ = list(TestMedicalDB.list_of_doctors.items())[-1]
+
+        response = requests.get(
+            f"{TestMedicalDB.base_url}/doctors/{doctor_uid}",
+            auth=TestMedicalDB.admin_auth,
+        )
+        assert response.status_code == 200
+        response_list = json.loads(response.text)
+
+        max_unique_id = self._find_highest_uid("patients")
+
+        # Create the patient 1 with doctors username
+        self._util_patients_create(
+            "Amalia 1", response_list[0]['username'], "amalia123", "1234567", "amalia1@xyz.com"
+        )
+
+        status_code = check_if_uid_exists("patients", max_unique_id + 1)
+        assert status_code != 200
+
+    def test_create_doctor_by_unique_patient_username(self):
+        """
+        Test case to ensure that creating a doctor with a username that is already
+        taken by a patient results in the expected behavior.
+    
+        Steps:
+           1. Create a new patient named Amalia 2 with unique details.
+           2. Retrieve the details of the newly created patient.
+           3. Attempt to create a new doctor with the username of the patient retrieved in step 2.
+           4. Check if the attempt to create the doctor fails with the expected status code.
+        """
+        # Create the patient Amalia 2
+        self._util_patients_create(
+            "Amalia 2", "Amalia2", "amalia123", "1234567", "amalia2@xyz.com"
+        )
+
+        patient2_uid, _ = list(TestMedicalDB.list_of_patients.items())[-1]
+
+        response = requests.get(
+            f"{TestMedicalDB.base_url}/patients/{patient2_uid}",
+            auth=TestMedicalDB.admin_auth,
+        )
+        assert response.status_code == 200
+        response_list = json.loads(response.text)
+
+        # Create the doctor
+        max_unique_id = self._find_highest_uid("doctors")
+
+        self._util_doctor_create("Dr. Erasistratus", response_list['username'], "anatomy", "Erasistratus123")
+
+        status_code = check_if_uid_exists("doctors", max_unique_id + 1)
+
+        assert status_code == 400
 
     # Test case for Modifying unique id of the doctor
     def test_unique_uids_cannot_be_modified(self):
