@@ -25,3 +25,4 @@ pytest -o log_cli=true --log-cli-level=INFO --log-format="%(asctime)s %(levelnam
 
 ## Unit test specific docker compose
 * sudo docker compose up unittest_medical_db -d
+* python3 -m unittest utmdeicaldb.py 
