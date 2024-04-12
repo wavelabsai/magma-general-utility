@@ -1,0 +1,106 @@
+diff --git a/BUILD b/BUILD
+new file mode 100644
+index 0000000..48a745c
+--- /dev/null
++++ b/BUILD
+@@ -0,0 +1,4 @@
++load("@bazel_gazelle//:def.bzl", "gazelle")
++
++# gazelle:prefix hello
++gazelle(name = "gazelle")
+diff --git a/BUILD.bazel b/BUILD.bazel
+deleted file mode 100644
+index e69de29..0000000
+diff --git a/README.md b/README.md
+deleted file mode 100644
+index 1b04fac..0000000
+--- a/README.md
++++ /dev/null
+@@ -1,4 +0,0 @@
+-# medium-bazel-getting-started
+-
+-
+-
+diff --git a/WORKSPACE b/WORKSPACE
+new file mode 100644
+index 0000000..224d7e9
+--- /dev/null
++++ b/WORKSPACE
+@@ -0,0 +1,28 @@
++load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
++
++http_archive(
++    name = "io_bazel_rules_go",
++    integrity = "sha256-fHbWI2so/2laoozzX5XeMXqUcv0fsUrHl8m/aE8Js3w=",
++    urls = [
++        "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v0.44.2/rules_go-v0.44.2.zip",
++        "https://github.com/bazelbuild/rules_go/releases/download/v0.44.2/rules_go-v0.44.2.zip",
++    ],
++)
++
++http_archive(
++    name = "bazel_gazelle",
++    integrity = "sha256-MpOL2hbmcABjA1R5Bj2dJMYO2o15/Uc5Vj9Q0zHLMgk=",
++    urls = [
++        "https://mirror.bazel.build/github.com/bazelbuild/bazel-gazelle/releases/download/v0.35.0/bazel-gazelle-v0.35.0.tar.gz",
++        "https://github.com/bazelbuild/bazel-gazelle/releases/download/v0.35.0/bazel-gazelle-v0.35.0.tar.gz",
++    ],
++)
++
++load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
++load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
++
++go_rules_dependencies()
++
++go_register_toolchains(version = "1.20.7")
++
++gazelle_dependencies()
+diff --git a/WORKSPACE.bazel b/WORKSPACE.bazel
+deleted file mode 100644
+index ca7bd71..0000000
+--- a/WORKSPACE.bazel
++++ /dev/null
+@@ -1,16 +0,0 @@
+-load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+-
+-http_archive(
+-    name = "io_bazel_rules_go",
+-    sha256 = "2b1641428dff9018f9e85c0384f03ec6c10660d935b750e3fa1492a281a53b0f",
+-    urls = [
+-        "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v0.29.0/rules_go-v0.29.0.zip",
+-        "https://github.com/bazelbuild/rules_go/releases/download/v0.29.0/rules_go-v0.29.0.zip",
+-    ],
+-)
+-
+-load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
+-
+-go_rules_dependencies()
+-
+-go_register_toolchains(version = "1.17.1")
+\ No newline at end of file
+diff --git a/src/app1/BUILD.bazel b/src/app1/BUILD.bazel
+deleted file mode 100644
+index d4fb4b0..0000000
+--- a/src/app1/BUILD.bazel
++++ /dev/null
+@@ -1,6 +0,0 @@
+-load("@io_bazel_rules_go//go:def.bzl", "go_binary")
+-
+-go_binary(
+-    name = "hello",
+-    srcs = ["main.go"],
+-)
+\ No newline at end of file
+diff --git a/src/app2/BUILD.bazel b/src/app2/BUILD.bazel
+deleted file mode 100644
+index d4fb4b0..0000000
+--- a/src/app2/BUILD.bazel
++++ /dev/null
+@@ -1,6 +0,0 @@
+-load("@io_bazel_rules_go//go:def.bzl", "go_binary")
+-
+-go_binary(
+-    name = "hello",
+-    srcs = ["main.go"],
+-)
+\ No newline at end of file
